@@ -2,3 +2,5 @@ E:\Projects\GitHub\chnau\MvcFXProductMgr\MvcFXProductMgr\bin\MvcFXProductMgr.dll
 E:\Projects\GitHub\chnau\MvcFXProductMgr\MvcFXProductMgr\bin\MvcFXProductMgr.pdb
 E:\Projects\GitHub\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.dll
 E:\Projects\GitHub\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.pdb
+F:\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.dll
+F:\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.pdb
