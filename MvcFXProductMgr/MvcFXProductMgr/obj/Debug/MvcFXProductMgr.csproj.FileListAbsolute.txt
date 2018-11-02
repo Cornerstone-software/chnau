@@ -4,3 +4,6 @@ E:\Projects\GitHub\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductM
 E:\Projects\GitHub\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.pdb
 F:\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.dll
 F:\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.pdb
+F:\chnau\MvcFXProductMgr\MvcFXProductMgr\bin\MvcFXProductMgr.dll
+F:\chnau\MvcFXProductMgr\MvcFXProductMgr\bin\MvcFXProductMgr.pdb
+F:\chnau\MvcFXProductMgr\MvcFXProductMgr\obj\Debug\MvcFXProductMgr.csprojResolveAssemblyReference.cache
