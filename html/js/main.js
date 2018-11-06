@@ -22,16 +22,7 @@ $(function () {
         }
 
     });
-InitPage();
 
-//窗口初始化
-function InitPage(){
-	var screenH = window.innerHeight|| document.documentElement.clientHeight|| document.body.clientHeight;
-	var headerH=$("#header").height();
-	var contentH=screenH-headerH;
-	$("#leftMenu").css("minHeight",contentH);
-	
-}
 
 
 });
