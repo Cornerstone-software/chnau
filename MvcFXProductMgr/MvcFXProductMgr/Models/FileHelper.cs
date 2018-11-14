@@ -38,7 +38,7 @@ namespace MvcFXProductMgr.Models
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-         public static bool IsOpen(string filename)
+         public static bool IsFileOpen(string filename)
          {
              IntPtr vHandle = _lopen(filename, OF_READWRITE | OF_SHARE_DENY_NONE);
              if (vHandle == HFILE_ERROR)
