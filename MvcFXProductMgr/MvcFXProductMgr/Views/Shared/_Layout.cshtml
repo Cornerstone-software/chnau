@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=2.0" />
-    <link href="@Url.Content("~/Content/css/bootstrap.css")" rel="stylesheet"/>
-    <link href="@Url.Content("~/Content/css/Site.css")" rel="stylesheet"/>
-    <script src="@Url.Content("~/Scripts/js/jquery-1.12.4.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/js/bootstrap.min.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/Scripts/js/main.js")" type="text/javascript"></script>
-    <title>@ViewBag.Title</title>
-</head>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=2.0" />
+        <link href="@Url.Content("~/Content/css/bootstrap.css")" rel="stylesheet"/>
+        <link href="@Url.Content("~/Content/css/Site.css")" rel="stylesheet"/>
+        <script src="@Url.Content("~/Scripts/js/jquery-1.12.4.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/js/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/js/main.js")" type="text/javascript"></script>
+        <title>@ViewBag.Title</title>
+    </head>
 
 <body>
    
@@ -78,33 +78,7 @@
                 </div>
                 <div id="content">
                  @RenderBody()
-                    <div class="user-info">
-                      欢迎 <span class="user-info-name">XXX</span> ,您是本在线查询系统的<span class="user-info-role"></span>,您上次登录时间：<span class="user-info-logintime">XXXX年XX月XX日，XX：XX</span>
-                    </div>
-                    <div class="product-list">
-                        <div class="product-list-title">截止今日：2018年10月（本月）</div>
-                        <div>
-                            <dl>
-                                <dd>黄金饰品：385件，共计1298克</dd>
-                                <dd>3D硬金：600件，共计560克</dd>
-                                <dd>金750：600件，共计560克</dd>
-                                <dd>金916：600件，共计560克</dd>
-                                <dd>黄金饰品：385件，共计1298克</dd>
-                                <dd>3D硬金：600件，共计560克</dd>
-                                <dd>金750：600件，共计560克</dd>
-                                <dd>金916：600件，共计560克</dd>
-								<dd>黄金饰品：385件，共计1298克</dd>
-                                <dd>3D硬金：600件，共计560克</dd>
-                                <dd>金750：600件，共计560克</dd>
-                                <dd>金916：600件，共计560克</dd>
-                                <dd>黄金饰品：385件，共计1298克</dd>
-                                <dd>3D硬金：600件，共计560克</dd>
-                                <dd>金750：600件，共计560克</dd>
-                                <dd>金916：600件，共计560克</dd>
-
-                            </dl>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <div id="footer"></div>     

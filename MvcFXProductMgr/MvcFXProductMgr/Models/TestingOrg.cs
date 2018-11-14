@@ -7,7 +7,7 @@ namespace MvcFXProductMgr.Models
 {
     public class TestingOrg
     {
-        private int iNumberOfEntries = 1;
+       // private int iNumberOfEntries = 1;
         public int Id { set; get; }
         public string Name { set; get; }
         public string Url { set; get; }
