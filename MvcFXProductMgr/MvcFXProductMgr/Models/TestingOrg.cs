@@ -46,10 +46,6 @@ namespace MvcFXProductMgr.Models
         //Delete
         public bool DeleteTestingOrg(int id)
         {
-            if (id == null)
-            {
-                throw new ArgumentNullException("item");
-            }
             //to do
 
             return true;
