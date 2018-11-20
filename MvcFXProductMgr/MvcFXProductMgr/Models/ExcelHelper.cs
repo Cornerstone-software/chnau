@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ICSharpCode.SharpZipLib;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using System.IO;
 using System.Data;
+
 namespace MvcFXProductMgr.Models
 {
     public class ExcelHelper : IDisposable
@@ -14,6 +16,7 @@ namespace MvcFXProductMgr.Models
         private string fileName = null; //文件名
         private IWorkbook workbook = null;
         private FileStream fs = null;
+        private Stream stream = null;
         private bool disposed;
 
         public ExcelHelper(string fileName)
@@ -21,6 +24,13 @@ namespace MvcFXProductMgr.Models
             this.fileName = fileName;
             disposed = false;
         }
+        public ExcelHelper(string fileName,Stream inputStream)
+        {
+            this.fileName = fileName;
+            this.stream = inputStream;
+            disposed = false;
+        }
+
 
         /// <summary>
         /// 将excel中的数据导入到DataTable中
@@ -35,7 +45,8 @@ namespace MvcFXProductMgr.Models
             int startRow = 0;
             if (!File.Exists(fileName))
             {
-                Console.WriteLine("此文件不存在。");
+                
+                Console.Write("此文件不存在。");
                 return null;
             }
             
