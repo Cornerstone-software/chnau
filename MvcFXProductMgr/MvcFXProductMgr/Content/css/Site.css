@@ -215,11 +215,13 @@ h5 {
 } 
 .txt 
 {
-    height:22px; 
+    height:24px; 
     border:1px solid #cdcdcd;
     width:180px;
     vertical-align: middle;
     border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
 } 
 .btn 
 {
@@ -243,13 +245,69 @@ h5 {
 {
     padding-top: 10px;
 }
-.cinfo dl
+#content dl
 {
     margin: 0;
     padding: 10px 0;  
 }
-.cinfo dt,.cinfo dd
+#content dt,#content dd
+{
+    display:inline-block;
+    font-weight: normal;
+}
+
+/*Product Page End*/
+/*Company Page Start*/
+#content h2
+{
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.companyInfo dl
+{
+}
+.companyInfo dt,.companyInfo dd
 {
     display:inline-block;
 }
-/*Product Page End*/
+.errMsg
+{
+    display:none;
+    color:#dd4e42;
+ }
+ .txtarea
+{
+    border: 1px solid #cdcdcd;
+    width: 364px;
+    vertical-align: middle;
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow:hidden;
+    resize:none;
+}
+.txtTel
+{
+    width: 364px;
+}
+div.btn-function
+{
+    padding-left: 75px;
+    padding-top: 10px;
+}
+.button
+{
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 70px;
+}
+.button:hover
+{
+    border-color:#566180;
+    border-radius:2px;
+   
+}
+/*Company Page End*/
