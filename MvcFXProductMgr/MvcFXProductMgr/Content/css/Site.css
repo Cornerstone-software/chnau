@@ -211,7 +211,6 @@ h5 {
 .file-box 
 {
     position:relative;
-    width:340px;
 } 
 .txt 
 {
@@ -235,7 +234,7 @@ h5 {
 {
     position:absolute; 
     top:0; 
-    right:80px; 
+    left:0px; 
     height:24px; 
     filter:alpha(opacity:0);
     opacity: 0;width:260px;

@@ -1,0 +1,51 @@
+﻿@using System.Data
+@model DataTable
+@{
+    ViewBag.Title = "Upload";
+}
+<form action="/Product/Save" method="post">
+<div class="ProductsInfo">
+    <h2>Upload</h2>
+    <div class="productCollection"></div>
+    <div class="productList">
+        <dl class="productList-header">
+            <dt>产品名称</dt>
+            <dt>产品重量</dt>
+            <dt>条码号</dt>
+            <dt>证书编号</dt>
+            <dt>金含量</dt>
+            <dt>企业标准</dt>
+            <dt>公司名称</dt>
+            <dt>公司地址</dt>
+            <dt>客服电话</dt>
+            <dt>电话</dt>
+            <dt>条形码</dt>
+            <dt>广告</dt>
+        </dl>
+        <div class="productList-section">
+            @foreach (DataRow row in Model.Rows)
+            {
+            <dl>
+                <dd><input name="ProductName" type="text" value=@row["品名"] /></dd>
+                <dd>@row["重量"]</dd>
+                <dd>@row["条码号"]</dd>
+                <dd>@row["证书编号"]</dd>
+                <dd>@row["Standard"]</dd>
+                <dd>@row["CompanyName"]</dd>
+                <dd></dd>
+                <dd></dd>
+                <dd></dd>
+                <dd></dd>
+                <dd></dd>
+            </dl>
+             }
+        </div>
+    
+    </div>
+</div>
+<div class="btn-function">
+    <input class="button" name="btnSave" value="保存" type="submit" />
+    <input class="button" name="btnCancel" type="button" value="取消" /> 
+</div>
+
+</form>
