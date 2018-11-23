@@ -37,6 +37,7 @@ namespace MvcFXProductMgr.Controllers
         }
         public ActionResult DedelteCompany()
         {
+            ViewBag.Title = "删除公司信息";
             return View();
         }
 
