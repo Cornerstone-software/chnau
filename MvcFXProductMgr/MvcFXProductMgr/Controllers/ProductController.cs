@@ -113,13 +113,8 @@ namespace MvcFXProductMgr.Controllers
     [HttpPost]
       public ActionResult Save()
       {
-          string strProductName = "";
-          for (int i = 0; i < model.Rows.Count; i++)
-          {
-              strProductName += model.Rows[i]["品名"] + "<br/>";
-          }
-          return Content(strProductName);
-          //return RedirectToAction("AddProducts","Product");
+         
+          return RedirectToAction("AddProducts","Product");
       }
     }
 }

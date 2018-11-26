@@ -1,0 +1,29 @@
+﻿@model MvcFXProductMgr.Models.LogOnModel
+
+@{
+    Layout = "~/Views/Shared/_LogOnLayout.cshtml"; ;
+    ViewBag.Title = "登录";
+}
+
+<h2>登录</h2>
+
+@Html.ValidationSummary(true, "登录不成功。请更正错误并重试。")
+
+@using (Html.BeginForm()) {
+    <div>
+
+            <div class="editor-field">
+                <input name="UserName" type="text" class="acctxt" />
+            </div>
+            <div class="editor-field">
+                <input name="Password" type="password" class="acctxt"/>
+            </div>
+            <div class="editor-field">
+                <input name="code" type="text" class="acctxt" placeholder="验证码"/>
+                <img id="valiCode" src="../Account/GetValidateCode" alt="验证码" />
+            </div>
+            <div>
+                <input class="button" type="submit" value="登录" />
+            </div>
+    </div>
+}

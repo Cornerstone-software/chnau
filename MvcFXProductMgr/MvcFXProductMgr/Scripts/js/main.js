@@ -26,4 +26,11 @@
             return false;
         }
     });
+
+    //刷新验证码
+    $("#valiCode").click(function() {
+        this.src = "../Account/GetValidateCode?time=" + (new Date()).getTime();
+        });
+        //alert("good");
+   
 });

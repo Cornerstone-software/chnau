@@ -116,10 +116,14 @@ h5 {
 #header .logo,#header-right li a {
     font-size: 20px;
     color: #fff;
-    padding: 16px 0;
+    padding: 14px 18px;
+    text-decoration: none;
 }
+
 #header-right li a:hover{
     color: #a8b4cf;
+
+    background-color:#fff;
 }
 .leftMenu-header
 {
@@ -302,11 +306,65 @@ div.btn-function
     font-size: 14px;
     font-weight: bold;
     padding: 8px 70px;
+    border:1px solid #cdcdcd;
+    border-radius:2px;
 }
 .button:hover
 {
-    border-color:#566180;
-    border-radius:2px;
+    background-color:#cecece;
+    
+    
    
 }
 /*Company Page End*/
+/*Log On Page Beginning*/
+.LogOnContainer
+{
+    background-color: #566180;
+    min-height:610px;
+}
+
+#contentLogOn
+{
+    width: 180px;
+    margin:0 auto;
+    padding-top:15%;
+}
+#contentLogOn h2,#contentLogOn .button{
+    color:#fff;
+    text-align: center;
+}
+#contentLogon input
+{
+    color:#566180;
+}
+
+#valiCode
+{
+    cursor:pointer;
+}
+.editor-field
+{
+    padding: 5px 0;
+}
+.acctxt    
+{
+    width:180px;
+    height:32px;
+    border: 1px solid #cdcdcd;
+    vertical-align: middle;
+    border-radius: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    
+}
+    
+.editor-field input[name="code"]
+{
+    width:88px;   
+}
+#contentLogOn .button{
+    width: 180px;
+    margin: 17px 0;
+}
+/**/
