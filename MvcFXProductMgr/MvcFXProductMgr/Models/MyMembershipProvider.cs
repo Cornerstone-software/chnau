@@ -33,7 +33,33 @@ namespace MvcFXProductMgr.Models
         }
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
-            throw new NotImplementedException();
+            try
+            {
+                bool isExist = this.ValidateUser(username, oldPassword);
+                if (isExist)
+                {
+                    string strCommandText = "update u_info_table set U_Password=";
+                    strCommandText += "\'"+newPassword+"\'";
+                    strCommandText += "where U_Name=" + "\'" + username + '\'';
+                    int iResult = MySqlHelper.ExecuteNonQuery(MySqlHelper.Conn, CommandType.Text, strCommandText, null);;
+                    if (iResult > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch(Exception ex){
+                throw new Exception(ex.Message);
+            }
         }
 
         public override bool ChangePasswordQuestionAndAnswer(string username, string password, string newPasswordQuestion, string newPasswordAnswer)

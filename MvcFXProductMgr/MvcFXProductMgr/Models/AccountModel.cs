@@ -139,8 +139,15 @@ namespace MvcFXProductMgr.Models
             // 而不是返回 false。
             try
             {
-                MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
-                return currentUser.ChangePassword(oldPassword, newPassword);
+                bool bSuccess = _provider.ChangePassword(userName, oldPassword, newPassword);
+                if (bSuccess) 
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (ArgumentException)
             {
