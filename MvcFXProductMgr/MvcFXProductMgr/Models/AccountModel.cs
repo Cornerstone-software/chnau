@@ -55,11 +55,6 @@ namespace MvcFXProductMgr.Models
         public string UserName { get; set; }
 
         [Required]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "电子邮件地址")]
-        public string Email { get; set; }
-
-        [Required]
         [ValidatePasswordLength]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]
@@ -84,7 +79,8 @@ namespace MvcFXProductMgr.Models
         int MinPasswordLength { get; }
 
         bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(string userName, string password, string email);
+        bool GetUser(string userName);
+        MembershipCreateStatus CreateUser(string userName, string password);
         bool ChangePassword(string userName, string oldPassword, string newPassword);
     }
 
@@ -99,7 +95,7 @@ namespace MvcFXProductMgr.Models
 
         public AccountMembershipService(MyMembershipProvider provider)
         {
-            _provider = provider;
+            _provider = provider??new MyMembershipProvider();
         }
 
         public int MinPasswordLength
@@ -117,15 +113,19 @@ namespace MvcFXProductMgr.Models
 
             return _provider.ValidateUser(userName, password);
         }
-
-        public MembershipCreateStatus CreateUser(string userName, string password, string email)
+        public bool GetUser(string userName)
+        {
+            if (String.IsNullOrEmpty(userName)) throw new ArgumentException("值不能为 null 或为空。", "userName");
+            return _provider.GetUser(userName);
+        }
+        public MembershipCreateStatus CreateUser(string userName, string password)
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("值不能为 null 或为空。", "userName");
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("值不能为 null 或为空。", "password");
-            if (String.IsNullOrEmpty(email)) throw new ArgumentException("值不能为 null 或为空。", "email");
+            
 
             MembershipCreateStatus status;
-            _provider.CreateUser(userName, password, email, null, null, true, null, out status);
+            _provider.CreateUser(userName, password, null, null, null, true, null, out status);
             return status;
         }
 

@@ -99,8 +99,16 @@ namespace MvcFXProductMgr.Controllers
         {
             if (ModelState.IsValid)
             {
+                //检查用户是否存在
+                bool isExist = MembershipService.GetUser(model.UserName);
+                if (isExist)
+                {
+                    ModelState.AddModelError("", AccountValidation.ErrorCodeToString(MembershipCreateStatus.DuplicateUserName));
+                 
+                    return View();
+                }
                 // 尝试注册用户
-                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password,model.Email);
+                MembershipCreateStatus createStatus = MembershipService.CreateUser(model.UserName, model.Password);
 
                 if (createStatus == MembershipCreateStatus.Success)
                 {

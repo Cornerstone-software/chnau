@@ -190,7 +190,7 @@ h5 {
     right:10px;
    
 }
-#content div
+#content
 {
    color: #777;
 }
@@ -302,12 +302,13 @@ div.btn-function
 }
 .button
 {
-    margin-right: 10px;
+    margin-right: 11px;
     font-size: 14px;
     font-weight: bold;
-    padding: 8px 70px;
+    padding: 8px 25px;
     border:1px solid #cdcdcd;
     border-radius:2px;
+    margin-top: 17px;
 }
 .button:hover
 {
@@ -367,4 +368,16 @@ div.btn-function
     width: 180px;
     margin: 17px 0;
 }
+.validation-summary-errors,.field-validation-error
+{
+     color: red;
+}
+.validation-summary-errors{
+    padding: 5px 0;
+}
+.validation-summary-errors ul
+{ 
+    -webkit-padding-start: 0px;
+}
+
 /**/

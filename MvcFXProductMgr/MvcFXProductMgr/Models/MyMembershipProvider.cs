@@ -12,6 +12,7 @@ namespace MvcFXProductMgr.Models
     public  class MyMembershipProvider:MembershipProvider
     {
         private string conn;
+        private int minRequiredPasswordLength;
         public override string ApplicationName
         {
             get
@@ -27,6 +28,8 @@ namespace MvcFXProductMgr.Models
         {
             conn = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString;
             MySqlHelper.Conn = conn;
+            this.minRequiredPasswordLength = 6;
+            
         }
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
         {
@@ -37,10 +40,46 @@ namespace MvcFXProductMgr.Models
         {
             throw new NotImplementedException();
         }
-
-        public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <param name="passwordQuestion"></param>
+        /// <param name="passwordAnswer"></param>
+        /// <param name="isApproved"></param>
+        /// <param name="providerUserKey"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public override MembershipUser CreateUser(string username, string password, string email,string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
-            throw new NotImplementedException();
+
+            string strCommandText = "insert into u_info_table(U_Name,U_Password) values(";
+            strCommandText += "\"" + username + "\",";
+            strCommandText += "\"" + password + "\"";
+            strCommandText += ")";
+            
+            try
+            {
+                int iresult= MySqlHelper.ExecuteNonQuery(MySqlHelper.Conn, CommandType.Text, strCommandText, null);
+                if (iresult > 0)
+                {
+                    MembershipUser user = new MembershipUser("MyMembershipProvider", username, providerUserKey, null, passwordQuestion, "", isApproved, true, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
+                    status = MembershipCreateStatus.Success;
+                    return user;
+
+                }
+                else
+                {
+                    status = MembershipCreateStatus.UserRejected;
+                    return null;
+                }
+            }
+            catch (Exception ex) 
+            {
+                status = MembershipCreateStatus.ProviderError;
+                throw new Exception(ex.Message); 
+            }
         }
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
@@ -87,7 +126,27 @@ namespace MvcFXProductMgr.Models
         {
             throw new NotImplementedException();
         }
+        public bool GetUser(string username)
+        {
+            try
+            {
 
+                string str_mysql = "SELECT * FROM u_info_table where U_Name=\'" + username + '\'';
+                DataSet ds = MySqlHelper.GetDataSet(MySqlHelper.Conn, CommandType.Text, str_mysql, null);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
             throw new NotImplementedException();
@@ -110,7 +169,7 @@ namespace MvcFXProductMgr.Models
 
         public override int MinRequiredPasswordLength
         {
-            get { throw new NotImplementedException(); }
+            get { return this.minRequiredPasswordLength; }
         }
 
         public override int PasswordAttemptWindow
