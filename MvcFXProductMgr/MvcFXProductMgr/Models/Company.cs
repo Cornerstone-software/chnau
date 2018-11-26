@@ -31,6 +31,7 @@ namespace MvcFXProductMgr.Models
             item.Id = iNumberOfEntries + 1;
             //to do
             return item;
+            //INSERT INTO c_info_table (C_Name,C_Address,C_Url,C_Tel) VALUES("福鑫珠宝城", "商都路和顺广场一楼", "www.fuxin.com.cn", 0379 - 67688888);
         }
 
         //Update
@@ -41,7 +42,7 @@ namespace MvcFXProductMgr.Models
                 throw new ArgumentNullException("item");
             }
             //to do
-
+            //UPDATE c_info_table SET C_Status="Y" WHERE C_Id=2;
             return true;
         }
 
@@ -49,6 +50,7 @@ namespace MvcFXProductMgr.Models
         public bool DeleteCompany(int id)
         {
             //to do
+            //DELETE FROM c_info_table WHERE C_Id=1;
             return true;
         }
     }
