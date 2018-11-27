@@ -13,7 +13,16 @@ namespace MvcFXProductMgr.Controllers
 
         public ActionResult Index()
         {
+            //if (Request.IsAuthenticated)
+            //{
+            //    return View();
+            //}
+            //else
+            //{
+            //    return RedirectToAction("LogOn", "Account");
+            //}
             return View();
+            
         }
 
     }

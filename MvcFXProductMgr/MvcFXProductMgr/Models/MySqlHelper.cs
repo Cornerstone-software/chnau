@@ -5,13 +5,14 @@ using System.Web;
 using System.Collections;
 using System.Data;
 using MySql.Data.MySqlClient;
-
+using System.Configuration;
 namespace MvcFXProductMgr.Models
 {
     public abstract class MySqlHelper
     {
         //数据库连接字符串
-        public static string Conn = "Database='chnau';Data Source='localhost';User Id='root';Password='root';charset='utf8';pooling=true;allow zero datetime=true";
+       //  Conn = "Database='chnau';Data Source='localhost';User Id='root';Password='root';charset='utf8';pooling=true;allow zero datetime=true";
+        public static string Conn = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString;
         // 用于缓存参数的HASH表
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
 
