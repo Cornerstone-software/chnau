@@ -22,7 +22,6 @@ namespace MvcFXProductMgr.Controllers
             //    return RedirectToAction("LogOn", "Account");
             //}
             return View();
-            
         }
 
     }

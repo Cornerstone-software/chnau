@@ -381,3 +381,12 @@ div.btn-function
 }
 
 /**/
+.table
+{
+    display:table;
+}
+.table dt,.table dd
+{
+    display:table-cell;
+    
+}

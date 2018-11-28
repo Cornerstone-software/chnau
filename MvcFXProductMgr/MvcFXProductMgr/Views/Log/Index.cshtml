@@ -4,20 +4,26 @@
 }
 
 <h2>Index</h2>
-
-        <dl >
-            <dt>日志ID</dt>
-            <dt>操作员</dt>
-            <dt>操作时间</dt>
-            <dt>操作内容</dt>
-        </dl>
-      
-        @foreach ( var item in Model.LogList)
-        {
+<div>
+ @if (Model.LogList.Count > 0)
+ {
+    <dl >
+        <dt>日志ID</dt>
+        <dt>操作员</dt>
+        <dt>操作时间</dt>
+        <dt>操作内容</dt>
+    </dl> 
+     {
         <dl>
             <dd>@item.Id</dd>
             <dd>@item.Name</dd>
             <dd>@item.Date</dd>
             <dd>@item.Content</dd>
         </dl>
-            }
+     }
+ }
+ else { 
+     <p>没有操作日志记录</p>
+ }
+      
+</div>

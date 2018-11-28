@@ -16,6 +16,7 @@ namespace MvcFXProductMgr.Controllers
         {
             LogModel model = new LogModel();
             LogViewModel viewModel = new LogViewModel();
+            string strUserName = User.Identity.Name ?? "";
             viewModel = model.GetAllLogs(User.Identity.Name);
             return View(viewModel);
         }

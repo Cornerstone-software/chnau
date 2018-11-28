@@ -30,28 +30,28 @@ namespace MvcFXProductMgr.Models
         {
             return new LogModel();
         }
-        
+
         public LogViewModel GetAllLogs(string userName)
         {
+            LogViewModel logViewModel = new LogViewModel();
             string strCommandText = "select * from l_info_table where L_Name=";
             strCommandText += "\'" + userName + "\'";
             try
             {
                 DataTable dt = MySqlHelper.GetDataTable(MySqlHelper.Conn, CommandType.Text, strCommandText, null);
+
                 if (dt.Rows.Count>0)
-                { 
-                    
-                    LogViewModel logViewModel = new LogViewModel();
-                    List<LogModel> list = new List<LogModel>();
-
-
+                {                                   
+                  List<LogModel> list = new List<LogModel>();
                     logViewModel.LogList = ConvertHelper<LogModel>.DataTableToList(dt);
                     return logViewModel;
                 }
                 else
                 {
-                    return new LogViewModel();
+                    logViewModel.LogList = new List<LogModel>();     
                 }
+                return logViewModel;
+                     
             }
             catch (Exception ex)
             {
