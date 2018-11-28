@@ -23,7 +23,7 @@ namespace MvcFXProductMgr.Controllers
         /// 创建新的公司信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult CreateNewCompany()
+        public ActionResult AddCompany()
         {
           
             ViewBag.Title = "新建公司信息";
