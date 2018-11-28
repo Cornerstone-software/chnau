@@ -8,7 +8,10 @@ using System.Collections;
 
 namespace MvcFXProductMgr.Models
 {
-    //DataTable 和List<T>相互转化
+    /// <summary>
+    /// DataTable 和List<T>相互转化类
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ConvertHelper<T> where T : new()
     {
         #region DataTableToList
