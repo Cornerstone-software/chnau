@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Models\AdvertmentModel.cs" />
     <Compile Include="Models\ExcelHelper.cs" />
+    <Compile Include="Models\ConvertHelper.cs" />
     <Compile Include="Models\FileHelper.cs" />
     <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\MyMembershipProvider.cs" />

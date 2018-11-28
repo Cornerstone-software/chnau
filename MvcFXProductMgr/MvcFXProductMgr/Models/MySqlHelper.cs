@@ -192,7 +192,49 @@ namespace MvcFXProductMgr.Models
             }
         }
 
+        public static DataTable GetDataTable(string connectionString, CommandType cmdType, string cmdText, params MySqlParameter[] commandParameters)
+        {
+            //创建一个MySqlCommand对象
+            MySqlCommand cmd = new MySqlCommand();
+            //创建一个MySqlConnection对象
+            MySqlConnection conn = new MySqlConnection(connectionString);
 
+            //在这里我们用一个try/catch结构执行sql文本命令/存储过程，因为如果这个方法产生一个异常我们要关闭连接，因为没有读取器存在，
+
+            try
+            {
+                //调用 PrepareCommand 方法，对 MySqlCommand 对象设置参数
+                PrepareCommand(cmd, conn, null, cmdType, cmdText, commandParameters);
+                //调用 MySqlCommand  的 ExecuteReader 方法
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                DataSet ds = new DataSet();
+
+                adapter.Fill(ds);
+                //清除参数
+                cmd.Parameters.Clear();
+                conn.Close();
+                DataTable dt = ds.Tables[0];
+
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataColumn dc in dt.Columns)
+                    {
+                        string colName = dc.ColumnName;
+                        string[] strTemp = colName.Split('_');
+                        if (strTemp.Length > 0)
+                        {
+                            dc.ColumnName = strTemp[1];
+                        }
+                    }
+                }
+                return dt;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
         /// <summary>
         /// 用指定的数据库连接字符串执行一个命令并返回一个数据集的第一列

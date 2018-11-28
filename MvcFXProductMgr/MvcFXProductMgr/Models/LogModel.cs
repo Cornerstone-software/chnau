@@ -37,22 +37,15 @@ namespace MvcFXProductMgr.Models
             strCommandText += "\'" + userName + "\'";
             try
             {
-                DataSet ds = MySqlHelper.GetDataSet(MySqlHelper.Conn, CommandType.Text, strCommandText, null);
-                if (ds.Tables[0].Rows.Count>0)
+                DataTable dt = MySqlHelper.GetDataTable(MySqlHelper.Conn, CommandType.Text, strCommandText, null);
+                if (dt.Rows.Count>0)
                 { 
-                    DataTable dt =ds.Tables[0];
+                    
                     LogViewModel logViewModel = new LogViewModel();
                     List<LogModel> list = new List<LogModel>();
-                    for(int i=0;i<dt.Rows.Count;i++){
-                        LogModel objLog = new LogModel();
-                        objLog.Id = Int32.Parse(dt.Rows[i]["L_Id"].ToString());
-                        objLog.Name = dt.Rows[i]["L_Name"].ToString();
-                        objLog.Content = dt.Rows[i]["L_Content"].ToString();
-                        objLog.Date = DateTime.Parse(dt.Rows[i]["L_Date"].ToString());
-                        list.Add(objLog);
 
-                    }
-                    logViewModel.LogList = list;
+
+                    logViewModel.LogList = ConvertHelper<LogModel>.DataTableToList(dt);
                     return logViewModel;
                 }
                 else
