@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MvcFXProductMgr.Models
 {
-    public class Advertment
+    public class AdvertmentModel
     {
         [Key]
         public int Id { set; get; }
@@ -15,12 +15,12 @@ namespace MvcFXProductMgr.Models
         public string Status { set; get; }
 
         //Get:
-        public Advertment GetAdvertment(int id)
+        public AdvertmentModel GetAdvertment(int id)
         {
-            return new Advertment();
+            return new AdvertmentModel();
         }
 
-        public Advertment AddAdvertment(Advertment item)
+        public AdvertmentModel AddAdvertment(AdvertmentModel item)
         {
             if (item == null)
             {
@@ -33,7 +33,7 @@ namespace MvcFXProductMgr.Models
         }
 
         //Update
-        public bool UpdateAdvertment(Advertment item)
+        public bool UpdateAdvertment(AdvertmentModel item)
         {
             if (item == null)
             {

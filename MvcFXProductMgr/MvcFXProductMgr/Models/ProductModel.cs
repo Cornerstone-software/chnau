@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MvcFXProductMgr.Models
 {
-    public class Product
+    public class ProductModel
     {
         private int iNumberOfEntries = 1;
         [Key]
@@ -40,12 +40,12 @@ namespace MvcFXProductMgr.Models
         public string Status { set; get; }
 
         //Get:
-        public Product GetProduct(int cer_num,string name)
+        public ProductModel GetProduct(int cer_num,string name)
         {
-            return new Product();
+            return new ProductModel();
         }
 
-        public Product AddProduct(Product item)
+        public ProductModel AddProduct(ProductModel item)
         {
             if (item == null)
             {
@@ -58,7 +58,7 @@ namespace MvcFXProductMgr.Models
         }
 
         //Update
-        public bool UpdateProduct(Product item)
+        public bool UpdateProduct(ProductModel item)
         {
             if (item == null)
             {

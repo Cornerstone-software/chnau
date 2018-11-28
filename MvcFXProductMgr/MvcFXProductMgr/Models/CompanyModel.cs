@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel.DataAnnotations;
 namespace MvcFXProductMgr.Models
 {
-    public class Company
+    public class CompanyModel
     {
         private int iNumberOfEntries = 1;
         [Key]
@@ -17,12 +17,12 @@ namespace MvcFXProductMgr.Models
         public int Status { set; get; }
 
         //Get:
-        public Company GetCompany(int id)
+        public CompanyModel GetCompany(int id)
         {
-            return new Company();
+            return new CompanyModel();
         }
 
-        public Company AddCompany(Company item){
+        public CompanyModel AddCompany(CompanyModel item){
             if (item == null)
             {
                 throw new ArgumentNullException("item");
@@ -35,7 +35,7 @@ namespace MvcFXProductMgr.Models
         }
 
         //Update
-        public bool UpdateCompany(Company item)
+        public bool UpdateCompany(CompanyModel item)
         {
             if (item == null)
             {

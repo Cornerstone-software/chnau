@@ -5,7 +5,7 @@ using System.Web;
 
 namespace MvcFXProductMgr.Models
 {
-    public class TestingOrg
+    public class TestingOrgModel
     {
        // private int iNumberOfEntries = 1;
         public int Id { set; get; }
@@ -15,15 +15,15 @@ namespace MvcFXProductMgr.Models
         public string Status { set; get; }
 
         //Get:
-        public TestingOrg GetTestingOrg(int id)
+        public TestingOrgModel GetTestingOrg(int id)
         {
-            TestingOrg testingOrgObj = new TestingOrg();
+            TestingOrgModel testingOrgObj = new TestingOrgModel();
             return testingOrgObj;
 
         }
 
         //Add:
-        public TestingOrg AddTestingOrg(TestingOrg item)
+        public TestingOrgModel AddTestingOrg(TestingOrgModel item)
         {
             if (item == null)
             {
@@ -34,7 +34,7 @@ namespace MvcFXProductMgr.Models
         }
 
         //Update
-        public bool UpdateTestingOrg(TestingOrg item)
+        public bool UpdateTestingOrg(TestingOrgModel item)
         {
             if (item == null)
             {
