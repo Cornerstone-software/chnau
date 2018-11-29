@@ -4,22 +4,22 @@
 }
 
 <h2>Index</h2>
-<div>
+<div class="table loginfo">
  @if (Model.LogList.Count > 0)
  {
-    <dl >
-        <dt>日志ID</dt>
+    <dl class="tableHeader" >
+        <dt  class="firstColumn">日志ID</dt>
         <dt>操作员</dt>
         <dt>操作时间</dt>
-        <dt>操作内容</dt>
+        <dt class="lastColumn">操作内容</dt>
     </dl> 
      foreach (var item in Model.LogList)
      {
-        <dl>
-            <dd>@item.Id</dd>
+        <dl class="tableBody">
+            <dd class="firstColumn">@item.Id</dd>
             <dd>@item.Name</dd>
             <dd>@item.Date</dd>
-            <dd>@item.Content</dd>
+            <dd class="lastColumn">@item.Content</dd>
         </dl>
      }
  }
