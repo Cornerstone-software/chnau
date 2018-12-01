@@ -28,9 +28,17 @@
     });
 
     //刷新验证码
-    $("#valiCode").click(function() {
+    $("#valiCode").click(function () {
         this.src = "../Account/GetValidateCode?time=" + (new Date()).getTime();
-        });
-        //alert("good");
-   
+    });
+
+    //删除批量上传的数据行
+    $(".tableBody .btnDel").click(function () {
+        if (confirm("确定要删除此产品信息吗")) {
+            $(this).parent(".tableBody").remove();
+        }
+        else {
+            return false;
+        }
+    });
 });

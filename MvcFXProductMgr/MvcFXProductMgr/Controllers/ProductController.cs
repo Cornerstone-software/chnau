@@ -135,7 +135,7 @@ namespace MvcFXProductMgr.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 批量上已读取的Excel数据到MySQL DataBase
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

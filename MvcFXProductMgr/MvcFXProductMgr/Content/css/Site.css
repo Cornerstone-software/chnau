@@ -408,11 +408,7 @@ div.btn-function
 {
     border-bottom:1px solid #cdcdcd;
 }
-.table .tableBody:hover
-{
-    color:#fff;
-    background-color:#566180;
-}
+
 .table .tableBody:hover input
 {
     color:#777;
@@ -458,13 +454,29 @@ div.btn-function
     width:8%;
 }
 .prodInfo dt.thirdColumn,.prodInfo dd.thirdColumn{
-    width:14%;
+    width:12%;
 }
 .prodInfo dt.forthColumn,.prodInfo dd.forthColumn{
-    width:26%;
+    width:24%;
 }
 .prodInfo dt.fifthColumn,.prodInfo dd.fifthColumn{
     width:22%;
+}
+.prodInfo dt.fifthColumn,.prodInfo dd.fifthColumn{
+    width:22%;
+}
+.prodInfo dt.lastColumn,.prodInfo dd.lastColumn{
+    width:4%;
+}
+.prodInfo dd.btnDel
+{
+    text-align:center;
+    cursor:pointer;
+    font-weight:bold;
+}
+.prodInfo dd.btnDel:Hover
+{
+    color:#566180;
 }
 .table .btn-function
 {
