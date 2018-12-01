@@ -99,7 +99,7 @@
     <Compile Include="Models\FileHelper.cs" />
     <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\MyMembershipProvider.cs" />
-    <Compile Include="Models\MySqlHelper.cs" />
+    <Compile Include="Models\MySQLHelper.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
@@ -189,6 +189,7 @@
     <Content Include="Views\Shared\_headPartial.cshtml" />
     <Content Include="Views\Shared\_LogOnLayout.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\Product\SaveProductsSuccess.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

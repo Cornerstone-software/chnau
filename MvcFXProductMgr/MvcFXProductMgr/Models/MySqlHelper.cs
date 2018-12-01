@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 namespace MvcFXProductMgr.Models
 {
-    public abstract class MySqlHelper
+    public abstract class MySQLHelper
     {
         //数据库连接字符串
        //  Conn = "Database='chnau';Data Source='localhost';User Id='root';Password='root';charset='utf8';pooling=true;allow zero datetime=true";

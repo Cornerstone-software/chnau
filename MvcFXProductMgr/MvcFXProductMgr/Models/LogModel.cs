@@ -38,7 +38,7 @@ namespace MvcFXProductMgr.Models
             strCommandText += "\'" + userName + "\'";
             try
             {
-                DataTable dt = MySqlHelper.GetDataTable(MySqlHelper.Conn, CommandType.Text, strCommandText, null);
+                DataTable dt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
 
                 if (dt.Rows.Count>0)
                 {                                   
@@ -69,7 +69,7 @@ namespace MvcFXProductMgr.Models
             strCommandText += ")";
             try
             {
-                int iResult = MySqlHelper.ExecuteNonQuery(MySqlHelper.Conn, System.Data.CommandType.Text, strCommandText, null);
+                int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, System.Data.CommandType.Text, strCommandText, null);
                 if (iResult > 0)
                 {
                     return true;

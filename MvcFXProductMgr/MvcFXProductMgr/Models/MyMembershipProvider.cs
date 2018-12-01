@@ -27,7 +27,7 @@ namespace MvcFXProductMgr.Models
         public MyMembershipProvider()
         {
             conn = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString;
-            MySqlHelper.Conn = conn;
+            MySQLHelper.Conn = conn;
             this.minRequiredPasswordLength = 6;
             
         }
@@ -41,7 +41,7 @@ namespace MvcFXProductMgr.Models
                     string strCommandText = "update u_info_table set U_Password=";
                     strCommandText += "\'"+newPassword+"\'";
                     strCommandText += "where U_Name=" + "\'" + username + '\'';
-                    int iResult = MySqlHelper.ExecuteNonQuery(MySqlHelper.Conn, CommandType.Text, strCommandText, null);;
+                    int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);;
                     if (iResult > 0)
                     {
                         return true;
@@ -87,7 +87,7 @@ namespace MvcFXProductMgr.Models
             
             try
             {
-                int iresult= MySqlHelper.ExecuteNonQuery(MySqlHelper.Conn, CommandType.Text, strCommandText, null);
+                int iresult= MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
                 if (iresult > 0)
                 {
                     MembershipUser user = new MembershipUser("MyMembershipProvider", username, providerUserKey, null, passwordQuestion, "", isApproved, true, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now);
@@ -158,7 +158,7 @@ namespace MvcFXProductMgr.Models
             {
 
                 string str_mysql = "SELECT * FROM u_info_table where U_Name=\'" + username + '\'';
-                DataSet ds = MySqlHelper.GetDataSet(MySqlHelper.Conn, CommandType.Text, str_mysql, null);
+                DataSet ds = MySQLHelper.GetDataSet(MySQLHelper.Conn, CommandType.Text, str_mysql, null);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     return true;
@@ -247,7 +247,7 @@ namespace MvcFXProductMgr.Models
                 string str_mysql = "SELECT * FROM u_info_table where U_Name=\'" + username + "\' and U_Password=\'" + password
 
                 + '\'';
-                DataSet ds = MySqlHelper.GetDataSet(MySqlHelper.Conn, CommandType.Text, str_mysql, null);
+                DataSet ds = MySQLHelper.GetDataSet(MySQLHelper.Conn, CommandType.Text, str_mysql, null);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     return true;

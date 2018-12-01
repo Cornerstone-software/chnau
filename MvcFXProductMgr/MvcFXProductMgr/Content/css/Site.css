@@ -45,7 +45,10 @@ h5 {
 	font-weight: normal;
 	font-size: 20px;
 }
-
+input[type="text"]:focus
+{
+    background-color:#ffffc8;
+}
 .cl {
 	clear: both;
 }
@@ -332,8 +335,15 @@ div.btn-function
     padding-top:15%;
 }
 #contentLogOn h2,#contentLogOn .button{
-    color:#fff;
     text-align: center;
+}
+#contentLogOn h2
+{
+    color:#fff;
+}
+#contentLogOn .button
+{
+    color:#888;    
 }
 #contentLogon input
 {
@@ -387,6 +397,7 @@ div.btn-function
     width:100%;
     padding:0;
     margin-bottom:0;
+    table-layout:fixed;
 }
 .table .tableHeader
 {
@@ -402,13 +413,18 @@ div.btn-function
     color:#fff;
     background-color:#566180;
 }
+.table .tableBody:hover input
+{
+    color:#777;
+}
 .table dt,.table dd
 {
     display:table-cell;
-    display:inline-block;
-    padding:10px;
     border-right:1px solid #cdcdcd;
-    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height:1.8em;
 }
 .table dt.firstColumn,.table dd.firstColumn
 {
@@ -418,11 +434,39 @@ div.btn-function
 {
     width:25%;
 }
-.loginfo dt.firstColumn,.table dd.firstColumn
+.loginfo dt.firstColumn,.loginfo dd.firstColumn
 {
     width:10%;
 }
-.loginfo dt.lastColumn,.table dd.lastColumn
+.loginfo dt.lastColumn,.loginfo dd.lastColumn
 {
     width:40%;
+}
+.table .tableBody .editor
+{
+    padding:0;
+}
+.table .tableBody .editor input
+{
+    width:100%;    
+}
+.prodInfo dt,.prodInfo dd
+{
+    width:10%;
+}
+.prodInfo dt.secondColumn,.prodInfo dd.secondColumn{
+    width:8%;
+}
+.prodInfo dt.thirdColumn,.prodInfo dd.thirdColumn{
+    width:14%;
+}
+.prodInfo dt.forthColumn,.prodInfo dd.forthColumn{
+    width:26%;
+}
+.prodInfo dt.fifthColumn,.prodInfo dd.fifthColumn{
+    width:22%;
+}
+.table .btn-function
+{
+    padding:0;
 }

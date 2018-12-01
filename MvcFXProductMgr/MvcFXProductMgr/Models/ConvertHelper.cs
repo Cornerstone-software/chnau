@@ -51,9 +51,10 @@ namespace MvcFXProductMgr.Models
                         if (!pi.CanWrite) continue;//该属性不可写，直接跳出
                         //取值
                         object value = dr[tempName];
-                        //判断是否是Date
-                        if (tempName.ToLower().Contains ("date")) value = DateTime.Parse(value.ToString());
-
+                        //转化datatable 列值的类型，使其与对象的属性的类型一致
+                        if (pi.PropertyType.FullName == typeof(DateTime).FullName) value = DateTime.Parse(value.ToString());
+                        if (pi.PropertyType.FullName == typeof(Int32).FullName) value = Int32.Parse(value.ToString());
+                        if (pi.PropertyType.FullName == typeof(Single).FullName) value = Single.Parse(value.ToString());
                         //如果非空，则赋给对象的属性
                         if (value != DBNull.Value)
                             pi.SetValue(t, value, null);
@@ -66,7 +67,7 @@ namespace MvcFXProductMgr.Models
             return result;
         }
         #endregion
-        #region
+        #region List to DataTable
         public static DataTable ListToDataTable(List<T> list)
         {
             var props = typeof(T).GetProperties();

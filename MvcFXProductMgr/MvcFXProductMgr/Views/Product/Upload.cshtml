@@ -1,51 +1,50 @@
-﻿@using System.Data
-@model DataTable
+﻿@using MvcFXProductMgr.Models;
+@model List<ProductModel>
+ 
 @{
     ViewBag.Title = "Upload";
 }
-<form action="/Product/Save" method="post">
-<div class="ProductsInfo">
-    <h2>Upload</h2>
-    <div class="productCollection"></div>
-    <div class="productList">
-        <dl class="productList-header">
-            <dt>产品名称</dt>
-            <dt>产品重量</dt>
-            <dt>条码号</dt>
-            <dt>证书编号</dt>
-            <dt>金含量</dt>
-            <dt>企业标准</dt>
-            <dt>公司名称</dt>
-            <dt>公司地址</dt>
-            <dt>客服电话</dt>
-            <dt>电话</dt>
-            <dt>条形码</dt>
-            <dt>广告</dt>
-        </dl>
-        <div class="productList-section">
-            @foreach (DataRow row in Model.Rows)
-            {
-            <dl>
-                <dd><input name="ProductName" type="text" value=@row["品名"] /></dd>
-                <dd>@row["重量"]</dd>
-                <dd>@row["条码号"]</dd>
-                <dd>@row["证书编号"]</dd>
-                <dd>@row["Standard"]</dd>
-                <dd>@row["CompanyName"]</dd>
-                <dd></dd>
-                <dd></dd>
-                <dd></dd>
-                <dd></dd>
-                <dd></dd>
+@if(Model.Count>0){
+    <form action=@Url.Action("SaveProducts", "Product") method="post">
+     <h2>Upload</h2>
+        <div class="table prodInfo">
+            <dl class="tableHeader">
+                <dt class="firstColumn">产品名称</dt>
+                <dt class="secondColumn">产品重量</dt>
+                <dt class="thirdColumn">条码号</dt>
+                <dt class="forthColumn">证书编号</dt>
+                <dt class="fifthColumn">企业标准</dt>
+                <dt class="sixthColumn">公司名称</dt>
+                <dt class="lastColumn">检测机构</dt>
+                <dt class="hide">公司ID</dt>
+                <dt class="hide">检测机构ID</dt>
+                <dt class="hide">产品类别</dt>
+                 <dt class="hide">执行标准</dt>
             </dl>
-             }
-        </div>
-    
-    </div>
-</div>
-<div class="btn-function">
-    <input class="button" name="btnSave" value="保存" type="submit" />
-    <input class="button" name="btnCancel" type="button" value="取消" /> 
-</div>
-
-</form>
+                @foreach(var item in Model)
+                {
+                <dl class="tableBody">
+                    <dd class="firstColumn editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                    <dd class="secondColumn editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                    <dd class="thirdColumn editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                    <dd class="forthColumn editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                    <dd class="fifthColumn editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                    <dd  class="sixthColumn editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                    <dd class="lastColumn editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                    <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
+                    <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
+                    <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
+                    <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                </dl>
+                }  
+                <div class="btn-function">
+                    <input class="button" name="btnSave" value="保存" type="submit" />
+                    <input class="button" name="btnCancel" type="button" value="取消" /> 
+                </div> 
+         </div>
+    </form>
+}
+else
+{
+       <div>没有数据要上传</div> 
+    }
