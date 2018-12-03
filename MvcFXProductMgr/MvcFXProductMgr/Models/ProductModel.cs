@@ -36,7 +36,6 @@ namespace MvcFXProductMgr.Models
         public string AUrl { set; get; }
         public string Remarks { set; get; }
         public string Status { set; get; }
-
         //Get:
         public ProductModel GetProduct(int cer_num,string name)
         {

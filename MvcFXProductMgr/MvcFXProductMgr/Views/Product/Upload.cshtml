@@ -6,7 +6,7 @@
 }
 @if(Model.Count>0){
     <form action=@Url.Action("SaveProducts", "Product") method="post">
-     <h2>Upload</h2>
+     <h2>待保存产品</h2>
         <div class="table prodInfo">
             <dl class="tableHeader">
                 <dt class="firstColumn">产品名称</dt>
@@ -16,7 +16,7 @@
                 <dt class="fifthColumn">企业标准</dt>
                 <dt class="sixthColumn">公司名称</dt>
                 <dt class="seventhColumn">检测机构</dt>
-                <dt class="lastColumn"></dt>
+                <dt class="eighthColumn lastColumn "></dt>
                 <dt class="hide">公司ID</dt>
                 <dt class="hide">检测机构ID</dt>
                 <dt class="hide">产品类别</dt>
@@ -32,7 +32,7 @@
                     <dd class="fifthColumn editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
                     <dd  class="sixthColumn editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
                     <dd class="seventhColumn editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
-                    <dd class="lastColumn btnDel">删除</dd>
+                    <dd class="eighthColumn lastColumn btnDel">删除</dd>
                     <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
                     <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                     <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
@@ -41,7 +41,7 @@
                 }  
                 <div class="btn-function">
                     <input class="button" name="btnSave" value="保存" type="submit" />
-                    <input class="button" name="btnCancel" type="button" value="取消" /> 
+                    <a href="\Product\AddProducts"><input class="button" name="btnCancel" type="button" value="取消" /> </a>
                 </div> 
          </div>
     </form>

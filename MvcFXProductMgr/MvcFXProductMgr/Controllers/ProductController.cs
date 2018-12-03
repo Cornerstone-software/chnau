@@ -10,6 +10,7 @@ using System.IO;
 using System.Data;
 using MySql.Data.MySqlClient;
 using MvcFXProductMgr.Models;
+using MvcFXProductMgr.ViewModels;
 
 namespace MvcFXProductMgr.Controllers
 {
@@ -34,6 +35,9 @@ namespace MvcFXProductMgr.Controllers
             return View();
         }
 
+        public ActionResult Upload(List<ProductModel> list) {
+            return View(list);
+        }
 
         [HttpPost] 
         public ActionResult Upload()
@@ -124,8 +128,6 @@ namespace MvcFXProductMgr.Controllers
                 List<ProductModel> list = new List<ProductModel>();
                 list = ConvertHelper<ProductModel>.DataTableToList(newdt);
                 return View(list);
-
-
             }
             else
             {
@@ -135,6 +137,16 @@ namespace MvcFXProductMgr.Controllers
         }
 
         /// <summary>
+        /// 若记录重复，显示待保存信息
+        /// 若保存成功，显示已保存信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult SaveProducts(List<ProductModel> model)
+        {
+            return View(model);
+        }
+        /// <summary>
         /// 批量上已读取的Excel数据到MySQL DataBase
         /// </summary>
         /// <param name="model"></param>
@@ -142,8 +154,7 @@ namespace MvcFXProductMgr.Controllers
         [HttpPost]
           public ActionResult SaveProducts()
           {
-              if (ModelState.IsValid)
-              {                 
+            
                   string strName = Request["Name"].ToString();
                   string strWeight = Request["Weight"].ToString();
                   string strCerNum = Request["CerNum"].ToString();
@@ -151,8 +162,11 @@ namespace MvcFXProductMgr.Controllers
                   string strPrice = Request["Price"].ToString();
                   string strStandard = Request["Standard"].ToString();
                   string strCId = Request["CId"].ToString();
+                  string strCName = Request["CName"].ToString();
                   string strTId = Request["TId"].ToString();
+                  string strTName = Request["TName"].ToString();
                   string strCategory = Request["Category"].ToString();
+                  
                   string[] arrName = strName.Split(',');
                   string[] arrWeight = strWeight.Split(',');
 
@@ -162,7 +176,9 @@ namespace MvcFXProductMgr.Controllers
                   string[] arrPrice = strPrice.Split(',');
                   string[] arrStandard = strStandard.Split(',');
                   string[] arrCId = strCId.Split(',');
+                  string[] arrCName = strCName.Split(',');
                   string[] arrTId = strTId.Split(',');
+                  string[] arrTName = strTName.Split(',');
                   string[] arrCategory = strCategory.Split(',');
                   //创建DataTable
                   DataTable dt = new DataTable();
@@ -173,8 +189,11 @@ namespace MvcFXProductMgr.Controllers
                   DataColumn dcPrice = new DataColumn("Price", typeof(string));
                   DataColumn dcStandard = new DataColumn("Standard", typeof(string));
                   DataColumn dCId = new DataColumn("CId", typeof(string));
+                  DataColumn dcCName = new DataColumn("CName", typeof(string));
                   DataColumn dcTId = new DataColumn("TId", typeof(string));
+                  DataColumn dcTName = new DataColumn("TName", typeof(string));
                   DataColumn dcCategory = new DataColumn("Category", typeof(string));
+                  DataColumn dcExist = new DataColumn("Exist", typeof(Int32));
                   dt.Columns.Add(dcName);
                   dt.Columns.Add(dcWeight);
                   dt.Columns.Add(dcCerNum);
@@ -182,24 +201,44 @@ namespace MvcFXProductMgr.Controllers
                   dt.Columns.Add(dcPrice);
                   dt.Columns.Add(dcStandard);
                   dt.Columns.Add(dCId);
+                  dt.Columns.Add(dcCName);
                   dt.Columns.Add(dcTId);
+                  dt.Columns.Add(dcTName);
                   dt.Columns.Add(dcCategory);
+                  dt.Columns.Add(dcExist);
+                  //创建已存在记录表
+                 // DataTable dtExist = dt.Clone();
+
                   for (int i = 0; i < arrName.Length; i++)
                   {
                       DataRow dr = dt.NewRow();
-                      dr["Name"] = arrName[i]??"";
+
+                      dr["Name"] = arrName[i] ?? "";
                       dr["Weight"] = arrWeight[i] ?? "";
                       dr["CerNum"] = arrCerNum[i] ?? "";
                       dr["Barcode"] = arrBarcode[i] ?? "";
                       dr["Price"] = arrPrice[i] ?? "";
                       dr["Standard"] = arrStandard[i] ?? "";
                       dr["CId"] = arrCId[i] ?? "";
+                      dr["CName"] = arrCName[i] ?? "";
                       dr["TId"] = arrTId[i] ?? "";
+                      dr["TName"] = arrTName[i] ?? "";
                       dr["Category"] = arrCategory[i] ?? "";
+                      dr["Exist"] = 0;
                       dt.Rows.Add(dr);
+                      //判断数据是否已存在
+                      string mysql_sel = "select * from p_info_table where P_CerNum=";
+                      mysql_sel += "'" + arrCerNum[i] + "'";
+                      DataTable tempdt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, mysql_sel, null);
+                      if (tempdt.Rows.Count > 0)
+                      {
+                          dt.Rows[i]["Exist"]=1;
+                      }
                   }
-                  string strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId)";
-                  MySqlParameter[] commadparameters = {
+                  if (dt.Select("Exist=1").Length< 1)
+                  {
+                      string strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId)";
+                      MySqlParameter[] commadparameters = {
                           new MySqlParameter("@Name",MySqlDbType.VarChar,100,"Name"),
                           new MySqlParameter("@Weight",MySqlDbType.Float,100,"Weight"),
                           new MySqlParameter("@CerNum",MySqlDbType.VarChar,100,"CerNum"),
@@ -210,22 +249,35 @@ namespace MvcFXProductMgr.Controllers
                           new MySqlParameter("@CId",MySqlDbType.Int32,100,"CId"),
                           new MySqlParameter("@TId",MySqlDbType.Int32,100,"TId")
                           };
-                          if (dt != null)
+                          //插入数据库
+                          try
                           {
-                              bool bda = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
-                              if (bda)
-                              {
-                                  return RedirectToAction("SaveProductsSuccess", "Product");
-                              }
-                              
+                              bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
+                              List<ProductViewModel> list_update = ConvertHelper<ProductViewModel>.DataTableToList(dt);
+                              ProductSuccessViewModel vm = new ProductSuccessViewModel();
+                              vm.ProductList = list_update;
+                              vm.UploadDateTime = DateTime.Now.ToString();
+                              vm.UploadNum = dt.Rows.Count;
+                              vm.UploadUserName = User.Identity.Name;
+                              return View(vm);
                           }
-                  //return Content(Request["Standard"].ToString());
-                          return Content("导入不成功");
-              }
-              else
-              {
-                  return Content("导入不成功");
-              }
+                          catch (Exception ex)
+                          {
+                              throw new Exception(ex.Message);
+                          }
+                      
+                      //检查记录重复，回到待保存页面
+                  }
+                  else{
+                      List<ProductViewModel> list = ConvertHelper<ProductViewModel>.DataTableToList(dt);
+                      ProductSuccessViewModel vm2 = new ProductSuccessViewModel();
+                      vm2.ProductList = list;
+                      vm2.UploadDateTime = "";
+                      vm2.UploadNum = 0;
+                      vm2.UploadUserName = User.Identity.Name;
+                      return View(vm2);
+                  }
+
           
           }
           public ActionResult SaveProductsSuccess()

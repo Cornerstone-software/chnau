@@ -409,7 +409,7 @@ div.btn-function
     border-bottom:1px solid #cdcdcd;
 }
 
-.table .tableBody:hover input
+.table .tableBody input:hover
 {
     color:#777;
 }
@@ -465,7 +465,7 @@ div.btn-function
 .prodInfo dt.fifthColumn,.prodInfo dd.fifthColumn{
     width:22%;
 }
-.prodInfo dt.lastColumn,.prodInfo dd.lastColumn{
+.prodInfo dt.eighthColumn,.prodInfo dd.eighthColumn{
     width:4%;
 }
 .prodInfo dd.btnDel
@@ -473,12 +473,19 @@ div.btn-function
     text-align:center;
     cursor:pointer;
     font-weight:bold;
+    font-size:10px;
 }
 .prodInfo dd.btnDel:Hover
 {
     color:#566180;
+    text-decoration: underline;
 }
 .table .btn-function
 {
     padding:0;
 }
+.redColor input[type='text']
+{
+    color:Red;
+}
+.btn-function a{ color:#777;}

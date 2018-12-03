@@ -1,0 +1,105 @@
+﻿@using MvcFXProductMgr.ViewModels;
+@model ProductSuccessViewModel
+ 
+@{
+    ViewBag.Title = "Upload";
+}
+
+@if (Model.UploadNum < 1)
+{
+    <form action=@Url.Action("SaveProducts", "Product") method="post">
+     <h2>待保存产品</h2>
+     <p>如下红色标注的记录已存在，请仔细核对。</p>
+        <div class="table prodInfo">
+            <dl class="tableHeader">
+                <dt class="firstColumn">产品名称</dt>
+                <dt class="secondColumn">产品重量</dt>
+                <dt class="thirdColumn">条码号</dt>
+                <dt class="forthColumn">证书编号</dt>
+                <dt class="fifthColumn">企业标准</dt>
+                <dt class="sixthColumn">公司名称</dt>
+                <dt class="seventhColumn">检测机构</dt>
+                <dt class="lastColumn"></dt>
+                <dt class="hide">公司ID</dt>
+                <dt class="hide">检测机构ID</dt>
+                <dt class="hide">产品类别</dt>
+                 <dt class="hide">执行标准</dt>
+            </dl>
+                @foreach (var item in Model.ProductList)
+                {
+                    if (item.Exist == 1)
+                    {
+                         <dl class="tableBody redColor">
+                          <dd class="firstColumn editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                            <dd class="secondColumn editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                            <dd class="thirdColumn editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                            <dd class="forthColumn editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                            <dd class="fifthColumn editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                            <dd  class="sixthColumn editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                            <dd class="seventhColumn editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                            <dd class="lastColumn btnDel">删除</dd>
+                            <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
+                            <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
+                            <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
+                            <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                        </dl>
+                     }else
+                    { 
+                        <dl class="tableBody">
+                          <dd class="firstColumn editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                            <dd class="secondColumn editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                            <dd class="thirdColumn editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                            <dd class="forthColumn editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                            <dd class="fifthColumn editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                            <dd  class="sixthColumn editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                            <dd class="seventhColumn editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                            <dd class="lastColumn btnDel">删除</dd>
+                            <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
+                            <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
+                            <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
+                            <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                        </dl>                  
+                    }
+                }  
+                <div class="btn-function">
+                    <input class="button" name="btnSave" value="保存" type="submit" />
+                    <a href="\Product\AddProducts"><input class="button" name="btnCancel" type="button" value="取消" /> </a>
+                </div> 
+         </div>
+    </form>
+}
+else
+{    
+    <h2>已成功保存的信息详情如下：</h2>
+    <div class="prodCount">
+        <p>数据上传时间为:@Model.UploadDateTime</p>
+        <p>数据上传人员为:@Model.UploadUserName</p>
+        <p>数据上传数量为：@Model.UploadNum</p>
+   </div>
+    <div class="table sprodInfo">
+        <dl class="tableHeader">
+            <dt class="firstColumn">产品名称</dt>
+            <dt class="secondColumn">产品重量</dt>
+            <dt class="thirdColumn">条码号</dt>
+            <dt class="forthColumn">证书编号</dt>
+            <dt class="fifthColumn">企业标准</dt>
+            <dt class="sixthColumn">公司名称</dt>
+            <dt class="lastColumn">检测机构</dt>
+        </dl>
+        @foreach (var item in Model.ProductList)
+        {
+        <dl class="tableBody">
+            <dd class="firstColumn editor">@item.Name</dd>
+            <dd class="secondColumn editor">@item.Weight</dd>
+            <dd class="thirdColumn editor">@item.Barcode</dd>
+            <dd class="forthColumn editor">@item.CerNum</dd>             
+            <dd class="fifthColumn editor">@item.Standard</dd>
+            <dd  class="sixthColumn editor">@item.CName</dd>
+            <dd class="lastColumn editor">@item.TName</dd>
+        </dl>
+        }  
+    </div>
+    <div class="back">@Html.ActionLink("返回批量上传", "AddProducts", "Product")</div>
+       
+       
+}
