@@ -45,11 +45,9 @@ namespace MvcFXProductMgr.Models
             int startRow = 0;
             if (!File.Exists(fileName))
             {
-                
-                Console.Write("此文件不存在。");
+                HttpContext.Current.Response.Write("<script language='javascript'>alert('此文件不存在!')</script>"); 
                 return null;
-            }
-            
+            }           
             try
             {
                 fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
@@ -118,7 +116,7 @@ namespace MvcFXProductMgr.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception: " + ex.Message);
+               HttpContext.Current.Response.Write(ex.Message);
                 return null;
             }
         }

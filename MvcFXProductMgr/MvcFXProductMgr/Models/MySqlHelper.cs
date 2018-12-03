@@ -108,7 +108,7 @@ namespace MvcFXProductMgr.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                HttpContext.Current.Response.Write("<script language='javascript'>alert(" + ex.Message + ")</script>");
                 return false;
             }
             return flag;
@@ -232,7 +232,7 @@ namespace MvcFXProductMgr.Models
             }
             catch (Exception e)
             {
-                throw e;
+                throw new Exception(e.Message);
             }
         }
 

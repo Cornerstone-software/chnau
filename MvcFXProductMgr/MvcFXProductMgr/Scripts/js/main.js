@@ -34,11 +34,16 @@
 
     //删除批量上传的数据行
     $(".tableBody .btnDel").click(function () {
-        if (confirm("确定要删除此产品信息吗")) {
-            $(this).parent(".tableBody").remove();
+        if ($(this).parents(".table").children(".tableBody").length > 1) {
+            if (confirm("确定要删除此产品信息吗")) {
+                $(this).parent(".tableBody").remove();
+            }
+            else {
+                return false;
+            }
+        } else {
+            alert("仅剩一条记录，不可再删除！");
         }
-        else {
-            return false;
-        }
+       
     });
 });
