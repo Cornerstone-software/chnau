@@ -82,6 +82,7 @@ namespace MvcFXProductMgr.Controllers
                 DataTable newdt = dt.Copy();
                
                 //修改列名,使Excel列名和Model属性一致
+                bool isredirect = true;
                 foreach (DataColumn dc in newdt.Columns)
                 {
                     string colName = dc.ColumnName;
@@ -95,13 +96,19 @@ namespace MvcFXProductMgr.Controllers
                     else
                     {
                         if (colName == "证书编号") dc.ColumnName = "CerNum";
-                        if (colName == "条码号") dc.ColumnName = "Barcode";
-                        if (colName == "品名") dc.ColumnName = "Name";
-                        if (colName == "重量") dc.ColumnName = "Weight";
-                        if (colName == "售价") dc.ColumnName = "Price";                      
+                        else if (colName == "条码号") dc.ColumnName = "Barcode";
+                        else if (colName == "品名") dc.ColumnName = "Name";
+                        else if (colName == "重量") dc.ColumnName = "Weight";
+                        else if (colName == "售价") dc.ColumnName = "Price";
+                        else//Excel格式不正确，阻止用户进一步操作
+                        {
+                            return RedirectToAction("AddProducts", "Product");
+                            
+                        }
                     }
                     
                 }
+                
                 DataColumn dcCompanyId = new DataColumn("CId", typeof(string));
                 dcCompanyId.DefaultValue = strCompanyId;
                 newdt.Columns.Add(dcCompanyId);
