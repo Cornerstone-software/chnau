@@ -98,7 +98,7 @@ input[type="text"]:focus
 {
     height: 50px;
     font-size: 14px;
-    padding: 10px 20px;
+    padding: 6px 20px;
     background: #566180;
 
 }
@@ -119,8 +119,10 @@ input[type="text"]:focus
 #header .logo,#header-right li a {
     font-size: 20px;
     color: #fff;
-    padding: 14px 18px;
+    padding: 0px 18px;
     text-decoration: none;
+    line-height: 32px;
+    display: inline-block;
 }
 
 #header-right li a:hover{
