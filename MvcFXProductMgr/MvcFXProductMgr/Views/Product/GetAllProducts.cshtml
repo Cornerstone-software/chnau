@@ -1,0 +1,34 @@
+﻿@using MvcFXProductMgr.Models;;
+@model List<ProductModel>
+ 
+@{
+    ViewBag.Title = "Save Products Success";
+}
+
+    <h2>成功保存的新产品信息如下：</h2>
+    @if(Model.Count>0){   
+    <div class="table sprodInfo">
+        <dl class="tableHeader">
+            <dt class="firstColumn">产品名称</dt>
+            <dt class="secondColumn">产品重量</dt>
+            <dt class="thirdColumn">条码号</dt>
+            <dt class="forthColumn">证书编号</dt>
+            <dt class="fifthColumn">企业标准</dt>
+            <dt class="sixthColumn">公司名称</dt>
+            <dt class="lastColumn">检测机构</dt>
+        </dl>
+        @foreach (var item in Model)
+        {
+        <dl class="tableBody">
+            <dd class="firstColumn editor">@item.Name</dd>
+            <dd class="secondColumn editor">@item.Weight</dd>
+            <dd class="thirdColumn editor">@item.Barcode</dd>
+            <dd class="forthColumn editor">@item.CerNum</dd>             
+            <dd class="fifthColumn editor">@item.Standard</dd>
+            <dd  class="sixthColumn editor">@item.CName</dd>
+            <dd class="lastColumn editor">@item.TName</dd>
+        </dl> 
+        }
+    </div>
+    <div class="back">@Html.ActionLink("返回批量上传", "AddProducts", "Product")</div>
+    }

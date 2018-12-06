@@ -88,14 +88,15 @@ else
         </dl>
         @foreach (var item in Model.ProductList)
         {
-        <dl class="tableBody">
-            <dd class="firstColumn editor">@item.Name</dd>
+        <dl class="tableBody prodDetail">
+            <dd class="firstColumn editor name">@item.Name</dd>
             <dd class="secondColumn editor">@item.Weight</dd>
             <dd class="thirdColumn editor">@item.Barcode</dd>
-            <dd class="forthColumn editor">@item.CerNum</dd>             
+            <dd class="forthColumn editor cerNum">@item.CerNum</dd>             
             <dd class="fifthColumn editor">@item.Standard</dd>
             <dd  class="sixthColumn editor">@item.CName</dd>
             <dd class="lastColumn editor">@item.TName</dd>
+             <dd class="hide"><input name="Id" type="hidden" value="@item.Id" /></dd>
         </dl>
         }  
     </div>

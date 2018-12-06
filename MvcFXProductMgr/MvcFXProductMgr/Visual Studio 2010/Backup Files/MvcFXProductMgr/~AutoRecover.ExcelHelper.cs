@@ -8,8 +8,7 @@ using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using System.IO;
 using System.Data;
-using System.Diagnostics;//Progress类
-using System.Runtime.InteropServices;
+
 namespace MvcFXProductMgr.Models
 {
     public class ExcelHelper : IDisposable
@@ -142,7 +141,5 @@ namespace MvcFXProductMgr.Models
                 disposed = true;
             }
         }
-
-        
     }
 }

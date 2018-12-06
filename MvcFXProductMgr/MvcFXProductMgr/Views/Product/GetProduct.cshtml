@@ -1,0 +1,66 @@
+﻿
+@using MvcFXProductMgr.Models;
+@model ProductModel
+
+@{
+    Layout = "~/Views/Shared/_MLayout.cshtml"; ;
+    ViewBag.Title = "产品详情";
+}
+@{
+    ViewBag.Title = "GetProduct";
+}
+
+<h2><img src=@Url.Content("../../Content/images/Logo-large.png") /></h2>
+
+<div class="detail">
+    <dl>
+        <dt>产品名称：</dt>
+        <dd>@Model.Name</dd>
+    </dl>
+    <dl>
+        <dt>产品重量：</dt>
+        <dd>@Model.</dd>
+    </dl>
+    <dl>
+        <dt>条码：</dt>
+        <dd>@Model.Barcode</dd>
+    </dl>
+    <dl>
+        <dt>证书编号：</dt>
+        <dd>@Model.CerNum</dd>
+    </dl>
+    <dl>
+        <dt>执行标准</dt>
+        <dd>@Model.Standard</dd>
+    </dl>
+    <dl>
+        <dt>公司名称：</dt>
+        <dd>@Model.CName</dd>
+    </dl>
+    <dl>
+        <dt>公司地址：</dt>
+        <dd>@Model.CAddress</dd>
+    </dl>
+    <dl>
+        <dt>客服电话：</dt>
+        <dd>@Model.CTel</dd>
+    </dl>
+    <dl>
+        <dt>公司网址:</dt>
+        <dd>@Model.CUrl</dd>
+    </dl>
+    <dl>
+        <dt>检测机构：</dt>
+        <dd>@Model.TName</dd>
+    </dl>
+    <dl>
+        <dt>检测网址：</dt>
+        <dd>@Model.TUrl</dd>
+    </dl>
+    <dl>
+        <dt>检测电话：</dt>
+        <dd>@Model.TTel</dd>
+    </dl>
+
+</div>
+

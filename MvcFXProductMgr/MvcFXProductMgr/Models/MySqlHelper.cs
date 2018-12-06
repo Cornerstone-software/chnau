@@ -221,11 +221,15 @@ namespace MvcFXProductMgr.Models
                     foreach (DataColumn dc in dt.Columns)
                     {
                         string colName = dc.ColumnName;
-                        string[] strTemp = colName.Split('_');
-                        if (strTemp.Length > 0)
+                        if (colName.Contains('_'))
                         {
-                            dc.ColumnName = strTemp[1];
+                            string[] strTemp = colName.Split('_');
+                            if (strTemp.Length > 0)
+                            {
+                                dc.ColumnName = strTemp[1];
+                            }
                         }
+                        
                     }
                 }
                 return dt;

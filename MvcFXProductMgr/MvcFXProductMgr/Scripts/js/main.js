@@ -44,6 +44,13 @@
         } else {
             alert("仅剩一条记录，不可再删除！");
         }
-       
+
+    });
+    //点击已保存的产品信息列表，查看产品详情
+    $(".prodDetail").click(function () {
+        var cerNum = $(this).children(".cerNum").text();
+        var name = $(this).children(".name").text();
+        var href = "/Product/GetProduct/?cerNum=" + cerNum + "&name=" + name;
+        window.location = href;
     });
 });

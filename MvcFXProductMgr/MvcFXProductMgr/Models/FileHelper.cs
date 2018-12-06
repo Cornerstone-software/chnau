@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace MvcFXProductMgr.Models
 {
@@ -32,7 +33,15 @@ namespace MvcFXProductMgr.Models
          /// <returns></returns>
          [DllImport("kernel32.dll")]
         private static extern bool CloseHandle(IntPtr hObject);
-        
+        /// <summary>
+        /// 获取进程
+        /// </summary>
+        /// <param name="hwnd"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+         [DllImport("User32.dll", CharSet = CharSet.Auto)]
+         public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
+
         /// <summary>
         /// 文件名称
         /// </summary>
@@ -50,6 +59,7 @@ namespace MvcFXProductMgr.Models
                 return false;
             
          }
+
 
     }
 }

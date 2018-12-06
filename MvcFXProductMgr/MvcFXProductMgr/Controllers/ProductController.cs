@@ -8,6 +8,7 @@ using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using System.IO;
 using System.Data;
+using System.Diagnostics;
 using MySql.Data.MySqlClient;
 using MvcFXProductMgr.Models;
 using MvcFXProductMgr.ViewModels;
@@ -17,11 +18,25 @@ namespace MvcFXProductMgr.Controllers
     public class ProductController : Controller
     {
         // GET: /Product/
-        public ActionResult GetProduct()
+        public ActionResult GetProduct(string cerNum, string name)
+        {
+
+                ProductModel model= new ProductModel();
+                model = model.GetProduct(cerNum,name);
+                return View(model);
+            
+            
+        }
+        public ActionResult GetAllProducts()
         {
             return View();
         }
-        
+
+        [HttpPost]
+        public ActionResult GetAllProducts(string cerNum,string name)
+        {
+            return View();
+        }
         public ActionResult AddProducts()
         {
             return View();
@@ -71,70 +86,74 @@ namespace MvcFXProductMgr.Controllers
                 strFileName = uploadfile.FileName;
                 st = uploadfile.InputStream;
                 strSaveFileName = strSeverDataPath + strFileName;
-                if (!System.IO.File.Exists(strSaveFileName))
-                {
-                    uploadfile.SaveAs(strSaveFileName);
-                }
+                uploadfile.SaveAs(strSaveFileName);
+                
                 ///先保存上传的文件到server,ending
 
                 ExcelHelper excelobj = new ExcelHelper(strSaveFileName);
-                DataTable dt = excelobj.GetDataTable("sheet1", true);
-                DataTable newdt = dt.Copy();
-               
-                //修改列名,使Excel列名和Model属性一致
-                bool isredirect = true;
-                foreach (DataColumn dc in newdt.Columns)
+                try 
                 {
-                    string colName = dc.ColumnName;
-                    if (colName.Contains('_')) {
-                        string[] strTemp = colName.Split('_');
-                        if (strTemp.Length > 0)
-                        {
-                            dc.ColumnName = strTemp[1];
-                        }
-                    }
-                    else
+                    DataTable dt = excelobj.GetDataTable("sheet1", true);
+                    DataTable newdt = dt.Copy();
+
+                    //修改列名,使Excel列名和Model属性一致
+                    foreach (DataColumn dc in newdt.Columns)
                     {
-                        if (colName == "证书编号") dc.ColumnName = "CerNum";
-                        else if (colName == "条码号") dc.ColumnName = "Barcode";
-                        else if (colName == "品名") dc.ColumnName = "Name";
-                        else if (colName == "重量") dc.ColumnName = "Weight";
-                        else if (colName == "售价") dc.ColumnName = "Price";
-                        else//Excel格式不正确，阻止用户进一步操作
+                        string colName = dc.ColumnName;
+                        if (colName.Contains('_'))
                         {
-                            return RedirectToAction("AddProducts", "Product");
-                            
+                            string[] strTemp = colName.Split('_');
+                            if (strTemp.Length > 0)
+                            {
+                                dc.ColumnName = strTemp[1];
+                            }
+                        }
+                        else
+                        {
+                            if (colName == "证书编号") dc.ColumnName = "CerNum";
+                            else if (colName == "条码号") dc.ColumnName = "Barcode";
+                            else if (colName == "品名") dc.ColumnName = "Name";
+                            else if (colName == "重量") dc.ColumnName = "Weight";
+                            else if (colName == "售价") dc.ColumnName = "Price";
+                            else//Excel格式不正确，阻止用户进一步操作
+                            {
+                                return RedirectToAction("AddProducts", "Product");
+                            }
                         }
                     }
-                    
+
+                    DataColumn dcCompanyId = new DataColumn("CId", typeof(string));
+                    dcCompanyId.DefaultValue = strCompanyId;
+                    newdt.Columns.Add(dcCompanyId);
+
+                    DataColumn dcCompanyName = new DataColumn("CName", typeof(string));
+                    dcCompanyName.DefaultValue = strCompanyName;
+                    newdt.Columns.Add(dcCompanyName);
+
+                    DataColumn dcTestingOrgId = new DataColumn("TId", typeof(Int32));
+                    dcTestingOrgId.DefaultValue = Int32.Parse(strTestingOrgId);
+                    newdt.Columns.Add(dcTestingOrgId);
+                    DataColumn dcTestingOrgName = new DataColumn("TName", typeof(string));
+                    dcTestingOrgName.DefaultValue = strTestingOrgName;
+                    newdt.Columns.Add(dcTestingOrgName);
+
+                    DataColumn dcCategory = new DataColumn("Category", typeof(string));
+                    dcCategory.DefaultValue = strCategory;
+                    newdt.Columns.Add(dcCategory);
+
+                    DataColumn dcStandard = new DataColumn("Standard", typeof(string));
+                    dcStandard.DefaultValue = strStandard;
+                    newdt.Columns.Add(dcStandard);
+
+                    List<ProductModel> list = new List<ProductModel>();
+                    list = ConvertHelper<ProductModel>.DataTableToList(newdt);
+                    return View(list);
+                }
+                catch (Exception ex)
+                {
+                    return Content("<script>"+"alert("+ex.Message.ToString()+")"+"</script>");
                 }
                 
-                DataColumn dcCompanyId = new DataColumn("CId", typeof(string));
-                dcCompanyId.DefaultValue = strCompanyId;
-                newdt.Columns.Add(dcCompanyId);
-
-                DataColumn dcCompanyName = new DataColumn("CName", typeof(string));
-                dcCompanyName.DefaultValue = strCompanyName;
-                newdt.Columns.Add(dcCompanyName);
-
-                DataColumn dcTestingOrgId = new DataColumn("TId", typeof(Int32));
-                dcTestingOrgId.DefaultValue = Int32.Parse(strTestingOrgId);
-                newdt.Columns.Add(dcTestingOrgId);
-                DataColumn dcTestingOrgName = new DataColumn("TName", typeof(string));
-                dcTestingOrgName.DefaultValue = strTestingOrgName;
-                newdt.Columns.Add(dcTestingOrgName);
-
-                DataColumn dcCategory = new DataColumn("Category", typeof(string));
-                dcCategory.DefaultValue = strCategory;
-                newdt.Columns.Add(dcCategory);
-
-                DataColumn dcStandard = new DataColumn("Standard", typeof(string));
-                dcStandard.DefaultValue = strStandard;
-                newdt.Columns.Add(dcStandard);
-
-                List<ProductModel> list = new List<ProductModel>();
-                list = ConvertHelper<ProductModel>.DataTableToList(newdt);
-                return View(list);
             }
             else
             {

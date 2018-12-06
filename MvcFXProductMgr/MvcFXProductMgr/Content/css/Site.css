@@ -448,10 +448,6 @@ div.btn-function
 {
     width:100%;    
 }
-.prodInfo dt,.prodInfo dd
-{
-    width:10%;
-}
 .prodInfo dt.secondColumn,.prodInfo dd.secondColumn{
     width:8%;
 }
@@ -460,9 +456,6 @@ div.btn-function
 }
 .prodInfo dt.forthColumn,.prodInfo dd.forthColumn{
     width:24%;
-}
-.prodInfo dt.fifthColumn,.prodInfo dd.fifthColumn{
-    width:22%;
 }
 .prodInfo dt.fifthColumn,.prodInfo dd.fifthColumn{
     width:22%;
@@ -491,3 +484,35 @@ div.btn-function
     color:Red;
 }
 .btn-function a{ color:#777;}
+.prodDetail:hover
+{
+    background-color:#566180;
+    color:#fff;
+    cursor:pointer;
+}
+/*Mobile css*/
+#container.mobile
+{
+    max-width:320px;
+    
+}
+.mobile h2
+{
+    text-align:center;
+}
+.detail{display:table;font-size: 11px;}
+.detail dl {
+    margin: 0;
+    padding: 2px 0;
+}
+.detail dt, .detail dd {
+    display: table-cell;
+}
+.detail dt {
+    white-space: nowrap;
+}
+.detail dd {
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-word;
+}
