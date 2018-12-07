@@ -35,12 +35,6 @@ namespace MvcFXProductMgr.Controllers
         // **************************************
 
         [Authorize]
-        public ActionResult UpdateCompany()
-        {
-             //ViewBag.PasswordLength = MembershipService.MinPasswordLength;
-            return View();
-        }
-        [Authorize]
         [HttpPost]
         
 
