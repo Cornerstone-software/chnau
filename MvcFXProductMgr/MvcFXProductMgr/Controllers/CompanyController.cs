@@ -42,12 +42,7 @@ namespace MvcFXProductMgr.Controllers
         }
         [Authorize]
         [HttpPost]
-        public ActionResult UpdateCompany()
-        {
-            ViewBag.Title = "更新公司信息";
-            return View("CreateOrUpdateCompany");
-            
-        }
+        
 
 
         public ActionResult DedelteCompany()
