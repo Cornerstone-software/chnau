@@ -113,6 +113,8 @@
   <ItemGroup>
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\Logo-large.png" />
+    <Content Include="Content\images\Logo.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\themes\base\jquery-ui.css" />
