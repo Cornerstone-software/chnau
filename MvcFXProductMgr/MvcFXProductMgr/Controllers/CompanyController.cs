@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcFXProductMgr.Models;
 
 namespace MvcFXProductMgr.Controllers
 {
@@ -29,13 +30,26 @@ namespace MvcFXProductMgr.Controllers
             ViewBag.Title = "新建公司信息";
             return View("CreateOrUpdateCompany");
         }
+        // **************************************
+        // URL: /Company/UpdateCompany
+        // **************************************
 
+        [Authorize]
+        public ActionResult UpdateCompany()
+        {
+             //ViewBag.PasswordLength = MembershipService.MinPasswordLength;
+            return View();
+        }
+        [Authorize]
+        [HttpPost]
         public ActionResult UpdateCompany()
         {
             ViewBag.Title = "更新公司信息";
             return View("CreateOrUpdateCompany");
             
         }
+
+
         public ActionResult DedelteCompany()
         {
             ViewBag.Title = "删除公司信息";
