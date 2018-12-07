@@ -193,7 +193,7 @@
     <Content Include="Views\Product\SaveProductsSuccess.cshtml" />
     <Content Include="Views\Product\SaveProducts.cshtml" />
     <Content Include="Views\Product\GetProduct.cshtml" />
-    <Content Include="Views\Product\GetProducts.cshtml" />
+    <Content Include="Views\Product\GetAllProducts.cshtml" />
     <Content Include="Views\Shared\_MLayout.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

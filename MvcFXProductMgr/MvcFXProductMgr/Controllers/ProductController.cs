@@ -79,6 +79,8 @@ namespace MvcFXProductMgr.Controllers
             strStandard = strStandard.Replace(',', ':');
             string strCategory = Request["Category"];
 
+
+
             Stream st = null;
             if (uploadfile != null && uploadfile.ContentLength > 0)
             {
