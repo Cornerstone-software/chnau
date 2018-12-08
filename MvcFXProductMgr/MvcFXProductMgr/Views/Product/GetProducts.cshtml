@@ -1,0 +1,42 @@
+﻿@using MvcFXProductMgr.Models;
+@model List<ProductModel>
+
+@{
+    ViewBag.Title = "查询产品信息";
+}
+
+
+<form action=@Url.Action("GetProductsBy", "Product") class="prodQuery" method="post">
+    <div class="cinfo">    
+        <dl>
+            <dt>公司信息：</dt>
+            <dd> 
+                <select id="TxtCompany" name="Company" class="txt">
+                    <option value="1:福鑫珠宝城">福鑫珠宝城</option>
+                </select>
+                <span class="errMsg">请选择公司</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>起始时间：</dt>
+            <dd> <input class="datetime" type="text"  name="StartDate" id="txtStartDate" placeholder="起始日期"/><input class="datetime" type="text"  name="StartTime" id="txtStartTime" value="00:00:00" placeholder="起始时间点"/></dd>
+            <span class="errMsg">请选择查询的起始日期</span>
+        </dl>
+         <dl>
+            <dt>截止时间：</dt>
+            <dd> <input class="datetime" type="text"  name="EndDate" id="txtEndDate" placeholder="截止日期"/><input class="datetime" type="text"  name="EndTime" id="txtEndTime"  value="23:59:59" placeholder="截止时间点"/></dd>
+            <span class="errMsg">请选择查询的截止日期</span>
+        </dl>  
+        <dl>
+            <dt>产品类别：</dt>
+            <dd> 
+                <input type="radio" name="Category" value="黄金" checked="checked"/> 黄金
+                <input type="radio" name="Category" value="3D硬金"/> 3D硬金 
+                <input type="radio" name="Category" value="金750"/> 金750
+                <input type="radio" name="Category" value="金916"/> 金916
+            </dd>
+        </dl>
+        <dl><input class="btn btnQuery" type="submit" name="Query" value="查询" /></dl>   
+    </div>
+</form>
+

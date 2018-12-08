@@ -221,16 +221,17 @@ input[type="text"]:focus
 {
     position:relative;
 } 
-.txt 
+.txt,.datetime
 {
     height:24px; 
     border:1px solid #cdcdcd;
-    width:180px;
     vertical-align: middle;
     border-radius: 2px;
     padding-left: 5px;
     padding-right: 5px;
 } 
+.txt{    width:190px;}
+.datetime{width:95px;}
 .btn 
 {
     background-color:#FFF; 
@@ -521,3 +522,8 @@ div.btn-function
     white-space: normal;
     word-break: break-word;
 }
+/*.cinfo .btnQuery {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+}*/

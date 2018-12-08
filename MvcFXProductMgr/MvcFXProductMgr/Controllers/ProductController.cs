@@ -18,24 +18,34 @@ namespace MvcFXProductMgr.Controllers
     public class ProductController : Controller
     {
         // GET: /Product/
-        public ActionResult GetProduct(string cerNum, string name)
+        public ActionResult GetProduct(string cerNum, string barcode)
         {
 
                 ProductModel model= new ProductModel();
-                model = model.GetProduct(cerNum,name);
+                model = model.GetProduct(cerNum, barcode);
                 return View(model);
             
             
         }
-        public ActionResult GetAllProducts()
+        public ActionResult GetProducts()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult GetAllProducts(string cerNum,string name)
+        public ActionResult GetProductsBy(FormCollection collection)
         {
-            return View();
+            string strcategory = collection["Category"];
+            string strCompany = collection["Company"];
+            string[] arrCompany = strCompany.Split(':');
+            int iCId = Int32.Parse(arrCompany[0]);
+            string strStartDate = collection["StartDate"];
+            string strEndDate = collection["EndDate"];
+            strStartDate += " 00:00:00";
+            strEndDate += " 23:59:59";
+            ProductModel model= new ProductModel();
+            List<ProductModel> list = model.GetProductsBy(strcategory,iCId,strStartDate,strEndDate);
+            return View(list);
         }
         public ActionResult AddProducts()
         {
