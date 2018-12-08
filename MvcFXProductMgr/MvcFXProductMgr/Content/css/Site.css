@@ -424,7 +424,7 @@ div.btn-function
     white-space: nowrap;
     line-height:1.8em;
 }
-.table dt.firstColumn,.table dd.firstColumn
+.table dt.firstCol,.table dd.firstCol
 {
     border-left:1px solid #cdcdcd;
 }
@@ -432,11 +432,11 @@ div.btn-function
 {
     width:25%;
 }
-.loginfo dt.firstColumn,.loginfo dd.firstColumn
+.loginfo dt.firstCol,.loginfo dd.firstCol
 {
     width:10%;
 }
-.loginfo dt.lastColumn,.loginfo dd.lastColumn
+.loginfo dt.lastCol,.loginfo dd.lastCol
 {
     width:40%;
 }
@@ -448,19 +448,24 @@ div.btn-function
 {
     width:100%;    
 }
-.prodInfo dt.secondColumn,.prodInfo dd.secondColumn{
+.prodInfo dt.numCol,.prodInfo dd.numCol
+{
+    width:4%;
+    text-align: center;
+}
+.prodInfo dt.weightCol,.prodInfo dd.weightCol{
     width:8%;
 }
-.prodInfo dt.thirdColumn,.prodInfo dd.thirdColumn{
+.prodInfo dt.barCol,.prodInfo dd.barCol{
     width:12%;
 }
-.prodInfo dt.forthColumn,.prodInfo dd.forthColumn{
+.prodInfo dt.cernumCol,.prodInfo dd.cernumCol{
     width:24%;
 }
-.prodInfo dt.fifthColumn,.prodInfo dd.fifthColumn{
+.prodInfo dt.standardCol,.prodInfo dd.standardCol{
     width:22%;
 }
-.prodInfo dt.eighthColumn,.prodInfo dd.eighthColumn{
+.prodInfo dt.delCol,.prodInfo dd.delCol{
     width:4%;
 }
 .prodInfo dd.btnDel
