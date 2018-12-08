@@ -11,9 +11,7 @@
         <dl>
             <dt>公司信息：</dt>
             <dd> 
-                <select id="TxtCompany" name="Company" class="txt">
-                    <option value="1:福鑫珠宝城">福鑫珠宝城</option>
-                </select>
+                 @Html.DropDownList("Company", ViewData["Company"] as SelectList)
                 <span class="errMsg">请选择公司</span>
             </dd>
         </dl>

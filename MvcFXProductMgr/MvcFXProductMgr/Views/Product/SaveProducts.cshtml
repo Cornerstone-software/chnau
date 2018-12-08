@@ -67,7 +67,7 @@
                 }  
                 <div class="btn-function">
                     <input class="button" name="btnSave" value="保存" type="submit" />
-                    <a href="\Product\AddProducts"><input class="button" name="btnCancel" type="button" value="取消" /> </a>
+                    <a href=@Url.Action("AddProducts","Product")><input class="button" name="btnCancel" type="button" value="取消" /> </a>
                 </div> 
          </div>
     </form>
@@ -98,7 +98,7 @@ else
             <dd class="nameCol editor">@item.Name</dd>
             <dd class="weightCol editor">@item.Weight</dd>
             <dd class="barCol editor">@item.Barcode</dd>
-            <dd class="cernumCol editor">@item.CerNum</dd>             
+            <dd class="cernumCol editor ">@item.CerNum</dd>             
             <dd class="standardCol editor">@item.Standard</dd>
             <dd  class="cNameCol editor">@item.CName</dd>
             <dd class="tNameCol lastCol editor">@item.TName</dd>

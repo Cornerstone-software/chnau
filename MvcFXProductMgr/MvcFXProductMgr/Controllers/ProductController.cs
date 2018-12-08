@@ -29,6 +29,19 @@ namespace MvcFXProductMgr.Controllers
         }
         public ActionResult GetProducts()
         {
+            //公司列表下拉框信息
+            CompanyModel modelForCompany = new CompanyModel();
+            List<SelectListItem> itemsForCompany = new List<SelectListItem>();
+            List<CompanyModel> clist = modelForCompany.GetAllCompanys();
+            foreach (CompanyModel citem in clist)
+            {
+                SelectListItem selectItemForCompany = new SelectListItem();
+                selectItemForCompany.Text = citem.Name;
+                selectItemForCompany.Value = citem.Id.ToString() + ":" + citem.Name;
+                if (clist.IndexOf(citem) == 0) selectItemForCompany.Selected = true;
+                itemsForCompany.Add(selectItemForCompany);
+            }
+            this.ViewData["Company"] = itemsForCompany;
             return View();
         }
 
@@ -49,6 +62,32 @@ namespace MvcFXProductMgr.Controllers
         }
         public ActionResult AddProducts()
         {
+            //公司列表下拉框信息
+            CompanyModel modelForCompany = new CompanyModel();
+            List<SelectListItem> itemsForCompany = new List<SelectListItem>();
+            List<CompanyModel> clist = modelForCompany.GetAllCompanys();
+            foreach(CompanyModel citem in clist){
+                SelectListItem selectItemForCompany = new SelectListItem();
+                selectItemForCompany.Text = citem.Name;
+                selectItemForCompany.Value = citem.Id.ToString() + ":" + citem.Name;
+                if (clist.IndexOf(citem) == 0) selectItemForCompany.Selected = true;
+                itemsForCompany.Add(selectItemForCompany);
+            }
+            this.ViewData["Company"] = itemsForCompany;
+
+            //检测机构列表信息
+            TestingOrgModel modelForTestingOrg = new TestingOrgModel();
+            List<SelectListItem> itemsForTestingOrg = new List<SelectListItem>();
+            List<TestingOrgModel> listForTestingOrg = modelForTestingOrg.GetAllTestingOrgs();
+            foreach (TestingOrgModel itemForTestingOrg in listForTestingOrg)
+            {
+                SelectListItem selectItemForTestingOrg = new SelectListItem();
+                selectItemForTestingOrg.Text = itemForTestingOrg.Name;
+                selectItemForTestingOrg.Value = itemForTestingOrg.Id.ToString() + ":" + itemForTestingOrg.Name;
+                if (listForTestingOrg.IndexOf(itemForTestingOrg) == 0) selectItemForTestingOrg.Selected = true;
+                itemsForTestingOrg.Add(selectItemForTestingOrg);
+            }
+            this.ViewData["TestingOrg"] = itemsForTestingOrg;
             return View();
         }
         public ActionResult DeleteProducts()

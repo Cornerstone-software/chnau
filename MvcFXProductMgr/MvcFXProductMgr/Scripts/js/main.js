@@ -1,4 +1,6 @@
 ﻿$(function () {
+    //给dropdownlist增加css
+    $('select').addClass("txt");
     //左侧菜单栏效果控制
     $(".leftMenu-list-header").click(function (e) {
         if ($(this).parent().siblings().hasClass("hover")) {
@@ -70,10 +72,10 @@
     ///验证产品查询条件
     $("form.prodQuery").submit(function () {
 
-        if ($("#TxtCompany").val()) {
-            $("#TxtCompany").parents("dl").children(".errMsg").hide();
+        if ($("#Company").val()) {
+            $("#Company").parents("dl").children(".errMsg").hide();
         } else {
-            $("#TxtCompany").parents("dl").children(".errMsg").show();
+            $("#Company").parents("dl").children(".errMsg").show();
             return false;
         }
 

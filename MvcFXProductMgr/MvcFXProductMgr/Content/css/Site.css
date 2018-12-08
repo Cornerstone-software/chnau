@@ -522,8 +522,7 @@ div.btn-function
     white-space: normal;
     word-break: break-word;
 }
-/*.cinfo .btnQuery {
-    position: absolute;
-    top: 25%;
-    left: 45%;
-}*/
+.back
+{
+    padding: 10px 0;
+}
