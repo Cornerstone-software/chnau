@@ -12,48 +12,52 @@
      <p>如下红色标注的记录已存在，请仔细核对。</p>
         <div class="table prodInfo">
             <dl class="tableHeader">
-                <dt class="firstColumn">产品名称</dt>
-                <dt class="secondColumn">产品重量</dt>
-                <dt class="thirdColumn">条码号</dt>
-                <dt class="forthColumn">证书编号</dt>
-                <dt class="fifthColumn">企业标准</dt>
-                <dt class="sixthColumn">公司名称</dt>
-                <dt class="seventhColumn">检测机构</dt>
-                <dt class="lastColumn"></dt>
+                <dt class="firstCol numCol">序号</dt>
+                <dt class="nameCol">产品名称</dt>
+                <dt class="weightCol">产品重量</dt>
+                <dt class="barCol">条码号</dt>
+                <dt class="cernumCol">证书编号</dt>
+                <dt class="standardCol">企业标准</dt>
+                <dt class="cNameCol">公司名称</dt>
+                <dt class="tNameCol">检测机构</dt>
+                <dt class="delCol lastCol "></dt>
                 <dt class="hide">公司ID</dt>
                 <dt class="hide">检测机构ID</dt>
                 <dt class="hide">产品类别</dt>
-                 <dt class="hide">执行标准</dt>
+                <dt class="hide">执行标准</dt>
             </dl>
                 @foreach (var item in Model.ProductList)
                 {
                     if (item.Exist == 1)
                     {
-                         <dl class="tableBody redColor">
-                          <dd class="firstColumn editor"><input name="Name" type="text" value='@item.Name'/></dd>
-                            <dd class="secondColumn editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
-                            <dd class="thirdColumn editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
-                            <dd class="forthColumn editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
-                            <dd class="fifthColumn editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
-                            <dd  class="sixthColumn editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
-                            <dd class="seventhColumn editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
-                            <dd class="lastColumn btnDel">删除</dd>
+                        <dl class="tableBody redColor">
+                            <dd class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dd>
+                            <dd class="nameCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                            <dd class="standardCol editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                            <dd  class="cNameCol editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                            <dd class="tNameCol editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                            <dd class="delCol lastCol btnDel">删除</dd>
                             <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
                             <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                             <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
                             <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
                         </dl>
-                     }else
+                    }
+                    else
                     { 
                         <dl class="tableBody">
-                          <dd class="firstColumn editor"><input name="Name" type="text" value='@item.Name'/></dd>
-                            <dd class="secondColumn editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
-                            <dd class="thirdColumn editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
-                            <dd class="forthColumn editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
-                            <dd class="fifthColumn editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
-                            <dd  class="sixthColumn editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
-                            <dd class="seventhColumn editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
-                            <dd class="lastColumn btnDel">删除</dd>
+                            <dd class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dd>
+                            <dd class="nametCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                            <dd class="standardCol editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                            <dd  class="cNameCol editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                            <dd class="tNameCol editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                            <dd class="delCol lastCol btnDel">删除</dd>
                             <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
                             <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                             <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
@@ -63,7 +67,7 @@
                 }  
                 <div class="btn-function">
                     <input class="button" name="btnSave" value="保存" type="submit" />
-                    <a href="\Product\AddProducts"><input class="button" name="btnCancel" type="button" value="取消" /> </a>
+                    <a href=@Url.Action("AddProducts","Product")><input class="button" name="btnCancel" type="button" value="取消" /> </a>
                 </div> 
          </div>
     </form>
@@ -78,25 +82,27 @@ else
    </div>
     <div class="table prodInfo">
         <dl class="tableHeader">
-            <dt class="firstColumn">产品名称</dt>
-            <dt class="secondColumn">产品重量</dt>
-            <dt class="thirdColumn">条码号</dt>
-            <dt class="forthColumn">证书编号</dt>
-            <dt class="fifthColumn">企业标准</dt>
-            <dt class="sixthColumn">公司名称</dt>
-            <dt class="lastColumn">检测机构</dt>
+                <dt class="firstCol numCol">序号</dt>
+                <dt class="nameCol">产品名称</dt>
+                <dt class="weightCol">产品重量</dt>
+                <dt class="barCol">条码号</dt>
+                <dt class="cernumCol">证书编号</dt>
+                <dt class="standardCol">企业标准</dt>
+                <dt class="cNameCol">公司名称</dt>
+                <dt class="tNameCol lastCol">检测机构</dt>
         </dl>
         @foreach (var item in Model.ProductList)
         {
         <dl class="tableBody prodDetail">
-            <dd class="firstColumn editor name">@item.Name</dd>
-            <dd class="secondColumn editor">@item.Weight</dd>
-            <dd class="thirdColumn editor">@item.Barcode</dd>
-            <dd class="forthColumn editor cerNum">@item.CerNum</dd>             
-            <dd class="fifthColumn editor">@item.Standard</dd>
-            <dd  class="sixthColumn editor">@item.CName</dd>
-            <dd class="lastColumn editor">@item.TName</dd>
-             <dd class="hide"><input name="Id" type="hidden" value="@item.Id" /></dd>
+            <dt class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dt>
+            <dd class="nameCol editor">@item.Name</dd>
+            <dd class="weightCol editor">@item.Weight</dd>
+            <dd class="barCol editor">@item.Barcode</dd>
+            <dd class="cernumCol editor ">@item.CerNum</dd>             
+            <dd class="standardCol editor">@item.Standard</dd>
+            <dd  class="cNameCol editor">@item.CName</dd>
+            <dd class="tNameCol lastCol editor">@item.TName</dd>
+            <dd class="hide"><input name="Id" type="hidden" value="@item.Id" /></dd>
         </dl>
         }  
     </div>

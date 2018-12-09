@@ -113,5 +113,5 @@ insert  into `u_info_table`(`U_Id`,`U_Name`,`U_Password`,`U_Status`,`U_Date`) va
 
 (1,'admin','admin','N','0000-00-00 00:00:00'),
 
-(3,'sa','111111','N','2018-11-27 02:01:00'),
+(3,'sa','111111','N','2018-11-27 02:01:00')
 
