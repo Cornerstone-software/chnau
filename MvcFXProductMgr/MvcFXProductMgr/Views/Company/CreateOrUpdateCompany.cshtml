@@ -1,31 +1,32 @@
-﻿<div class="companyInfo">
+﻿@model MvcFXProductMgr.Models.AddCompanyModel
+<div class="companyInfo">
     <h2>@ViewBag.Title</h2>
-    <form action="/Company/CreateNewCompany" method="post">
+    <form action="/Company/AddCompany" method="post">
         <dl>
             <dt>公司名称：</dt>
             <dd>
-                <textarea rows="2" cols="25" type="text" id="TxtCName" name="Name" class="txtarea"></textarea>
+                <textarea rows="2" cols="25" type="text" id="TxtCName" name="CompanyName" class="txtarea"></textarea>
                 <span class="errMsg">公司名称为空，请重新输入。</span>
             </dd>
         </dl>
          <dl>
             <dt>公司地址：</dt>
             <dd>
-                <textarea rows="2" cols="25" type="text" id="TxtCAddress" name="Address" class="txtarea"></textarea>
+                <textarea rows="2" cols="25" type="text" id="TxtCAddress" name="CompanyAddress" class="txtarea"></textarea>
                 <span class="errMsg">公司地址为空，请重新输入。</span>
             </dd>
         </dl>
         <dl>
             <dt>公司网址：</dt>
             <dd>
-                <textarea rows="2" cols="25" type="text" id="TxtCUrl" name="Url" class="txtarea"></textarea>
+                <textarea rows="2" cols="25" type="text" id="TxtCUrl" name="CompanyUrl" class="txtarea"></textarea>
                 <span class="errMsg">公司网址为空，请重新输入。</span>
             </dd>
         </dl>
         <dl>
             <dt>公司电话：</dt>
             <dd>
-                <input  type="text" id="TxtCTel" name="Tel" class="txtTel" />
+                <input  type="text" id="TxtCTel" name="CompanyTel" class="txtTel" />
                 <span class="errMsg">公司电话为空，请重新输入。</span>
             </dd>
         </dl>
