@@ -7,7 +7,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-
 using MySql.Data.MySqlClient;
 namespace MvcFXProductMgr.Models
 {
@@ -172,7 +171,7 @@ namespace MvcFXProductMgr.Models
         {
             if (String.IsNullOrEmpty(userName)) throw new ArgumentException("值不能为 null 或为空。", "userName");
 
-            FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);
+           FormsAuthentication.SetAuthCookie(userName, createPersistentCookie);      
         }
 
         public void SignOut()

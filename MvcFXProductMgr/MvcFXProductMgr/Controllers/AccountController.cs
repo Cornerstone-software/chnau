@@ -54,6 +54,20 @@ namespace MvcFXProductMgr.Controllers
                 if (MembershipService.ValidateUser(model.UserName, model.Password))
                 {
                     FormsService.SignIn(model.UserName, model.RememberMe);
+                    //增加登录日志
+                    LogModel logModel = new LogModel();
+                    logModel.Name = model.UserName;
+                    logModel.Date = DateTime.Now;
+                    logModel.Content = "LogOn";
+                    try
+                    {
+                        logModel.AddLog(logModel);
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "登录日志创建失败");
+                    }
+                    
                     if (Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);

@@ -98,7 +98,7 @@ input[type="text"]:focus
 {
     height: 50px;
     font-size: 14px;
-    padding: 6px 20px;
+    padding: 6px 38px;
     background: #566180;
 
 }
@@ -116,15 +116,17 @@ input[type="text"]:focus
     list-style: none;   
     display: inline-block;
 }
-#header .logo,#header-right li a {
+#header .logo,#header-right li,#header .logo,#header-right li a {
     font-size: 20px;
-    color: #fff;
-    padding: 0px 18px;
+    color: #fff;    
     text-decoration: none;
     line-height: 32px;
     display: inline-block;
 }
-
+#header-right li
+{
+    padding-left:18px;
+}
 #header-right li a:hover{
     color: #a8b4cf;
 
@@ -205,6 +207,11 @@ input[type="text"]:focus
     font-size:16px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.user-info span,.product-list-title span
+{
+    color:#dd4e42;
+    padding: 0px 10px;
 }
 .product-list dd
 {

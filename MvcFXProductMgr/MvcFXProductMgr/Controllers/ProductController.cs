@@ -24,8 +24,6 @@ namespace MvcFXProductMgr.Controllers
                 ProductModel model= new ProductModel();
                 model = model.GetProduct(cerNum, barcode);
                 return View(model);
-            
-            
         }
         public ActionResult GetProducts()
         {
