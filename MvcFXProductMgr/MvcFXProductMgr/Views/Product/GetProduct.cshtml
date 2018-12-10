@@ -3,14 +3,14 @@
 @model ProductModel
 
 @{
-    Layout = "~/Views/Shared/_MLayout.cshtml"; ;
+    Layout = "~/Views/Shared/_MLayout.cshtml"; 
     ViewBag.Title = "产品详情";
 }
 @{
     ViewBag.Title = "GetProduct";
 }
 
-<h2><img src=@Url.Content("../../Content/images/Logo-large.png") /></h2>
+<h2><img src=@ViewData["ImgPath"] /></h2>
 
 <div class="detail">
     <dl>

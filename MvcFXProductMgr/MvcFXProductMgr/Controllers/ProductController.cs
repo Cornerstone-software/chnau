@@ -21,9 +21,17 @@ namespace MvcFXProductMgr.Controllers
         public ActionResult GetProduct(string cerNum, string barcode)
         {
 
-                ProductModel model= new ProductModel();
-                model = model.GetProduct(cerNum, barcode);
-                return View(model);
+            ProductModel model= new ProductModel();
+            model = model.GetProduct(cerNum, barcode);
+            //设置logo Image的名称
+            string strBrandImgPath = "../../Content/images/";
+            if (model.CName.Contains("中国黄金"))
+                strBrandImgPath += "LogoForChinaGold.png";
+            else if (model.CName.Contains("日月明牌"))
+                strBrandImgPath += "LogoForMP.png";
+            else strBrandImgPath += "Logo-large.png";
+            ViewData["ImgPath"] = strBrandImgPath;
+            return View(model);
         }
         public ActionResult GetProducts()
         {
