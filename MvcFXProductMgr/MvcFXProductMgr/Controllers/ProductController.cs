@@ -31,6 +31,11 @@ namespace MvcFXProductMgr.Controllers
             CompanyModel modelForCompany = new CompanyModel();
             List<SelectListItem> itemsForCompany = new List<SelectListItem>();
             List<CompanyModel> clist = modelForCompany.GetAllCompanys();
+            //增加“全部公司/所有公司”到公司信息列表
+            SelectListItem selectItemAForCompany = new SelectListItem();
+            selectItemAForCompany.Text = "---全部公司/所有公司---";
+            selectItemAForCompany.Value = "0" + ":" + "全部公司/所有公司";
+            itemsForCompany.Add(selectItemAForCompany);
             foreach (CompanyModel citem in clist)
             {
                 SelectListItem selectItemForCompany = new SelectListItem();
@@ -64,6 +69,7 @@ namespace MvcFXProductMgr.Controllers
             CompanyModel modelForCompany = new CompanyModel();
             List<SelectListItem> itemsForCompany = new List<SelectListItem>();
             List<CompanyModel> clist = modelForCompany.GetAllCompanys();
+            //增加数据库设定的公司信息
             foreach(CompanyModel citem in clist){
                 SelectListItem selectItemForCompany = new SelectListItem();
                 selectItemForCompany.Text = citem.Name;
