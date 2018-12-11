@@ -71,6 +71,10 @@ namespace MvcFXProductMgr.Controllers
             List<ProductModel> list = model.GetProductsBy(strcategory,iCId,strStartDate,strEndDate);
             return View(list);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult AddProducts()
         {
             //公司列表下拉框信息
@@ -106,23 +110,125 @@ namespace MvcFXProductMgr.Controllers
         {
             return View();
         }
-        public ActionResult ChangeProducts()
+        /// <summary>
+        /// 显示已更改的信息
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult UpdateProducts(List<ProductModel> model)
+        {
+            return View(model);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult UpdateProducts()
         {
             return View();
         }
+        /// <summary>
+        /// 显示要更改的产品列表
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult GetProductsForUpdate(FormCollection collection)
+        {
+            string strName = collection["Name"].ToString();
+            string strWeight = collection["Weight"].ToString();
+            string strCerNum = collection["CerNum"].ToString();
+            string strBarcode = collection["Barcode"].ToString();
+            string strPrice = collection["Price"].ToString();
+            string strStandard = collection["Standard"].ToString();
+            string strCId = collection["CId"].ToString();
+            string strCName = collection["CName"].ToString();
+            string strTId = collection["TId"].ToString();
+            string strTName = collection["TName"].ToString();
+            string strCategory = collection["Category"].ToString();
 
+            string[] arrName = strName.Split(',');
+            string[] arrWeight = strWeight.Split(',');
+
+            string[] arrCerNum = strCerNum.Split(',');
+            string[] arrBarcode = strBarcode.Split(',');
+
+            string[] arrPrice = strPrice.Split(',');
+            string[] arrStandard = strStandard.Split(',');
+            string[] arrCId = strCId.Split(',');
+            string[] arrCName = strCName.Split(',');
+            string[] arrTId = strTId.Split(',');
+            string[] arrTName = strTName.Split(',');
+            string[] arrCategory = strCategory.Split(',');
+            /////////////创建DataTable////////////////
+            DataTable dt = new DataTable();
+            //创建DataTable Columns
+            DataColumn dcName = new DataColumn("Name", typeof(string));
+            DataColumn dcWeight = new DataColumn("Weight", typeof(string));
+            DataColumn dcCerNum = new DataColumn("CerNum", typeof(string));
+            DataColumn dcBarcode = new DataColumn("Barcode", typeof(string));
+            DataColumn dcPrice = new DataColumn("Price", typeof(string));
+            DataColumn dcStandard = new DataColumn("Standard", typeof(string));
+            DataColumn dCId = new DataColumn("CId", typeof(string));
+            DataColumn dcCName = new DataColumn("CName", typeof(string));
+            DataColumn dcTId = new DataColumn("TId", typeof(string));
+            DataColumn dcTName = new DataColumn("TName", typeof(string));
+            DataColumn dcCategory = new DataColumn("Category", typeof(string));
+            dt.Columns.Add(dcName);
+            dt.Columns.Add(dcWeight);
+            dt.Columns.Add(dcCerNum);
+            dt.Columns.Add(dcBarcode);
+            dt.Columns.Add(dcPrice);
+            dt.Columns.Add(dcStandard);
+            dt.Columns.Add(dCId);
+            dt.Columns.Add(dcCName);
+            dt.Columns.Add(dcTId);
+            dt.Columns.Add(dcTName);
+            dt.Columns.Add(dcCategory);
+            //创建DataTable Rows
+            for (int i = 0; i < arrName.Length; i++)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Name"] = arrName[i];
+                dr["Weight"] = arrWeight[i];
+                dr["CerNum"] = arrCerNum[i];
+                dr["Barcode"] = arrBarcode[i];
+                dr["Price"] = arrPrice[i];
+                dr["Standard"] = arrStandard[i];
+                dr["CId"] = arrCId[i];
+                dr["CName"] = arrCName[i];
+                dr["TId"] = arrTId[i];
+                dr["TName"] = arrTName[i];
+                dr["Category"] = arrCategory[i];
+                dt.Rows.Add(dr);
+            }
+            List<ProductModel> list = ConvertHelper<ProductModel>.DataTableToList(dt);
+            return View(list);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public ActionResult Upload(List<ProductModel> list) {
             return View(list);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost] 
         public ActionResult Upload()
             
         {
-
             string strFileName = "";
             string strSeverDataPath = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/");
-            string strSaveFileName = "";
+            if(!Directory.Exists(strSeverDataPath))//判断路径是否存在
+            {
+                Directory.CreateDirectory(strSeverDataPath);
+            }
+            string strSaveFilePath = "";
 
             HttpPostedFileBase uploadfile = Request.Files[0];
             string strCompany = Request["Company"];
@@ -139,21 +245,18 @@ namespace MvcFXProductMgr.Controllers
             //处理特殊字符，以免和SaveProducts的Form数据冲突
             strStandard = strStandard.Replace(',', ':');
             string strCategory = Request["Category"];
-
-
-
             Stream st = null;
             if (uploadfile != null && uploadfile.ContentLength > 0)
             {
                 ///先保存上传的文件到server,begining
                 strFileName = uploadfile.FileName;
                 st = uploadfile.InputStream;
-                strSaveFileName = strSeverDataPath + strFileName;
-                uploadfile.SaveAs(strSaveFileName);
+                strSaveFilePath = Path.Combine(strSeverDataPath,strFileName);
+                uploadfile.SaveAs(strSaveFilePath);
                 
                 ///先保存上传的文件到server,ending
 
-                ExcelHelper excelobj = new ExcelHelper(strSaveFileName);
+                ExcelHelper excelobj = new ExcelHelper(strSaveFilePath);
                 try 
                 {
                     DataTable dt = excelobj.GetDataTable("sheet1", true);

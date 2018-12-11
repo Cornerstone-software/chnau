@@ -82,8 +82,6 @@
         currentText: '现在',
         closeText: '完成',
         showSecond: true, //显示秒  
-        
-
         timeFormat: 'HH:mm:ss'
     });
     ///////////////////////////////////////////////////////
