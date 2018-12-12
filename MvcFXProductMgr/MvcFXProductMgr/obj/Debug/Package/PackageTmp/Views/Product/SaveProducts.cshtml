@@ -1,0 +1,112 @@
+﻿@using MvcFXProductMgr.ViewModels;
+@model ProductSuccessViewModel
+ 
+@{
+    ViewBag.Title = "Upload";
+}
+
+@if (Model.UploadNum < 1)
+{
+    <form action=@Url.Action("SaveProducts", "Product") method="post">
+     <h2>待保存产品</h2>
+     <p>如下红色标注的记录已存在，请仔细核对。</p>
+        <div class="table prodInfo">
+            <dl class="tableHeader">
+                <dt class="firstCol numCol">序号</dt>
+                <dt class="nameCol">产品名称</dt>
+                <dt class="weightCol">产品重量</dt>
+                <dt class="barCol">条码号</dt>
+                <dt class="cernumCol">证书编号</dt>
+                <dt class="standardCol">企业标准</dt>
+                <dt class="cNameCol">公司名称</dt>
+                <dt class="tNameCol">检测机构</dt>
+                <dt class="delCol lastCol "></dt>
+                <dt class="hide">公司ID</dt>
+                <dt class="hide">检测机构ID</dt>
+                <dt class="hide">产品类别</dt>
+                <dt class="hide">执行标准</dt>
+            </dl>
+                @foreach (var item in Model.ProductList)
+                {
+                    if (item.Exist == 1)
+                    {
+                        <dl class="tableBody redColor">
+                            <dd class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dd>
+                            <dd class="nameCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                            <dd class="standardCol editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                            <dd  class="cNameCol editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                            <dd class="tNameCol editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                            <dd class="delCol lastCol btnDel">删除</dd>
+                            <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
+                            <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
+                            <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
+                            <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                        </dl>
+                    }
+                    else
+                    { 
+                        <dl class="tableBody">
+                            <dd class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dd>
+                            <dd class="nametCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                            <dd class="standardCol editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                            <dd  class="cNameCol editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                            <dd class="tNameCol editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                            <dd class="delCol lastCol btnDel">删除</dd>
+                            <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
+                            <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
+                            <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
+                            <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                        </dl>                  
+                    }
+                }  
+                <div class="btn-function">
+                    <input class="button" name="btnSave" value="保存" type="submit" />
+                    <a href=@Url.Action("AddProducts","Product")><input class="button" name="btnCancel" type="button" value="取消" /> </a>
+                </div> 
+         </div>
+    </form>
+}
+else
+{    
+    <h2>已成功保存的信息详情如下：</h2>
+    <div class="prodCount">
+        <p>数据上传时间为:@Model.UploadDateTime</p>
+        <p>数据上传人员为:@Model.UploadUserName</p>
+        <p>数据上传数量为：@Model.UploadNum</p>
+   </div>
+    <div class="table prodInfo">
+        <dl class="tableHeader">
+                <dt class="firstCol numCol">序号</dt>
+                <dt class="nameCol">产品名称</dt>
+                <dt class="weightCol">产品重量</dt>
+                <dt class="barCol">条码号</dt>
+                <dt class="cernumCol">证书编号</dt>
+                <dt class="standardCol">企业标准</dt>
+                <dt class="cNameCol">公司名称</dt>
+                <dt class="tNameCol lastCol">检测机构</dt>
+        </dl>
+        @foreach (var item in Model.ProductList)
+        {
+        <dl class="tableBody prodDetail">
+            <dt class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dt>
+            <dd class="nameCol editor">@item.Name</dd>
+            <dd class="weightCol editor">@item.Weight</dd>
+            <dd class="barCol editor">@item.Barcode</dd>
+            <dd class="cernumCol editor ">@item.CerNum</dd>             
+            <dd class="standardCol editor">@item.Standard</dd>
+            <dd  class="cNameCol editor">@item.CName</dd>
+            <dd class="tNameCol lastCol editor">@item.TName</dd>
+            <dd class="hide"><input name="Id" type="hidden" value="@item.Id" /></dd>
+        </dl>
+        }  
+    </div>
+    <div class="back">@Html.ActionLink("返回批量上传", "AddProducts", "Product")</div>
+       
+       
+}

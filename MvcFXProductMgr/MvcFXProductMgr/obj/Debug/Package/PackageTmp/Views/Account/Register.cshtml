@@ -1,0 +1,35 @@
+﻿@model MvcFXProductMgr.Models.RegisterModel
+@{
+    ViewBag.Title = "增加新用户";
+}
+
+<h2>增加新用户</h2>
+@using (Html.BeginForm()) {
+     @Html.ValidationSummary(true, "帐户创建不成功。请更正错误并重试。")
+    <div>
+        <div class="editor-label">
+           <label>用户名：</label>
+        </div>
+        <div class="editor-field">
+            <input name="UserName" type="text" class="acctxt" />
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+        <div class="editor-label">
+           <label>密 码：</label>
+        </div>
+        <div class="editor-field">
+            <input name="Password" type="password" class="acctxt"/>
+        </div>
+        <div class="editor-label">
+           <label>确认密码：</label>
+        </div>
+        <div class="editor-field">
+            <input name="ConfirmPassword" type="password" class="acctxt"/>
+             @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </div>
+        <div>
+            <input  name="btnSave" class="button" type="submit" value="保存"/>
+             <input  name="btnCancel" class="button" type="button" value="取消" />
+        </div>
+    </div>
+}

@@ -1,0 +1,26 @@
+﻿@using System.Data;
+@model DataTable
+<h2></h2>
+<div class="user-info">
+                      欢迎<span class="user-info-name">@ViewData["user"]</span>,您是本在线查询系统的<span class="user-info-role">@ViewData["role"]</span>,您上次登录时间:<span class="user-info-logintime">@ViewData["ltime"]</span>
+                    </div>
+                    <div class="product-list">
+                        <div class="product-list-title">截止今日:<span>@DateTime.Now.Year</span>年<span>@DateTime.Now.Month</span> 月(本月)</div>
+                        <div>
+                            @if (Model.Rows.Count > 0)
+                            {
+                            <dl>
+                               @foreach(DataRow dr in Model.Rows)
+                               {
+                                <dd><span>@dr["category"]</span>：<span>@dr["productSum"]</span>件，共计<span>@dr["weightSum"]</span>克</dd>
+                               }
+                            </dl>
+                            }
+                            else {
+                            <dl> 
+                                <dd>没有销售记录</dd>
+                            </dl>
+                                
+                            }
+                        </div>
+                    </div>

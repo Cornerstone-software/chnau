@@ -1,0 +1,55 @@
+﻿@using MvcFXProductMgr.Models;
+@model List<ProductModel>
+ 
+@{
+    ViewBag.Title = "更改产品信息";
+}
+
+@if (Model.Count > 0)
+{
+    <form action=@Url.Action("UpdateProducts", "Product") method="post">
+     <h2>更改如下产品信息</h2>
+     
+        <div class="table prodInfo">
+            <dl class="tableHeader">
+                <dt class="firstCol numCol">序号</dt>
+                <dt class="nameCol">产品名称</dt>
+                <dt class="weightCol">产品重量</dt>
+                <dt class="barCol">条码号</dt>
+                <dt class="cernumCol">证书编号</dt>
+                <dt class="standardCol">企业标准</dt>
+                <dt class="cNameCol">公司名称</dt>
+                <dt class="tNameCol">检测机构</dt>
+                <dt class="delCol lastCol "></dt>
+                <dt class="hide">公司ID</dt>
+                <dt class="hide">检测机构ID</dt>
+                <dt class="hide">产品类别</dt>
+                <dt class="hide">执行标准</dt>
+            </dl>
+                @foreach (var item in Model)
+                {
+                     
+                        <dl class="tableBody">
+                            <dd class="firstCol numCol">@HelpMath.sum(Model.IndexOf(item), 1)</dd>
+                            <dd class="nametCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                            <dd class="standardCol editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                            <dd  class="cNameCol editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
+                            <dd class="tNameCol editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
+                            <dd class="delCol lastCol btnDel">删除</dd>
+                            <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd>
+                            <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
+                            <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
+                            <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
+                            <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                        </dl>                  
+                }
+                <div class="btn-function">
+                    <input class="btn btnSave" name="Save" value="保存" type="submit" />
+                    <a href=@Url.Action("GetProducts","Product")><input class="btn btnCancel" name="Cancel" type="button" value="取消" /> </a>
+                </div> 
+         </div>
+    </form>
+}

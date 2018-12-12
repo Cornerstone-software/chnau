@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        @Html.Partial("_headPartial")
+        <title>@ViewBag.Title</title>
+    </head>
+
+<body>
+   
+     <div id="container" class="ofh">
+            <div id="header">
+                <a class="logo" href="/"><img src=@Url.Content("../Content/images/Logo.png") /></a>
+                <div id="header-right">
+                    @Html.Partial("_LogOnPartial")
+                </div>
+            </div>
+            <div id="wrap" class="cl">
+                 @Html.Partial("_LeftMenuPartial")
+                <div id="content">
+                 @RenderBody()
+                    
+                </div>
+            </div>
+            <div id="footer"></div>     
+    </div>
+</body>
+</html>

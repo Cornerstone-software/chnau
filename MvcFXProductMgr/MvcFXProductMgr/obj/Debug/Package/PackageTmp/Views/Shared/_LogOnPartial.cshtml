@@ -1,0 +1,9 @@
+﻿<ul>
+@if(Request.IsAuthenticated) {
+   <li>@User.Identity.Name</li>
+   <li> @Html.ActionLink("退出", "LogOff", "Account") </li> 
+}
+else {
+    <li> @Html.ActionLink("登录", "LogOn", "Account") </li> 
+}
+</ul>

@@ -1,0 +1,45 @@
+﻿@using MvcFXProductMgr.ViewModels;
+@model ProductSuccessViewModel
+
+
+@{
+    ViewBag.Title = "Save Products Success";
+}
+
+    <h2>成功保存的新产品信息如下：</h2>
+    @if (Model.UploadNum > 0)
+    {
+    <div class="prodCount">
+        <p>数据上传时间为:@Model.UploadDateTime</p>
+        <p>数据上传人员为:@Model.UploadUserName</p>
+        <p>数据上传数量为：@Model.UploadNum</p>
+   </div>
+    }
+    <div class="table sprodInfo">
+        <dl class="tableHeader">
+            <dt class="firstCol">产品名称</dt>
+            <dt class="weightCol">产品重量</dt>
+            <dt class="barCol">条码号</dt>
+            <dt class="cernumCol">证书编号</dt>
+            <dt class="standardCol">企业标准</dt>
+            <dt class="cNameCol">公司名称</dt>
+            <dt class="tNameCol lastCol">检测机构</dt>
+        </dl>
+            @foreach (var item in Model.ProductList)
+            {
+            <dl class="tableBody">
+                <dd class="firstCol editor">@item.Name</dd>
+                <dd class="weightCol editor">@item.Weight</dd>
+                <dd class="barCol editor">@item.Barcode</dd>
+                <dd class="cernumCol editor">@item.CerNum</dd>             
+                <dd class="standardCol editor">@item.Standard</dd>
+                <dd  class="cNameCol editor">@item.CName</dd>
+                <dd class="tNameCol lastCol editor">@item.TName</dd>
+            </dl>
+            }  
+        </div>
+         @if (Model.UploadNum > 0)
+         {
+        <div class="back">@Html.ActionLink("返回批量上传", "AddProducts", "Product")</div>
+         }
+
