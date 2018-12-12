@@ -8,7 +8,7 @@
 
 @if (Model.Count > 0)
 {
-    <form action=@Url.Action("SaveProducts", "Product") method="post">
+    <form action=@Url.Action("GetProductsForUpdate", "Product") method="post">
      <h2>产品信息列表</h2>
         <div class="table prodInfo">
             <dl class="tableHeader">
@@ -37,13 +37,24 @@
                     <dd class="standardCol editor">@item.Standard</dd>
                     <dd  class="cNameCol editor">@item.CName</dd>
                     <dd class="tNameCol lastCol editor">@item.TName</dd>
+                    <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd>
+                    <dd class="hide"><input name="Name" type="text" value='@item.Name'/></dd>
+                    <dd class="hide"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                    <dd class="hide"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                    <dd class="hide"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
+                    <dd class="hide"><input name="Standard" type="text" value='@item.Standard' /></dd>
+                    <dd class="hide"><input name="CName" type="text" value='@item.CName' /></dd>
+                    <dd class="hide"><input name="TName" type="text" value='@item.TName' /></dd>
                     <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
                     <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                     <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
                     <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
-                </dl>
-                    
+                </dl>                  
                 }  
+         </div>
+          <div class="">
+            <input class="btn btnSave" name="Save" value="修改" type="submit" />
+            <input class="btn btnDel" name="Delete" type="button" value="删除" />                
          </div>
     </form>
 }
