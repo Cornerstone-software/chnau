@@ -21,6 +21,13 @@ ul, ol {
 a {
 	text-decoration: none;
 }
+a:visited{
+    text-decoration: none;
+}
+a:link{
+    text-decoration: none;
+}
+
 
 img {
 	border: 0;
@@ -503,22 +510,48 @@ div.btn-function
     color:#fff;
     cursor:pointer;
 }
+
+/***************************²úÆ·ÏêÇéÏÔÊ¾Ò³CSS*********************************/
 /*Mobile css*/
 #container.mobile
 {
-    max-width:320px;
+    max-width:100%;
+    margin-left:30px;
     
 }
-.mobile h2
+.plogo
 {
     text-align:center;
 }
-.detail{display:table;font-size: 11px;}
+.pdetail{
+    margin-top:10px;
+    background-color:White;
+    width:100%;
+    font-size:14px;
+    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
+}
+
+.advertment
+{
+    margin-top:10px;
+    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
+    font-size:14px;
+    }
+/**********************************************************************/    
+
+.detail{
+    display:table;
+    background-color:White;
+    width:100%;
+    font-size:14px;
+    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
+}
 .detail dl {
     margin: 0;
     padding: 2px 0;
 }
-.detail dt, .detail dd {
+.detail dt, .detail dd 
+{
     display: table-cell;
 }
 .detail dt {
@@ -529,6 +562,12 @@ div.btn-function
     white-space: normal;
     word-break: break-word;
 }
+.advertment
+{
+    margin-top:10px;
+    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
+    font-size:14px;
+    }
 .back
 {
     padding: 10px 0;
