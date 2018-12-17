@@ -21,6 +21,13 @@ ul, ol {
 a {
 	text-decoration: none;
 }
+a:visited{
+    text-decoration: none;
+}
+a:link{
+    text-decoration: none;
+}
+
 
 img {
 	border: 0;
@@ -503,32 +510,38 @@ div.btn-function
     color:#fff;
     cursor:pointer;
 }
+
+/***************************产品详情显示页CSS*********************************/
 /*Mobile css*/
 #container.mobile
 {
-    max-width:320px;
+    max-width:100%;
+    width:100%;
+    padding:10px 30px;
+    background-color:#fff;  
+    font-family:'Microsoft YaHei';  
+    font-size:14px;
     
 }
-.mobile h2
+#container.mobile .plogo
 {
     text-align:center;
 }
-.detail{display:table;font-size: 11px;}
-.detail dl {
-    margin: 0;
-    padding: 2px 0;
+#container.mobile .pdetail{
+    padding-top:10px;    
+    width:100%;    
 }
-.detail dt, .detail dd {
-    display: table-cell;
+
+#container.mobile .advertment
+{
+    padding-top:10px;
 }
-.detail dt {
-    white-space: nowrap;
+ #barCodeCanvas {
+    padding-left: 15px;
 }
-.detail dd {
-    overflow: hidden;
-    white-space: normal;
-    word-break: break-word;
-}
+/**********************************************************************/    
+
+
 .back
 {
     padding: 10px 0;

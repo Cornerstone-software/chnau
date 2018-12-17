@@ -181,6 +181,7 @@
     <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\js\bootstrap.js" />
     <Content Include="Scripts\js\bootstrap.min.js" />
+    <Content Include="Scripts\js\jquery-barcode.js" />
     <Content Include="Scripts\js\jquery-ui-sliderAccess.js" />
     <Content Include="Scripts\js\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\js\jquery-ui.js" />

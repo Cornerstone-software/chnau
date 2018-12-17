@@ -157,6 +157,8 @@
             $(this).parents("dl").children(".errMsg").show();
         }
     });
+
+    generateBarcode();
 });
 //时间比较
 function compareTime(btime, etime) {
@@ -258,4 +260,32 @@ function compareDate(bDate, eDate, limit) {
 
                 });
  });
- //////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//generate barcode
+function generateBarcode() {
+    var value = $("#barCode").val();
+    var btype = "code128";
+    var renderer = "css";
+    
+    var quietZone = false;
+    var bgColor="#FFFFFF";
+    var color="#000000";
+    var barWidth='1';
+    var barHeight="40";
+    var moduleSize="5";
+    var posX="10";
+    var posY="20";
+    var settings = {
+        output: renderer,
+        bgColor: bgColor,
+        color: color,
+        barWidth: barWidth,
+        barHeight: barHeight,
+        moduleSize: moduleSize,
+        posX: posX,
+        posY: posY,
+        addQuietZone: quietZone
+    };
+   
+        $("#barcodeTarget").html("").show().barcode(value, btype, settings);
+}

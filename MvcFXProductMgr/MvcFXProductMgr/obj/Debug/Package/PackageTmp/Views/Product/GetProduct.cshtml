@@ -1,71 +1,59 @@
 ﻿
 @using MvcFXProductMgr.Models;
 @model ProductModel
-
 @{
-    Layout = "~/Views/Shared/_MLayout.cshtml"; 
-    ViewBag.Title = "产品详情";
-}
-@{
-    ViewBag.Title = "GetProduct";
+    Layout = "~/Views/Shared/_MLayout.cshtml";
+    ViewBag.Title = "单品信息";
 }
 
-<h2><img src=@ViewData["ImgPath"] /></h2>
-
-<div class="detail">
-    <dl>
-        <dt>产品名称：</dt>
-        <dd>@Model.Name</dd>
-    </dl>
-    <dl>
-        <dt>产品重量：</dt>
-        <dd>@Model.Weight 克</dd>
-    </dl>
-    <dl>
-        <dt>条码：</dt>
-        <dd>@Model.Barcode</dd>
-    </dl>
-    <dl>
-        <dt>证书编号：</dt>
-        <dd>@Model.CerNum</dd>
-    </dl>
-    <dl>
-        <dt>含金量：</dt>
-        <dd>999‰</dd>
-    </dl>
-    <dl>
-        <dt>企业标准：</dt>
-        <dd>@Model.Standard</dd>
-    </dl>
-    <dl>
-        <dt>公司名称：</dt>
-        <dd>@Model.CName</dd>
-    </dl>
-    <dl>
-        <dt>公司地址：</dt>
-        <dd>@Model.CAddress</dd>
-    </dl>
-    <dl>
-        <dt>客服电话：</dt>
-        <dd>@Model.CTel</dd>
-    </dl>
-    <dl>
-        <dt>公司网址:</dt>
-        <dd>@Model.CUrl</dd>
-    </dl>
-    <dl>
-        <dt>检测机构：</dt>
-        <dd>@Model.TName</dd>
-    </dl>
-    <dl>
-        <dt>检测网址：</dt>
-        <dd>@Model.TUrl</dd>
-    </dl>
-    <dl>
-        <dt>电话：</dt>
-        <dd>@Model.TTel</dd>
-    </dl>
-
+<div class="plogo"><img src=@ViewData["ImgPath"] /></div>
+<div class="pdetail">
+    <div>
+        产品名称：@Model.Name
+    </div>
+    <div>
+        产品重量：@Model.Weight 克
+    </div>
+    <div>
+        条码：@Model.Barcode
+    </div>
+    <div>
+        证书编号：@Model.CerNum
+    </div>
+    <div>
+        含金量：999‰
+    </div>
+    <div>
+        企业标准：@Model.Standard
+    </div>
+    <div>
+        公司名称：@Model.CName
+    </div>
+    <div>
+        公司地址：@Model.CAddress
+    </div>
+    <div>
+        客服电话：@Model.CTel
+    </div>
+    <div>
+        公司网址：@Model.CUrl
+    </div>
+    <div>
+        检测机构：@Model.TName
+    </div>
+    <div>
+    <a href="@Model.TUrl">检测网址：@Model.TUrl
+    </a>
+    </div>
+    <div>电话：@Model.TTel</div>
+    <div id="barCodeCanvas">
+        <input id="barCode" value="@Model.Barcode" type="hidden"/>
+        <div id="barcodeTarget" class="barcodeTarget"></div>
+    </div>
+   
 
 </div>
 
+<div class="advertment">
+        <a href="http://www.chnau99999.com/Emoji.html">中国黄金Emoji系列新品重磅上市！<br>http://www.chnau99999.com/Emoji.html</a>
+    </div>

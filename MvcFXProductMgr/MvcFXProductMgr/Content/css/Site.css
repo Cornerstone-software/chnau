@@ -516,58 +516,32 @@ div.btn-function
 #container.mobile
 {
     max-width:100%;
-    margin-left:30px;
+    width:100%;
+    padding:10px 30px;
+    background-color:#fff;  
+    font-family:'Microsoft YaHei';  
+    font-size:14px;
     
 }
-.plogo
+#container.mobile .plogo
 {
     text-align:center;
 }
-.pdetail{
-    margin-top:10px;
-    background-color:White;
-    width:100%;
-    font-size:14px;
-    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
+#container.mobile .pdetail{
+    padding-top:10px;    
+    width:100%;    
 }
 
-.advertment
+#container.mobile .advertment
 {
-    margin-top:10px;
-    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
-    font-size:14px;
-    }
+    padding-top:10px;
+}
+ #barCodeCanvas {
+    padding-left: 10px;
+}
 /**********************************************************************/    
 
-.detail{
-    display:table;
-    background-color:White;
-    width:100%;
-    font-size:14px;
-    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
-}
-.detail dl {
-    margin: 0;
-    padding: 2px 0;
-}
-.detail dt, .detail dd 
-{
-    display: table-cell;
-}
-.detail dt {
-    white-space: nowrap;
-}
-.detail dd {
-    overflow: hidden;
-    white-space: normal;
-    word-break: break-word;
-}
-.advertment
-{
-    margin-top:10px;
-    font-family:'Î¢ÈíÑÅºÚ','Microsoft YaHei UI';
-    font-size:14px;
-    }
+
 .back
 {
     padding: 10px 0;

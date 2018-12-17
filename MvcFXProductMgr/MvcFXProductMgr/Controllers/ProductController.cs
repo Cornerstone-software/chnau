@@ -12,12 +12,16 @@ using System.Diagnostics;
 using MySql.Data.MySqlClient;
 using MvcFXProductMgr.Models;
 using MvcFXProductMgr.ViewModels;
-
 namespace MvcFXProductMgr.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: /Product/
+       /// <summary>
+        /// 获取指定产品的详细信息
+       /// </summary>
+       /// <param name="cerNum"></param>
+       /// <param name="barcode"></param>
+       /// <returns></returns>
         public ActionResult GetProduct(string cerNum, string barcode)
         {
 
@@ -33,6 +37,10 @@ namespace MvcFXProductMgr.Controllers
             ViewData["ImgPath"] = strBrandImgPath;
             return View(model);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult GetProducts()
         {
             //公司列表下拉框信息
@@ -55,7 +63,11 @@ namespace MvcFXProductMgr.Controllers
             this.ViewData["Company"] = itemsForCompany;
             return View();
         }
-
+        /// <summary>
+        /// 按照查询条件获取产品信息
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult GetProductsBy(FormCollection collection)
         {
@@ -72,7 +84,7 @@ namespace MvcFXProductMgr.Controllers
             return View(list);
         }
         /// <summary>
-        /// 
+        /// 批量上传界面信息设置
         /// </summary>
         /// <returns></returns>
         public ActionResult AddProducts()
@@ -106,10 +118,15 @@ namespace MvcFXProductMgr.Controllers
             this.ViewData["TestingOrg"] = itemsForTestingOrg;
             return View();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult DeleteProducts()
         {
             return View();
         }
+        #region
         /// <summary>
         /// 显示已更改的信息
         /// </summary>
@@ -206,6 +223,7 @@ namespace MvcFXProductMgr.Controllers
             List<ProductModel> list = ConvertHelper<ProductModel>.DataTableToList(dt);
             return View(list);
         }
+        #endregion
         /// <summary>
         /// 
         /// </summary>
@@ -472,10 +490,7 @@ namespace MvcFXProductMgr.Controllers
 
           
           }
-          public ActionResult SaveProductsSuccess()
-          {
+
          
-              return View();
-          }
     }
 }

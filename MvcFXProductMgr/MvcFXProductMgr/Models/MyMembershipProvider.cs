@@ -239,11 +239,9 @@ namespace MvcFXProductMgr.Models
         }
 
         public override bool ValidateUser(string username, string password)
-        {
-            
+        {           
             try
             {
-
                 string str_mysql = "SELECT * FROM u_info_table where U_Name=\'" + username + "\' and U_Password=\'" + password
 
                 + '\'';

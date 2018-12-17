@@ -36,7 +36,7 @@
         客服电话：@Model.CTel
     </div>
     <div>
-        公司网址:@Model.CUrl
+        公司网址：@Model.CUrl
     </div>
     <div>
         检测机构：@Model.TName
@@ -46,6 +46,12 @@
     </a>
     </div>
     <div>电话：@Model.TTel</div>
+    <div id="barCodeCanvas">
+        <input id="barCode" value="@Model.Barcode" type="hidden"/>
+        <div id="barcodeTarget" class="barcodeTarget"></div>
+    </div>
+   
+
 </div>
 
 <div class="advertment">
