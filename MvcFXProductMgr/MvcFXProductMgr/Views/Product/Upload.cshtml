@@ -30,7 +30,7 @@
                 @foreach (var item in Model)
                 {
                 <dl class="tableBody">
-                    <dt class="firstCol numCol">@HelpMath.sum(Model.IndexOf(item),1)</dt>
+                    <dt class="firstCol numCol">@HelpMath.sum(Model.IndexOf(item), 1)</dt>
                     <dd class="nameCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
                     <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
                     <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
@@ -43,12 +43,23 @@
                     <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                     <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
                     <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                    @if (item.Category.Contains("钻石"))
+                    {
+                    <dd class="hide"><input name="MainStone" type="hidden" value="@item.MainStone" /></dd>
+                    <dd class="hide"><input name="MainStoneCarats" type="hidden" value="@item.MainStoneCarats" /></dd>
+                    <dd class="hide"> <input name="MainStoneClarity" type="hidden" value="@item.MainStoneClarity" /></dd>
+                    <dd class="hide"><input name="MainStoneColor" type="hidden" value="@item.MainStoneColor" /></dd>
+                    <dd class="hide"><input name="Size" type="hidden" value="@item.Size" /></dd>         
+                    }
+                    else { 
+                        <dd class="hide"><input name="TenorInGold" type="hidden" value="@item.TenorInGold" /></dd>
+                    }                 
                 </dl>
                     
                 }  
                 <div class="btn-function">
                     <input class="button" name="btnSave" value="保存" type="submit" />
-                    <a href="\Product\AddProducts"><input class="button" name="btnCancel" type="button" value="取消" /> </a>
+                    <a href=@Url.Action("AddProducts", "Product")><input class="button" name="btnCancel" type="button" value="取消" /> </a>
                 </div> 
          </div>
     </form>

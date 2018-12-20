@@ -294,15 +294,68 @@ namespace MvcFXProductMgr.Controllers
                         }
                         else
                         {
-                            if (colName == "证书编号") dc.ColumnName = "CerNum";
-                            else if (colName == "条码号") dc.ColumnName = "Barcode";
-                            else if (colName == "品名") dc.ColumnName = "Name";
-                            else if (colName == "重量") dc.ColumnName = "Weight";
-                            else if (colName == "售价") dc.ColumnName = "Price";
-                            else//Excel格式不正确，阻止用户进一步操作
+                            if (strCategory.Contains("钻石"))
                             {
-                                return RedirectToAction("AddProducts", "Product");
+                                switch (colName)
+                                {
+                                    case "证书编号":
+                                        dc.ColumnName = "CerNum";
+                                        break;
+                                    case "条码号":
+                                        dc.ColumnName = "Barcode";
+                                        break;
+                                    case "品名":
+                                        dc.ColumnName = "Name";
+                                        break;
+                                    case "重量":
+                                        dc.ColumnName = "Weight";
+                                        break;
+                                    case "售价":
+                                        dc.ColumnName = "Price";
+                                        break;
+                                    case "主石":
+                                        dc.ColumnName = "MainStone";
+                                        break;
+                                    case "主石重量":
+                                        dc.ColumnName = "MainStoneCarats";
+                                        break;
+                                    case "主石净度":
+                                        dc.ColumnName = "MainStoneClarity";
+                                        break;
+                                    case "主石颜色":
+                                        dc.ColumnName = "MainStoneColor";
+                                        break;
+                                    case "尺寸":
+                                        dc.ColumnName = "Size";
+                                        break;
+                                    default:
+                                        return RedirectToAction("AddProducts", "Product");
+                                }
                             }
+                            else
+                            {
+                                switch (colName)
+                                {
+                                    case "证书编号":
+                                        dc.ColumnName = "CerNum";
+                                        break;
+                                    case "条码号":
+                                        dc.ColumnName = "Barcode";
+                                        break;
+                                    case "品名":
+                                        dc.ColumnName = "Name";
+                                        break;
+                                    case "重量":
+                                        dc.ColumnName = "Weight";
+                                        break;
+                                    case "售价":
+                                        dc.ColumnName = "Price";
+                                        break;
+                                    default:
+                                        return RedirectToAction("AddProducts", "Product");
+                                }
+                            }
+                          
                         }
                     }
 
@@ -329,6 +382,21 @@ namespace MvcFXProductMgr.Controllers
                     dcStandard.DefaultValue = strStandard;
                     newdt.Columns.Add(dcStandard);
 
+                    if(!strCategory.Contains("钻石")){
+                        int iTennorInGold = 999;
+                        if (strCategory.Contains("Au750"))
+                        {
+                            iTennorInGold = 750;
+                        }
+                        else if (strCategory.Contains("Au916"))
+                        {
+                            iTennorInGold = 916;
+                        }
+
+                        DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(string));
+                        dcTenorInGold.DefaultValue = iTennorInGold;
+                        newdt.Columns.Add(dcTenorInGold);
+                    }
                     List<ProductModel> list = new List<ProductModel>();
                     list = ConvertHelper<ProductModel>.DataTableToList(newdt);
                     return View(list);
@@ -376,7 +444,14 @@ namespace MvcFXProductMgr.Controllers
                   string strTId = Request["TId"].ToString();
                   string strTName = Request["TName"].ToString();
                   string strCategory = Request["Category"].ToString();
-                  
+
+                  string strMainStone = "";
+                  string strMainStoneCarats = "";
+                  string strMainStoneClarity = "";
+                  string strMainStoneColor = "";
+                  string strSize = "";
+                  string strTenorInGold = "";
+
                   string[] arrName = strName.Split(',');
                   string[] arrWeight = strWeight.Split(',');
 
@@ -390,6 +465,22 @@ namespace MvcFXProductMgr.Controllers
                   string[] arrTId = strTId.Split(',');
                   string[] arrTName = strTName.Split(',');
                   string[] arrCategory = strCategory.Split(',');
+                  if (strCategory.Contains("钻石"))
+                  {
+                      strMainStone = Request["MainStone"];
+                      strMainStoneCarats = Request["MainStoneCarats"];
+                      strMainStoneClarity = Request["MainStoneClarity"];
+                      strMainStoneColor = Request["MainStoneColor"];
+                      strSize = Request["Size"];
+                  }else{
+                      strTenorInGold = Request["TenorInGold"];
+                  }
+                  string[] arrMainStone = strMainStone.Split(',');
+                  string[] arrMainStoneCarats = strMainStoneCarats.Split(',');
+                  string[] arrMainStoneClarity = strMainStoneClarity.Split(',');
+                  string[] arrMainStoneColor = strMainStoneColor.Split(',');
+                  string[] arrSize = strSize.Split(',');
+                  string[] arrTenorInGold = strTenorInGold.Split(',');
                   //创建DataTable
                   DataTable dt = new DataTable();
                   DataColumn dcName = new DataColumn("Name", typeof(string));
@@ -415,6 +506,24 @@ namespace MvcFXProductMgr.Controllers
                   dt.Columns.Add(dcTId);
                   dt.Columns.Add(dcTName);
                   dt.Columns.Add(dcCategory);
+                  if (strCategory.Contains("钻石"))
+                  {
+                      DataColumn dcMainStone = new DataColumn("MainStone", typeof(string));
+                      dt.Columns.Add(dcMainStone);
+                      DataColumn dcMainStoneCarats = new DataColumn("MainStoneCarats", typeof(string));
+                      dt.Columns.Add(dcMainStoneCarats);
+                      DataColumn dcMainStoneClarity = new DataColumn("MainStoneClarity", typeof(string));
+                      dt.Columns.Add(dcMainStoneClarity);
+                      DataColumn dcMainStoneColor = new DataColumn("MainStoneColor", typeof(string));
+                      dt.Columns.Add(dcMainStoneColor);
+                      DataColumn dcSize = new DataColumn("Size", typeof(string));
+                      dt.Columns.Add(dcSize);
+                  }
+                  else
+                  {
+                      DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(string));
+                      dt.Columns.Add(dcTenorInGold);
+                  }
                   dt.Columns.Add(dcExist);
                   //创建已存在记录表
                  // DataTable dtExist = dt.Clone();
@@ -434,6 +543,16 @@ namespace MvcFXProductMgr.Controllers
                       dr["TId"] = arrTId[i] ?? "";
                       dr["TName"] = arrTName[i] ?? "";
                       dr["Category"] = arrCategory[i] ?? "";
+                      if (arrCategory[i].Contains("钻石"))
+                      {
+                          dr["MainStone"] = arrMainStone[i] ?? "";
+                          dr["MainStoneCarats"] = arrMainStoneCarats[i] ?? "";
+                          dr["MainStoneClarity"] = arrMainStoneClarity[i] ?? "";
+                          dr["MainStoneColor"] = arrMainStoneColor[i] ?? "";
+                          dr["Size"] = arrSize[i] ?? "";
+                      }else{
+                          dr["TenorInGold"] = arrTenorInGold[i] ?? "";
+                      }
                       dr["Exist"] = 0;
                       dt.Rows.Add(dr);
                       //判断数据是否已存在
@@ -444,21 +563,47 @@ namespace MvcFXProductMgr.Controllers
                       {
                           dt.Rows[i]["Exist"]=1;
                       }
-                  }
+                  } 
                   if (dt.Select("Exist=1").Length< 1)
                   {
-                      string strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId)";
-                      MySqlParameter[] commadparameters = {
-                          new MySqlParameter("@Name",MySqlDbType.VarChar,100,"Name"),
-                          new MySqlParameter("@Weight",MySqlDbType.Float,100,"Weight"),
-                          new MySqlParameter("@CerNum",MySqlDbType.VarChar,100,"CerNum"),
-                          new MySqlParameter("@Barcode",MySqlDbType.VarChar,100,"Barcode"),
-                          new MySqlParameter("@Price",MySqlDbType.Int32,100,"Price"),
-                          new MySqlParameter("@Standard",MySqlDbType.VarChar,100,"Standard"),
-                          new MySqlParameter("@Category",MySqlDbType.VarChar,100,"Category"),
-                          new MySqlParameter("@CId",MySqlDbType.Int32,100,"CId"),
-                          new MySqlParameter("@TId",MySqlDbType.Int32,100,"TId")
-                          };
+                      string strCommandText="";
+                    
+                      List<MySqlParameter> paramList = new List<MySqlParameter>();
+                      paramList.Add(new MySqlParameter("@Name", MySqlDbType.VarChar, 100, "Name"));
+                      paramList.Add(new MySqlParameter("@Weight", MySqlDbType.Float, 100, "Weight"));
+                      paramList.Add(new MySqlParameter("@CerNum", MySqlDbType.VarChar, 100, "CerNum"));
+                      paramList.Add(new MySqlParameter("@Barcode", MySqlDbType.VarChar, 100, "Barcode"));
+                      paramList.Add(new MySqlParameter("@Price", MySqlDbType.Int32, 100, "Price"));
+                      paramList.Add(new MySqlParameter("@Standard", MySqlDbType.VarChar, 100, "Standard"));
+                      paramList.Add(new MySqlParameter("@Category", MySqlDbType.VarChar, 100, "Category"));
+                      paramList.Add(new MySqlParameter("@CId", MySqlDbType.Int32, 100, "CId"));
+                      paramList.Add(new MySqlParameter("@TId", MySqlDbType.Int32, 100, "TId"));
+                      if(strCategory.Contains("钻石")){
+                          strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_MainStone,P_MainStoneCarats,P_MainStoneClarity,P_MainStoneColor,P_Size) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@MainStone,@MainStoneCarats,@MainStoneClarity,@MainStoneColor,@Size)";
+                          paramList.Add(new MySqlParameter("@MainStone", MySqlDbType.VarChar, 100, "MainStone"));
+                          paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.VarChar, 100, "MainStoneCarats"));
+                          paramList.Add(new MySqlParameter("@MainStoneClarity", MySqlDbType.VarChar, 100, "MainStoneClarity"));
+                          paramList.Add(new MySqlParameter("@MainStoneColor", MySqlDbType.VarChar, 100, "MainStoneColor"));
+                          paramList.Add(new MySqlParameter("@Size", MySqlDbType.Int32, 100, "Size"));
+                      }else{
+                          strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_TenorInGold) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@TenorInGold)";
+                          paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
+                           
+                           
+                          // MySqlParameter[] commadparameters = {
+                          //new MySqlParameter("@Name",MySqlDbType.VarChar,100,"Name"),
+                          //new MySqlParameter("@Weight",MySqlDbType.Float,100,"Weight"),
+                          //new MySqlParameter("@CerNum",MySqlDbType.VarChar,100,"CerNum"),
+                          //new MySqlParameter("@Barcode",MySqlDbType.VarChar,100,"Barcode"),
+                          //new MySqlParameter("@Price",MySqlDbType.Int32,100,"Price"),
+                          //new MySqlParameter("@Standard",MySqlDbType.VarChar,100,"Standard"),
+                          //new MySqlParameter("@Category",MySqlDbType.VarChar,100,"Category"),
+                          //new MySqlParameter("@CId",MySqlDbType.Int32,100,"CId"),
+                          //new MySqlParameter("@TId",MySqlDbType.Int32,100,"TId")
+                          //};
+                      }
+                     
+                      MySqlParameter[] commadparameters = paramList.ToArray();
                           //插入数据库
                           try
                           {

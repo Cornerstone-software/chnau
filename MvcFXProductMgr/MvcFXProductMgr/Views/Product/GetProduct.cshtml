@@ -14,18 +14,43 @@
     <div>
         产品重量：@Model.Weight 克
     </div>
+
     <div>
         条码：@Model.Barcode
     </div>
+    @if (Model.Category.Contains("钻石"))
+    {
+        <div> 主石：@Model.MainStone</div>
+        <div> 主石重量：@Model.MainStoneCarats</div>
+        <div> 主石净度：@Model.MainStoneClarity</div>
+        <div> 主石颜色：@Model.MainStoneColor</div>
+    }
     <div>
         证书编号：@Model.CerNum
     </div>
-    <div>
-        含金量：999‰
-    </div>
+    @if (Model.Category.Contains("钻石"))
+    {
+        <div> 尺寸：@Model.Size</div>
+    }
+    else if (Model.Category.Contains("黄金"))
+    {  
+        <div> 含金量：@Model.TenorInGold ‰ </div>
+    }
+    else
+    {
+        <div> 备注：@Model.Remarks</div>
+    }
+ @if (Model.Category.Contains("黄金"))
+ {
     <div>
         企业标准：@Model.Standard
     </div>
+ }
+ else { 
+    <div>
+        执行标准：@Model.Standard
+    </div>
+ }
     <div>
         公司名称：@Model.CName
     </div>

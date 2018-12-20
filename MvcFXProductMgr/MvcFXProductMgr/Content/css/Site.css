@@ -546,3 +546,9 @@ div.btn-function
 {
     padding: 10px 0;
 }
+label
+{
+    margin-bottom: 0;
+    padding-left: 4px;
+    font-weight: normal; 
+}

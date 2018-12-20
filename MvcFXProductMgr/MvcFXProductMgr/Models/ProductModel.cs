@@ -21,6 +21,13 @@ namespace MvcFXProductMgr.Models
         public string Standard { set; get; }
         public string Category { set; get; }
 
+        public int TenorInGold { set; get; }
+        public string MainStone { set; get; }
+        public string MainStoneCarats { set; get; }
+        public string MainStoneClarity { set; get; }
+        public string MainStoneColor { set; get; }
+        public int Size { set; get; }
+
         public int CId { set; get; }
         public string CName { set; get; }
         public string CAddress { set; get; }
@@ -46,7 +53,7 @@ namespace MvcFXProductMgr.Models
         /// <returns></returns>
         public ProductModel GetProduct(string cer_num, string barcode)
         {
-            string strCommandText = "SELECT P_Id as Id,P_Name as Name ,P_Barcode as Barcode,P_CerNum as CerNum,P_Weight as Weight,P_Price as Price,P_Standard as Standard,P_Category as Category,P_CId as CId ,C_Name AS CName,C_Address as CAddress,C_Url as CUrl,C_Tel as CTel,P_TId as TId,T_Name AS TName,T_Url as TUrl,T_Tel as TTel,P_Date as Date FROM p_info_table,t_info_table,c_info_table WHERE P_CId=C_Id AND P_TId=T_Id ";
+            string strCommandText = "SELECT P_Id as Id,P_Name as Name ,P_Barcode as Barcode,P_CerNum as CerNum,P_Weight as Weight,P_Price as Price,P_Standard as Standard,P_Category as Category,P_CId as CId ,C_Name AS CName,C_Address as CAddress,C_Url as CUrl,C_Tel as CTel,P_TId as TId,T_Name AS TName,T_Url as TUrl,T_Tel as TTel,P_Date as Date,P_MainStone as MainStone,P_MainStoneCarats as MainStoneCarats,P_MainStoneClarity as MainStoneClarity,P_MainStoneColor as MainStoneColor,P_Size as Size,P_TenorInGold as TenorInGold FROM p_info_table,t_info_table,c_info_table WHERE P_CId=C_Id AND P_TId=T_Id ";
             strCommandText += "AND P_CerNum='" + cer_num + "'AND P_Barcode='" + barcode + "'";
             try
             {
@@ -70,6 +77,21 @@ namespace MvcFXProductMgr.Models
                     model.TName = dt.Rows[0]["TName"].ToString();
                     model.TTel = dt.Rows[0]["TTel"].ToString();
                     model.TUrl = dt.Rows[0]["TUrl"].ToString();
+                    model.Category = dt.Rows[0]["Category"].ToString();
+                    if (dt.Rows[0]["Category"].ToString().Contains("钻石")) {
+                        model.MainStone = dt.Rows[0]["MainStone"].ToString();
+                        model.MainStoneCarats = dt.Rows[0]["MainStoneCarats"].ToString();
+                        model.MainStoneClarity = dt.Rows[0]["MainStoneClarity"].ToString();
+                        model.MainStoneColor = dt.Rows[0]["MainStoneColor"].ToString();
+                        model.Size = Int32.Parse(dt.Rows[0]["Size"].ToString());
+                    }
+                    else 
+                    { 
+                        model.TenorInGold = Int32.Parse(dt.Rows[0]["TenorInGold"].ToString()); 
+                    }
+                    
+                    
+
                 }
                 else {
                    
