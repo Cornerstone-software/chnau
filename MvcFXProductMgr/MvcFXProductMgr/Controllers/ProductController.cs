@@ -393,7 +393,7 @@ namespace MvcFXProductMgr.Controllers
                             iTennorInGold = 916;
                         }
 
-                        DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(string));
+                        DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(int));
                         dcTenorInGold.DefaultValue = iTennorInGold;
                         newdt.Columns.Add(dcTenorInGold);
                     }
@@ -563,6 +563,11 @@ namespace MvcFXProductMgr.Controllers
                       {
                           dt.Rows[i]["Exist"]=1;
                       }
+                      //若品名，条码号，证书编号为空，则不能保存
+                      if (dr["Name"].ToString().Length < 1 || dr["Barcode"].ToString().Length < 1 || dr["CerNum"].ToString().Length < 1)
+                      {
+                          dt.Rows[i]["Exist"] = 1;
+                      }
                   } 
                   if (dt.Select("Exist=1").Length< 1)
                   {
@@ -588,19 +593,6 @@ namespace MvcFXProductMgr.Controllers
                       }else{
                           strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_TenorInGold) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@TenorInGold)";
                           paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
-                           
-                           
-                          // MySqlParameter[] commadparameters = {
-                          //new MySqlParameter("@Name",MySqlDbType.VarChar,100,"Name"),
-                          //new MySqlParameter("@Weight",MySqlDbType.Float,100,"Weight"),
-                          //new MySqlParameter("@CerNum",MySqlDbType.VarChar,100,"CerNum"),
-                          //new MySqlParameter("@Barcode",MySqlDbType.VarChar,100,"Barcode"),
-                          //new MySqlParameter("@Price",MySqlDbType.Int32,100,"Price"),
-                          //new MySqlParameter("@Standard",MySqlDbType.VarChar,100,"Standard"),
-                          //new MySqlParameter("@Category",MySqlDbType.VarChar,100,"Category"),
-                          //new MySqlParameter("@CId",MySqlDbType.Int32,100,"CId"),
-                          //new MySqlParameter("@TId",MySqlDbType.Int32,100,"TId")
-                          //};
                       }
                      
                       MySqlParameter[] commadparameters = paramList.ToArray();

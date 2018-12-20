@@ -53,8 +53,28 @@ namespace MvcFXProductMgr.Models
                         object value = dr[tempName];
                         //转化datatable 列值的类型，使其与对象的属性的类型一致
                         if (pi.PropertyType.FullName == typeof(DateTime).FullName) value = DateTime.Parse(value.ToString());
-                        if (pi.PropertyType.FullName == typeof(Int32).FullName) value = Int32.Parse(value.ToString());
-                        if (pi.PropertyType.FullName == typeof(Single).FullName) value = Single.Parse(value.ToString());
+                        if (pi.PropertyType.FullName == typeof(Int32).FullName)
+                        {
+                            if (value == DBNull.Value) 
+                            { 
+                                value = Int32.Parse("0");
+                            }
+                            else
+                            {
+                                value = Int32.Parse(value.ToString());
+                            }                     
+                        }
+                        if (pi.PropertyType.FullName == typeof(Single).FullName)
+                        {
+                            if (value == DBNull.Value)
+                            {
+                                value = Single.Parse("0.00");
+                            }
+                            else
+                            {
+                                value = Single.Parse(value.ToString());
+                            }
+                        }
                         //如果非空，则赋给对象的属性
                         if (value != DBNull.Value)
                             pi.SetValue(t, value, null);
