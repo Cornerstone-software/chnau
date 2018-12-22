@@ -59,7 +59,7 @@ namespace MvcFXProductMgr.Models
             {
                 DataTable dt = MySQLHelper.GetDataTable(MySQLHelper.Conn, System.Data.CommandType.Text, strCommandText, null);
                 ProductModel model = new ProductModel();
-                if (dt.Rows.Count == 1)
+                if (dt.Rows.Count > 0)
                 {
                     model.Id = Int32.Parse(dt.Rows[0]["Id"].ToString());
                     model.Name = dt.Rows[0]["Name"].ToString();
@@ -89,9 +89,6 @@ namespace MvcFXProductMgr.Models
                     { 
                         model.TenorInGold = Int32.Parse(dt.Rows[0]["TenorInGold"].ToString()); 
                     }
-                    
-                    
-
                 }
                 else {
                    

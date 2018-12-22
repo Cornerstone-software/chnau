@@ -138,6 +138,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TestingOrgController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -255,6 +256,8 @@
     <Content Include="Views\Product\GetProductsBy.cshtml" />
     <Content Include="Views\Product\UpdateProducts.cshtml" />
     <Content Include="Views\Product\GetProductsForUpdate.cshtml" />
+    <Content Include="Views\TestingOrg\CreateOrUpdateTestingOrg.cshtml" />
+    <Content Include="Views\TestingOrg\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

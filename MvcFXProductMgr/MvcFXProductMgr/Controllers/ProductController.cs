@@ -278,12 +278,14 @@ namespace MvcFXProductMgr.Controllers
                 try 
                 {
                     DataTable dt = excelobj.GetDataTable("sheet1", true);
+
                     DataTable newdt = dt.Copy();
 
                     //修改列名,使Excel列名和Model属性一致
                     foreach (DataColumn dc in newdt.Columns)
                     {
                         string colName = dc.ColumnName;
+                        
                         if (colName.Contains('_'))
                         {
                             string[] strTemp = colName.Split('_');
