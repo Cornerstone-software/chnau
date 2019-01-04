@@ -9,7 +9,7 @@
 {
     <form action=@Url.Action("SaveProducts", "Product") method="post">
      <h2>待保存产品</h2>
-     <p>如下红色标注的记录已存在，请仔细核对。</p>
+     <p>如下红色标注的记录，已存在或数据不正确，请仔细核对。</p>
         <div class="table prodInfo">
             <dl class="tableHeader">
                 <dt class="firstCol numCol">序号</dt>
@@ -44,6 +44,17 @@
                             <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                             <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
                             <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                             @if (item.Category.Contains("钻石"))
+                            {
+                            <dd class="hide"><input name="MainStone" type="hidden" value="@item.MainStone" /></dd>
+                            <dd class="hide"><input name="MainStoneCarats" type="hidden" value="@item.MainStoneCarats" /></dd>
+                            <dd class="hide"> <input name="MainStoneClarity" type="hidden" value="@item.MainStoneClarity" /></dd>
+                            <dd class="hide"><input name="MainStoneColor" type="hidden" value="@item.MainStoneColor" /></dd>
+                            <dd class="hide"><input name="Size" type="hidden" value="@item.Size" /></dd>         
+                            }
+                            else { 
+                            <dd class="hide"><input name="TenorInGold" type="hidden" value="@item.TenorInGold" /></dd>
+                            }  
                         </dl>
                     }
                     else
@@ -62,6 +73,17 @@
                             <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                             <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
                             <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
+                            @if (item.Category.Contains("钻石"))
+                            {
+                            <dd class="hide"><input name="MainStone" type="hidden" value="@item.MainStone" /></dd>
+                            <dd class="hide"><input name="MainStoneCarats" type="hidden" value="@item.MainStoneCarats" /></dd>
+                            <dd class="hide"> <input name="MainStoneClarity" type="hidden" value="@item.MainStoneClarity" /></dd>
+                            <dd class="hide"><input name="MainStoneColor" type="hidden" value="@item.MainStoneColor" /></dd>
+                            <dd class="hide"><input name="Size" type="hidden" value="@item.Size" /></dd>         
+                            }
+                            else { 
+                            <dd class="hide"><input name="TenorInGold" type="hidden" value="@item.TenorInGold" /></dd>
+                            }  
                         </dl>                  
                     }
                 }  

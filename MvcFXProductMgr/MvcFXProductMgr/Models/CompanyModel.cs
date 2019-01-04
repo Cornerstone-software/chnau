@@ -8,14 +8,13 @@ namespace MvcFXProductMgr.Models
 {
     public class CompanyModel
     {
-        private int iNumberOfEntries = 1;
         [Key]
         public int Id { set; get; }
         public string Name { set; get; }
         public string Address { set; get; }
         public string Url { set; get; }
-        public int Tel { set; get; }
-        public int Status { set; get; }
+        public string Tel { set; get; }
+        public string Status { set; get; }
 
         /// <summary>
         /// 获取指定Id的公司信息
@@ -24,7 +23,52 @@ namespace MvcFXProductMgr.Models
         /// <returns>CompanyModel</returns>
         public CompanyModel GetCompany(int id)
         {
-            return new CompanyModel();
+            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName FROM c_info_table WHERE C_Status='N'";
+            strCommandText += " And C_Id='" + id.ToString() + "'";
+            CompanyModel objCompany = new CompanyModel();
+            try
+            {
+                DataTable dt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+                if (dt.Rows.Count > 0)
+                {
+                    objCompany.Id = id;
+                    objCompany.Name=dt.Rows[0]["CName"].ToString();
+                    objCompany.Address = dt.Rows[0]["Address"].ToString();
+                    objCompany.Url = dt.Rows[0]["CUrl"].ToString();
+                    objCompany.Tel = dt.Rows[0]["CTel"].ToString();
+                }
+                return objCompany;
+            }
+            catch(Exception ex){
+
+                throw new Exception(ex.Message);
+
+            }
+        }
+        public CompanyModel GetCompany(string name)
+        {
+            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName FROM c_info_table WHERE C_Status='N'";
+            strCommandText += " And C_Name='" + name + "'";
+            CompanyModel objCompany = new CompanyModel();
+            try
+            {
+                DataTable dt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+                if (dt.Rows.Count > 0)
+                {
+                    objCompany.Id = Int32.Parse(dt.Rows[0]["CId"].ToString());
+                    objCompany.Name = dt.Rows[0]["CName"].ToString();
+                    objCompany.Address = dt.Rows[0]["Address"].ToString();
+                    objCompany.Url = dt.Rows[0]["CUrl"].ToString();
+                    objCompany.Tel = dt.Rows[0]["CTel"].ToString();
+                }
+                return objCompany;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+
+            }
         }
         /// <summary>
         /// 获取所有的公司信息
@@ -32,7 +76,7 @@ namespace MvcFXProductMgr.Models
         /// <returns>List<CompanyModel></returns>
         public List<CompanyModel> GetAllCompanys()
         {
-            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName FROM c_info_table WHERE C_Status='N'";
+            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName FROM c_info_table WHERE C_Status in ('N','A')";
             List<CompanyModel> list =new List<CompanyModel>();
             try
             {
@@ -70,16 +114,24 @@ namespace MvcFXProductMgr.Models
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public CompanyModel AddCompany(CompanyModel item){
+        public bool AddCompany(CompanyModel item){
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            item.Id = iNumberOfEntries + 1;
-            //to do
-            return item;
-            //INSERT INTO c_info_table (C_Name,C_Address,C_Url,C_Tel) VALUES("福鑫珠宝城", "商都路和顺广场一楼", "www.fuxin.com.cn", 0379 - 67688888);
+           string strCommandText="INSERT INTO c_info_table (C_Name,C_Address,C_Url,C_Tel) VALUES(";
+           strCommandText+="\'"+item.Name+"\',";
+           strCommandText+="\'"+item.Address+"\',";
+           strCommandText+="\'"+item.Url+"\',";
+           strCommandText+="\'"+item.Tel+"\'";
+           strCommandText+=");";
+            try{
+                int iResult=MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn,CommandType.Text,strCommandText,null);
+                return true;
+            }catch(Exception ex){
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>

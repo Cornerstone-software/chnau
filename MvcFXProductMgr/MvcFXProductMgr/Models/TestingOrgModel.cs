@@ -1,24 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Data;
+
+
 namespace MvcFXProductMgr.Models
 {
     public class TestingOrgModel
     {
-       // private int iNumberOfEntries = 1;
         public int Id { set; get; }
+         [Required]
+        [Display(Name = "检测机构名称")]
         public string Name { set; get; }
         public string Url { set; get; }
-        public int Tel { set; get; }
+        public string Tel { set; get; }
         public string Status { set; get; }
 
         //Get:
         public TestingOrgModel GetTestingOrg(int id)
         {
+            string strCommandText = "SELECT T_Id AS TId,T_Name AS TName,T_Url AS TUrl,T_Tel AS TTel FROM t_info_table WHERE T_Status='N'";
+            strCommandText += " And T_Id='" + id.ToString() + "'";
             TestingOrgModel testingOrgObj = new TestingOrgModel();
-            return testingOrgObj;
+            try {
+                DataTable dt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+                if (dt.Rows.Count > 0)
+                {
+                    testingOrgObj.Id = id;
+                    testingOrgObj.Name = dt.Rows[0]["TName"].ToString();
+                    testingOrgObj.Url = dt.Rows[0]["TUrl"].ToString();
+                    testingOrgObj.Tel = dt.Rows[0]["TTel"].ToString();
+                }
+                return testingOrgObj;
+            }
+            catch(Exception ex){
+                throw new Exception(ex.Message);
+            }
+
+           
 
         }
         /// <summary>
@@ -63,14 +85,27 @@ namespace MvcFXProductMgr.Models
             }
         }
         //Add:
-        public TestingOrgModel AddTestingOrg(TestingOrgModel item)
+        public bool AddTestingOrg(TestingOrgModel item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
 
-            return item;
+            string strCommandText = "INSERT INTO t_info_table (T_Name,T_Url,T_Tel) VALUES(";
+            strCommandText += "\'" + item.Name + "\',";
+            strCommandText += "\'" + item.Url + "\',";
+            strCommandText += "\'" + item.Tel + "\'";
+            strCommandText += ");";
+            try
+            {
+                int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+                return bool.Parse(iResult.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Update

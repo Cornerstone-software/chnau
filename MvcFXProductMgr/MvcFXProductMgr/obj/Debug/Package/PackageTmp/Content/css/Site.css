@@ -52,7 +52,7 @@ h5 {
 	font-weight: normal;
 	font-size: 20px;
 }
-input[type="text"]:focus
+input[type="text"]:focus,textarea:focus
 {
     background-color:#ffffc8;
 }
@@ -328,7 +328,7 @@ div.btn-function
     padding: 8px 25px;
     border:1px solid #cdcdcd;
     border-radius:2px;
-    margin-top: 17px;
+    margin-top: 0;
 }
 .button:hover
 {
@@ -497,7 +497,7 @@ div.btn-function
 }
 .table .btn-function
 {
-    padding:0;
+    padding:30px 0 0;
 }
 .redColor input[type='text']
 {
@@ -537,7 +537,7 @@ div.btn-function
     padding-top:10px;
 }
  #barCodeCanvas {
-    padding-left: 15px;
+    padding-left: 10px;
 }
 /**********************************************************************/    
 
@@ -545,4 +545,10 @@ div.btn-function
 .back
 {
     padding: 10px 0;
+}
+label
+{
+    margin-bottom: 0;
+    padding-left: 4px;
+    font-weight: normal; 
 }

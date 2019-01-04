@@ -242,9 +242,7 @@ namespace MvcFXProductMgr.Models
         {           
             try
             {
-                string str_mysql = "SELECT * FROM u_info_table where U_Name=\'" + username + "\' and U_Password=\'" + password
-
-                + '\'';
+                string str_mysql = "SELECT * FROM u_info_table where U_Name=\'" + username + "\' and U_Password=\'" + password + '\'';
                 DataSet ds = MySQLHelper.GetDataSet(MySQLHelper.Conn, CommandType.Text, str_mysql, null);
                 if (ds.Tables[0].Rows.Count > 0)
                 {

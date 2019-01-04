@@ -142,7 +142,8 @@
             return false;
         }
     });
-
+    //////////////////////////////////////////////////////////////////////////////
+    //日期错误提示信息显示或隐藏
     $("#txtStartDate,#txtStartTime,#txtEndDate,#txtEndTime").blur(function () {
         if ($(this).val()) {
             $(this).parents("dl").children(".errMsg").hide();
@@ -150,6 +151,8 @@
             $(this).parents("dl").children(".errMsg").show();
         }
     });
+    ////////////////////////////////////////////////////////////////////////////
+    //日期错误提示信息显示或隐藏
     $("#txtStartDate,#txtStartTime,#txtEndDate,#txtEndTime").change(function () {
         if ($(this).val()) {
             $(this).parents("dl").children(".errMsg").hide();
@@ -157,21 +160,67 @@
             $(this).parents("dl").children(".errMsg").show();
         }
     });
-
+    ///////////////////////////////////////////////////////////////////////////
+    //生成条形码图片
     generateBarcode();
+    //////////////////////////////////////////////////////////////////////////
     //产品类别和执行标准的对应切换
     $('input[name="Category"]').click(function () {
-        if ($("input[name='Category']:checked").hasClass("DCategory")){
-                $(".GStandard").addClass("hide");
-                $(".DStandard").removeClass("hide");
-            } else {
-                $(".GStandard").removeClass("hide");
-                $(".DStandard").addClass("hide");
-            }
+        if ($("input[name='Category']:checked").hasClass("DCategory")) {
+            $(".GStandard").addClass("hide");
+            $(".DStandard").removeClass("hide");
+        } else {
+            $(".GStandard").removeClass("hide");
+            $(".DStandard").addClass("hide");
+        }
 
-        
+    });
+    //////////////////////////////////////////////////////////////////////////////
+    //更新公司信息时，验证
+    $(".CompanyInfo form").submit(function () {
+        var strName = $("#TxtCName").val();
+        if (strName != "") {
+            strName = trim(strName);
+        }
+
+        //公司名称不能为空
+        if (strName == null || strName.length < 1 || strName == "") {
+            $("#TxtCName").siblings(".errMsg").show();
+            return false;
+        }
+        else {
+            $("#TxtCName").siblings(".errMsg").hide();
+        }
+        //验证公司网址
+        var strUrl = trim($("#TxtCUrl").val());
+        if (strUrl.length > 0) {
+            if (isURL(strUrl) == true) {
+                $("#TxtCUrl").siblings(".errMsg").hide();
+            } else {
+                $("#TxtCUrl").siblings(".errMsg").show();
+                return false;
+            }
+        }
+        //验证电话号码
+        var strTel = trim($("#TxtCTel").val());
+        if (strTel.length > 0) {
+            if (checkTel(strTel) == true) {
+                $("#TxtCTel").siblings(".errMsg").hide();
+            } else {
+                $("#TxtCTel").siblings(".errMsg").show();
+                return false;
+            }
+        }
+    });
+    ////////////////////////////////////////////////////////////////////////////
+    //删除公司信息
+    $(".btn .deleteBtn").click(function () {
+        if (!confirm("确定要删除吗？")) {
+            return false;
+        }
     });
 });
+
 //时间比较
 function compareTime(btime, etime) {
     if (btime && etime) {
@@ -300,4 +349,39 @@ function generateBarcode() {
     };
    
         $("#barcodeTarget").html("").show().barcode(value, btype, settings);
-}
+    }
+    ////////////////////////////////////////////////////////////////////////////////
+    //去掉str前后的空格
+    function trim(str) {
+        return str.replace(/(^\s*)|(\s*$)/g, "");
+    }
+    ////////////////////////////////////////////////////////////////////////////////
+    //验证url格式是否正确
+     //varreg=/[0-9a-zA-z]+.(html|htm|shtml|jsp|asp|php|com|cn|net|com.cn|org)$/; 
+    //必须包含.(最后面一个.前面最少有一个字符)且.后面最少有一个单词字符，最后一个字符必须为单词字符或/    
+    function isURL(str) {
+       var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
+		+ "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" // ftp的user@
+		+ "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+		+ "|" // 允许IP和DOMAIN（域名）
+		+ "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+		+ "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+		+ "[a-z]{2,6})" // first level domain- .com or .museum
+		+ "(:[0-9]{1,4})?" // 端口- :80
+		+ "((/?)|" // a slash isn't required if there is no file name
+		+ "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+       var re = new RegExp(strRegex);
+       return re.test(str);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    //支持手机号码、含区号固定电话、不含区号固定电话
+    function checkTel(tel) {
+        var pattern = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/;
+        if (pattern.test(tel)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }

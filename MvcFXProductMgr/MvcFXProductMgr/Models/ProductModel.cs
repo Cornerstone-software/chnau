@@ -9,7 +9,6 @@ namespace MvcFXProductMgr.Models
 {
     public class ProductModel
     {
-        private int iNumberOfEntries = 1;
         [Key]
         public int Id { set; get; }
         public string Barcode { set; get; }
@@ -23,7 +22,7 @@ namespace MvcFXProductMgr.Models
 
         public int TenorInGold { set; get; }
         public string MainStone { set; get; }
-        public string MainStoneCarats { set; get; }
+        public float MainStoneCarats { set; get; }
         public string MainStoneClarity { set; get; }
         public string MainStoneColor { set; get; }
         public int Size { set; get; }
@@ -80,7 +79,7 @@ namespace MvcFXProductMgr.Models
                     model.Category = dt.Rows[0]["Category"].ToString();
                     if (dt.Rows[0]["Category"].ToString().Contains("钻石")) {
                         model.MainStone = dt.Rows[0]["MainStone"].ToString();
-                        model.MainStoneCarats = dt.Rows[0]["MainStoneCarats"].ToString();
+                        model.MainStoneCarats = Single.Parse(dt.Rows[0]["MainStoneCarats"].ToString());
                         model.MainStoneClarity = dt.Rows[0]["MainStoneClarity"].ToString();
                         model.MainStoneColor = dt.Rows[0]["MainStoneColor"].ToString();
                         model.Size = Int32.Parse(dt.Rows[0]["Size"].ToString());
@@ -156,7 +155,7 @@ namespace MvcFXProductMgr.Models
                 throw new ArgumentNullException("item");
             }
 
-            item.Id = iNumberOfEntries + 1;
+           
             //to do
             return item;
         }

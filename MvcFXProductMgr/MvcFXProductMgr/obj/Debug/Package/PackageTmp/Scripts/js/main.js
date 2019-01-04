@@ -68,13 +68,13 @@
         dayNames: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         dayNamesShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
         dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
-        changeYear:true,
-        changeMonth:true,
+        changeYear: true,
+        changeMonth: true,
         dateFormat: 'yy-mm-dd'
     });
     //设置时间点格式
     $("#txtStartTime,#txtEndTime").timepicker({
-        timeOnlyTitle:'选择时间',
+        timeOnlyTitle: '选择时间',
         timeText: '时间',
         hourText: '小时',
         minuteText: '分钟',
@@ -159,6 +159,18 @@
     });
 
     generateBarcode();
+    //产品类别和执行标准的对应切换
+    $('input[name="Category"]').click(function () {
+        if ($("input[name='Category']:checked").hasClass("DCategory")){
+                $(".GStandard").addClass("hide");
+                $(".DStandard").removeClass("hide");
+            } else {
+                $(".GStandard").removeClass("hide");
+                $(".DStandard").addClass("hide");
+            }
+
+        
+    });
 });
 //时间比较
 function compareTime(btime, etime) {

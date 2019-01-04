@@ -1,5 +1,5 @@
 ﻿              <div id="leftMenu">
-                    <div class="leftMenu-header"><a class="icon-home" href=@Url.Action("Index","Home")><i class="glyphicon glyphicon-home menu-icon"></i>管理中心</a></div>
+                    <div class="leftMenu-header"><a class="icon-home" href=@Url.Action("Index","Home") ><i class="glyphicon glyphicon-home menu-icon"></i>管理中心</a></div>
                     <div class="leftMenu-list">
                         <h3 class="leftMenu-list-header"><i class="glyphicon glyphicon-th-list menu-icon"></i>产品管理<i class="glyphicon glyphicon-menu-down menu-onOff
 "></i></h3>
@@ -24,7 +24,7 @@
                     <h3 class="leftMenu-list-header"><i class="glyphicon glyphicon-queen menu-icon"></i>公司信息管理<i class="glyphicon glyphicon-menu-down menu-onOff
 "></i></h3>
                     <ul>   
-                        <li><i class="glyphicon glyphicon-plus menu-icon"></i> @Html.ActionLink("增加公司信息", "AddCompany", "Company")</li>
+                        <li><i class="glyphicon glyphicon-plus menu-icon"></i> @Html.ActionLink("增加公司信息", "CreateNewCompany", "Company")</li>
                         <li><i class="glyphicon glyphicon-pencil menu-icon"></i>@Html.ActionLink("修改公司信息", "UpdateCompany", "Company")</li>
                         <li><i class="glyphicon glyphicon-remove menu-icon"></i>@Html.ActionLink("删除公司信息", "DeleteCompany", "Company")</li>
                     </ul>

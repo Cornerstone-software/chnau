@@ -27,26 +27,34 @@ namespace MvcFXProductMgr.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateNewTestingOrg(CompanyModel model)
+        public ActionResult CreateNewTestingOrg([Bind(Include = "Name,Url,Tel")]TestingOrgModel model)
         {
-            return View("CreateOrUpdateTestingOrg");
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// 
-        [HttpPost]
-        public ActionResult CreateNewTestingOrg(int id)
-        {
-            return View("CreateOrUpdateTestingOrg");
-        }
-  
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrEmpty(model.Name))
+                {
+                    ModelState.AddModelError("Name", "'Name'是必填字段");
+                }
+                else
+                {
+                    model.Status = "N";
+                    bool bRes = model.AddTestingOrg(model);
+                    if (bRes)
+                    {
+                        HttpContext.Response.Write("");
+                        
+                    }
+                }
 
-        public ActionResult UpdateTestingOrg()
+
+            }
+            return View("CreateOrUpdateTestingOrg");
+        }
+
+
+        public ActionResult UpdateTestingOrg(TestingOrgModel model)
         {
-            return View();
+            return View("CreateOrUpdateTestingOrg",model);
         }
         public ActionResult DeleteTestingOrg()
         {

@@ -1,6 +1,45 @@
-﻿@{
+﻿@using MvcFXProductMgr.Models;
+@model List<CompanyModel>
+@{
     ViewBag.Title = "公司信息管理";
 }
+@if (Model.Count > 0)
+{
+<h2>公司信息列表</h2>
+<form action=@Url.Action("SaveProducts", "Product") method="post">
+     <h2>待保存产品</h2>
+        <div class="table cinfo">
+            <dl class="tableHeader">
+                <dt class="firstCol numCol">序号</dt>
+                <dt class="nameCol">公司名称</dt>
+                <dt class="addressCol">公司地址</dt>
+                <dt class="urlCol">公司网址</dt>
+                <dt class="telCol">公司电话</dt>
+                <dt class="lastCol"></dt>                
+            </dl>
+                @foreach (var item in Model)
+                {
+                <dl class="tableBody">
+                    <dt class="firstCol numCol">@HelpMath.sum(Model.IndexOf(item), 1)</dt>
+                    <dd class="nameCol">@item.Name</dd>
+                    <dd class="addressCol">@item.Address</dd>
+                    <dd class="urlCol">@item.Url</dd>
+                    <dd class="telCol">@item.Tel</dd>             
+                    <dd class="lastCol btn">
+                    <span><a class="updateBtn" href=@Url.Content("/Company/UpdateCompany/?id="+item.Id.ToString())>修改</a></span>
+                    <span><a class="deleteBtn" href=@Url.Content("/Company/DeleteCompany/?id="+item.Id.ToString())>删除</a></span>
+                    </dd>         
+                </dl>
+                    
+                }  
 
-<h2>公司信息管理</h2>
 
+                
+         </div>
+    </form>
+}
+else { 
+    <div class="cinfo">没有要显示的数据记录</div>
+}
+
+<div class="back">@Html.ActionLink("返回", "Index", "Home")</div>

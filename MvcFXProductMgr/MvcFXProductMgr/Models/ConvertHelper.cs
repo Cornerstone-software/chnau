@@ -5,7 +5,7 @@ using System.Web;
 using System.Data;
 using System.Reflection;
 using System.Collections;
-
+using System.Text.RegularExpressions;
 namespace MvcFXProductMgr.Models
 {
     /// <summary>
@@ -52,7 +52,29 @@ namespace MvcFXProductMgr.Models
                         //取值
                         object value = dr[tempName];
                         //转化datatable 列值的类型，使其与对象的属性的类型一致
-                        if (pi.PropertyType.FullName == typeof(DateTime).FullName) value = DateTime.Parse(value.ToString());
+                        bool bRes = false;
+                        if (pi.PropertyType.FullName == typeof(DateTime).FullName)
+                        {
+                            if (value == DBNull.Value)
+                            {
+                                value = DateTime.Parse("1753-01-01 00:00:00");
+                            }
+                            else
+                            {
+                                DateTime outDateTime;
+                                bRes = DateTime.TryParse(value.ToString(), out outDateTime);
+                                if (bRes)
+                                {
+                                    value = result;
+                                }
+                                else
+                                {
+                                    value = DateTime.Parse("1753-01-01 00:00:00");
+                                }
+                                
+                            }
+                             
+                        }
                         if (pi.PropertyType.FullName == typeof(Int32).FullName)
                         {
                             if (value == DBNull.Value) 
@@ -61,7 +83,16 @@ namespace MvcFXProductMgr.Models
                             }
                             else
                             {
-                                value = Int32.Parse(value.ToString());
+                                int  outInt;
+                                bRes = int.TryParse(value.ToString(), out outInt);
+                                if (bRes)
+                                {
+                                    value = outInt;
+                                }  
+                                else
+                                {                                  
+                                    value = Int32.Parse("0");            
+                                }                              
                             }                     
                         }
                         if (pi.PropertyType.FullName == typeof(Single).FullName)
@@ -72,7 +103,17 @@ namespace MvcFXProductMgr.Models
                             }
                             else
                             {
-                                value = Single.Parse(value.ToString());
+
+                                Single outFloat;
+                                bRes = Single.TryParse(value.ToString(), out outFloat);
+                                if (bRes)
+                                {
+                                    value = outFloat;
+                                }
+                                else
+                                {
+                                    value = Single.Parse("0.00");
+                                }
                             }
                         }
                         //如果非空，则赋给对象的属性

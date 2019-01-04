@@ -21,14 +21,14 @@
     @if (Model.Category.Contains("钻石"))
     {
         <div> 主石：@Model.MainStone</div>
-        <div> 主石重量：@Model.MainStoneCarats</div>
+        <div> 主石重量：@Model.MainStoneCarats ct</div>
         <div> 主石净度：@Model.MainStoneClarity</div>
         <div> 主石颜色：@Model.MainStoneColor</div>
     }
     <div>
         证书编号：@Model.CerNum
     </div>
-    @if (Model.Category.Contains("钻石"))
+    @if (Model.Category.Contains("钻石") && Model.Size != 0)
     {
         <div> 尺寸：@Model.Size</div>
     }

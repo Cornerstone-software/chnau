@@ -117,8 +117,7 @@ namespace MvcFXProductMgr.Models
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write("<script language='javascript'>alert("+ex.Message+")</script>");
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 

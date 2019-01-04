@@ -2,6 +2,7 @@
     ViewBag.Title = "AddProducts";
     
 }
+<div>@Session["errMsg"]</div>
 <form  action='@Url.Action("Upload","Product")' method="post" enctype="multipart/form-data"> 
     <div class="file-box">
 

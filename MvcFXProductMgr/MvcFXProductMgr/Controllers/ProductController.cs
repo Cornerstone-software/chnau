@@ -25,10 +25,12 @@ namespace MvcFXProductMgr.Controllers
         public ActionResult GetProduct(string cerNum, string barcode)
         {
 
-            ProductModel model= new ProductModel();
-            model = model.GetProduct(cerNum, barcode);
+            ProductModel model = new ProductModel();
+            model = model.GetProduct(cerNum, barcode); 
+            
             //设置logo Image的名称
             string strBrandImgPath = "../../Content/images/";
+            string strCName = model.CName;
             if (model.CName.Contains("中国黄金"))
                 strBrandImgPath += "LogoForChinaGold.png";
             else if (model.CName.Contains("日月明牌"))
@@ -261,7 +263,7 @@ namespace MvcFXProductMgr.Controllers
 
             string strStandard = Request["Standard"];
             //处理特殊字符，以免和SaveProducts的Form数据冲突
-            strStandard = strStandard.Replace(',', ':');
+            strStandard = strStandard.Replace(',', '、');
             string strCategory = Request["Category"];
             Stream st = null;
             if (uploadfile != null && uploadfile.ContentLength > 0)
@@ -276,7 +278,7 @@ namespace MvcFXProductMgr.Controllers
 
                 ExcelHelper excelobj = new ExcelHelper(strSaveFilePath);
                 try 
-                {
+                {                   
                     DataTable dt = excelobj.GetDataTable("sheet1", true);
 
                     DataTable newdt = dt.Copy();
@@ -405,7 +407,8 @@ namespace MvcFXProductMgr.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Content("<script>"+"alert("+ex.Message.ToString()+")"+"</script>");
+                    ModelState.AddModelError("",ex.Message);
+                    return RedirectToAction("AddProducts","Product");
                 }
                 
             }
@@ -570,8 +573,8 @@ namespace MvcFXProductMgr.Controllers
                       {
                           dt.Rows[i]["Exist"] = 1;
                       }
-                  } 
-                  if (dt.Select("Exist=1").Length< 1)
+                  }
+                  if (dt.Rows.Count>0 && dt.Select("Exist=1").Length < 1)
                   {
                       string strCommandText="";
                     
@@ -588,7 +591,7 @@ namespace MvcFXProductMgr.Controllers
                       if(strCategory.Contains("钻石")){
                           strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_MainStone,P_MainStoneCarats,P_MainStoneClarity,P_MainStoneColor,P_Size) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@MainStone,@MainStoneCarats,@MainStoneClarity,@MainStoneColor,@Size)";
                           paramList.Add(new MySqlParameter("@MainStone", MySqlDbType.VarChar, 100, "MainStone"));
-                          paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.VarChar, 100, "MainStoneCarats"));
+                          paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.Float, 100, "MainStoneCarats"));
                           paramList.Add(new MySqlParameter("@MainStoneClarity", MySqlDbType.VarChar, 100, "MainStoneClarity"));
                           paramList.Add(new MySqlParameter("@MainStoneColor", MySqlDbType.VarChar, 100, "MainStoneColor"));
                           paramList.Add(new MySqlParameter("@Size", MySqlDbType.Int32, 100, "Size"));
@@ -602,6 +605,7 @@ namespace MvcFXProductMgr.Controllers
                           try
                           {
                               bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
+                              if (da) { 
                               List<ProductViewModel> list_update = ConvertHelper<ProductViewModel>.DataTableToList(dt);
                               ProductSuccessViewModel vm = new ProductSuccessViewModel();
                               vm.ProductList = list_update;
@@ -609,10 +613,17 @@ namespace MvcFXProductMgr.Controllers
                               vm.UploadNum = dt.Rows.Count;
                               vm.UploadUserName = User.Identity.Name;
                               return View(vm);
+                              }
+                              else
+                              {
+                                  throw new Exception("数据记录没有保存成功");
+                              }
                           }
                           catch (Exception ex)
                           {
-                              throw new Exception(ex.Message);
+                              Session["errMsg"] = ex.Message;
+                              return RedirectToAction("AddProducts","Product");
+                              
                           }
                       
                       //检查记录重复，回到待保存页面
@@ -625,11 +636,7 @@ namespace MvcFXProductMgr.Controllers
                       vm2.UploadNum = 0;
                       vm2.UploadUserName = User.Identity.Name;
                       return View(vm2);
-                  }
-
-          
-          }
-
-         
+                  }        
+          }       
     }
 }

@@ -2,6 +2,7 @@
     ViewBag.Title = "AddProducts";
     
 }
+
 <form  action='@Url.Action("Upload","Product")' method="post" enctype="multipart/form-data"> 
     <div class="file-box">
 
@@ -28,18 +29,22 @@
         <dl>
             <dt>执行标准：</dt>
             <dd>
-                <input type="checkbox" name="Standard" value="Q/ZJZB 001-2015" checked="checked"/> Q/ZJZB 001-2015 
-                <input type="checkbox" name="Standard" value="GB 11887"/> GB 11887
-                <input type="checkbox" name="Standard" value="GB/T 18043"/> GB/T 18043  
+                <input type="checkbox" name="Standard"  class="GStandard" value="Q/ZJZB 001-2015" /><label class="GStandard"> Q/ZJZB 001-2015</label>
+                <input type="checkbox" name="Standard"  value="GB 11887" /><label>GB 11887</label>
+                <input type="checkbox" name="Standard"  value="GB/T 18043"/><label>GB/T 18043</label> 
+                <input type="checkbox" name="Standard" class="DStandard hide" value="GB/T 16552" /><label class="DStandard hide">GB/T 16552</label> 
+                <input type="checkbox" name="Standard" class="DStandard hide" value="GB/T 16553"/><label class="DStandard hide">GB/T 16553</label>
+                <input type="checkbox" name="Standard" class="DStandard hide" value="GB/T 16554"/> <label class="DStandard hide">GB/T 16554</label>  
             </dd>
         </dl>
             <dl>
             <dt>产品类别：</dt>
             <dd>
-                <input type="radio" name="Category" value="黄金" checked="checked"/> 黄金
-                <input type="radio" name="Category" value="3D硬金"/> 3D硬金 
-                <input type="radio" name="Category" value="金750"/> 金750
-                <input type="radio" name="Category" value="金916"/> 金916
+                <input type="radio" name="Category" value="黄金" checked/><label>黄金</label>
+                <input type="radio" name="Category" value="硬金"/><label>硬金</label> 
+                <input type="radio" name="Category" value="Au750"/><label>Au750</label>
+                <input type="radio" name="Category" value="Au916"/><label>Au916</label>
+                <input type="radio" name="Category" class="DCategory" value="钻石"/><label>钻石</label>
             </dd>
         </dl>               
     </div>

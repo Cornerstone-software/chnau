@@ -155,6 +155,7 @@
     <Compile Include="Models\TestingOrgModel.cs" />
     <Compile Include="Models\ValidateCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\Default1Controller.cs" />
     <Compile Include="ViewModels\LogViewModel.cs" />
     <Compile Include="ViewModels\ProductSuccessViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
@@ -235,7 +236,7 @@
     </Content>
     <Content Include="Views\Product\AddProducts.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
-    <Content Include="Views\Company\CreateOrUpdateCompany.cshtml" />
+    <Content Include="Views\Company\UpdateCompany.cshtml" />
     <Content Include="Views\Advertment\Index.cshtml" />
     <Content Include="Views\Advertment\CreateOrUpdateAdvertment.cshtml" />
     <Content Include="Views\Product\Upload.cshtml" />
@@ -258,6 +259,7 @@
     <Content Include="Views\Product\GetProductsForUpdate.cshtml" />
     <Content Include="Views\TestingOrg\CreateOrUpdateTestingOrg.cshtml" />
     <Content Include="Views\TestingOrg\Index.cshtml" />
+    <Content Include="Views\Company\CreateOrUpdateCompany.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -276,7 +278,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>15560</DevelopmentServerPort>
+          <DevelopmentServerPort>9795</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
