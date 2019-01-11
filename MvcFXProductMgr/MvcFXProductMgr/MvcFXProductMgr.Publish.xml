@@ -10,22 +10,22 @@
     <file relUrl="Content/fonts/glyphicons-halflings-regular.svg" publishTime="07/25/2016 13:43:02" />
     <file relUrl="bin/System.Data.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Scripts/js/jquery-ui.js" publishTime="08/10/2018 17:05:32" />
+    <file relUrl="Views/Company/CompanyManage.cshtml" publishTime="01/07/2019 13:14:50" />
     <file relUrl="bin/System.EnterpriseServices.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/NPOI.OpenXmlFormats.dll" publishTime="11/09/2018 14:47:34" />
-    <file relUrl="Content/css/Site.css" publishTime="12/22/2018 13:11:56" />
+    <file relUrl="Content/css/Site.css" publishTime="01/10/2019 18:45:04" />
     <file relUrl="Views/Advertment/Index.cshtml" publishTime="11/20/2018 21:07:30" />
     <file relUrl="bin/NPOI.OpenXml4Net.dll" publishTime="11/09/2018 14:47:34" />
     <file relUrl="Views/Shared/_headPartial.cshtml" publishTime="12/14/2018 21:44:22" />
     <file relUrl="bin/System.Web.Mvc.dll" publishTime="01/05/2011 17:42:16" />
-    <file relUrl="Web.config" publishTime="12/22/2018 22:37:53" />
-    <file relUrl="Scripts/js/main.js" publishTime="12/20/2018 08:49:18" />
+    <file relUrl="Web.config" publishTime="01/10/2019 18:48:48" />
+    <file relUrl="Scripts/js/main.js" publishTime="01/07/2019 11:38:57" />
     <file relUrl="bin/System.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/System.Web.Entity.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/System.Web.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="bin/MvcFXProductMgr.pdb" publishTime="12/22/2018 22:37:40" />
     <file relUrl="Scripts/js/bootstrap.js" publishTime="11/07/2018 11:30:15" />
     <file relUrl="bin/zh-Hans/System.Web.WebPages.resources.dll" publishTime="01/10/2011 11:11:30" />
-    <file relUrl="Global.asax" publishTime="10/29/2018 14:54:05" />
+    <file relUrl="bin/MvcFXProductMgr.pdb" publishTime="01/10/2019 18:48:33" />
     <file relUrl="Views/Home/Index.cshtml" publishTime="12/10/2018 10:01:50" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.min.js" publishTime="10/29/2018 14:54:07" />
     <file relUrl="Content/themes/base/images/ui-icons_2e83ff_256x240.png" publishTime="07/11/2018 09:53:16" />
@@ -33,25 +33,26 @@
     <file relUrl="Scripts/MicrosoftMvcAjax.js" publishTime="10/29/2018 14:54:06" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="07/11/2018 09:53:16" />
     <file relUrl="Scripts/jquery-ui.js" publishTime="10/29/2018 14:54:06" />
-    <file relUrl="bin/MvcFXProductMgr.dll" publishTime="12/22/2018 22:37:40" />
+    <file relUrl="bin/MvcFXProductMgr.dll" publishTime="01/10/2019 18:48:34" />
+    <file relUrl="Scripts/js/jquery-barcode.js" publishTime="03/02/2018 23:27:04" />
     <file relUrl="bin/System.Web.WebPages.dll" publishTime="01/05/2011 15:45:38" />
     <file relUrl="Scripts/js/jquery.datetimepicker.js" publishTime="08/10/2018 15:22:47" />
     <file relUrl="Scripts/js/jquery-ui-sliderAccess.js" publishTime="08/10/2018 17:06:21" />
     <file relUrl="bin/System.Web.Mvc.xml" publishTime="01/04/2011 15:29:22" />
     <file relUrl="bin/System.Web.Helpers.xml" publishTime="12/06/2010 11:16:42" />
     <file relUrl="Views/Shared/_LogOnPartial.cshtml" publishTime="12/09/2018 22:29:29" />
-    <file relUrl="Views/Product/Upload.cshtml" publishTime="12/22/2018 16:09:45" />
-    <file relUrl="Views/Company/Index.cshtml" publishTime="11/26/2018 19:00:26" />
+    <file relUrl="Views/Product/Upload.cshtml" publishTime="01/09/2019 20:10:00" />
+    <file relUrl="Views/Company/Index.cshtml" publishTime="01/03/2019 10:12:30" />
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="10/29/2018 14:54:07" />
     <file relUrl="bin/NPOI.OOXML.dll" publishTime="11/09/2018 14:47:34" />
-    <file relUrl="Views/TestingOrg/CreateOrUpdateTestingOrg.cshtml" publishTime="12/22/2018 12:37:47" />
+    <file relUrl="Views/TestingOrg/CreateOrUpdateTestingOrg.cshtml" publishTime="01/04/2019 14:56:48" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_dadada_1x400.png" publishTime="07/11/2018 09:53:16" />
     <file relUrl="Content/images/Logo-large.png" publishTime="12/10/2018 15:15:24" />
     <file relUrl="bin/System.Web.Helpers.dll" publishTime="01/05/2011 15:45:38" />
     <file relUrl="Content/images/Logo.png" publishTime="12/07/2018 16:41:50" />
     <file relUrl="Content/css/bootstrap.css" publishTime="11/07/2018 11:45:16" />
     <file relUrl="Views/Shared/_MLayout.cshtml" publishTime="12/13/2018 15:24:30" />
-    <file relUrl="Views/Product/SaveProducts.cshtml" publishTime="12/20/2018 23:46:01" />
+    <file relUrl="Views/Product/SaveProducts.cshtml" publishTime="01/09/2019 20:09:26" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="07/11/2018 09:53:16" />
     <file relUrl="bin/System.Drawing.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Views/Product/UpdateProducts.cshtml" publishTime="12/11/2018 13:05:06" />
@@ -63,28 +64,28 @@
     <file relUrl="Scripts/js/jquery.js" publishTime="08/10/2018 17:04:46" />
     <file relUrl="Content/themes/base/images/ui-icons_cd0a0a_256x240.png" publishTime="07/11/2018 09:53:16" />
     <file relUrl="bin/System.Xml.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Views/Product/GetProduct.cshtml" publishTime="12/20/2018 13:37:48" />
+    <file relUrl="Views/Product/GetProduct.cshtml" publishTime="01/09/2019 17:38:19" />
     <file relUrl="Views/Product/GetProducts.cshtml" publishTime="12/20/2018 12:53:43" />
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="10/29/2018 14:54:06" />
     <file relUrl="Views/Account/ChangePasswordSuccess.cshtml" publishTime="11/27/2018 01:40:53" />
     <file relUrl="Views/Shared/Error.cshtml" publishTime="10/29/2018 14:54:07" />
     <file relUrl="Content/themes/base/images/ui-icons_454545_256x240.png" publishTime="07/11/2018 09:53:16" />
-    <file relUrl="Views/Account/LogOn.cshtml" publishTime="12/03/2018 13:10:37" />
+    <file relUrl="Views/Account/LogOn.cshtml" publishTime="01/10/2019 18:47:03" />
     <file relUrl="Scripts/jquery.validate.min.js" publishTime="10/29/2018 14:54:07" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="07/11/2018 09:53:16" />
-    <file relUrl="Views/Account/ChangePassword.cshtml" publishTime="11/27/2018 01:41:15" />
     <file relUrl="bin/zh-Hans/System.Web.Helpers.resources.dll" publishTime="01/10/2011 11:11:12" />
-    <file relUrl="Views/Product/AddProducts.cshtml" publishTime="12/22/2018 21:47:38" />
+    <file relUrl="Views/Account/ChangePassword.cshtml" publishTime="11/27/2018 01:41:15" />
+    <file relUrl="Views/Advertment/CreateOrUpdateAdvertment.cshtml" publishTime="11/21/2018 11:13:31" />
+    <file relUrl="Views/Product/AddProducts.cshtml" publishTime="12/26/2018 13:28:48" />
     <file relUrl="bin/System.Web.Routing.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Views/Shared/_Layout.cshtml" publishTime="12/07/2018 16:59:18" />
     <file relUrl="Scripts/MicrosoftAjax.debug.js" publishTime="10/29/2018 14:54:06" />
     <file relUrl="bin/System.Data.DataSetExtensions.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Views/Company/CreateOrUpdateCompany.cshtml" publishTime="11/26/2018 19:00:26" />
     <file relUrl="Scripts/jquery-ui.min.js" publishTime="10/29/2018 14:54:07" />
     <file relUrl="bin/System.Web.DynamicData.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/System.Web.Services.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="10/29/2018 14:54:06" />
-    <file relUrl="Scripts/js/jquery-ui-timepicker-addon.js" publishTime="04/20/2016 12:26:28" />
+    <file relUrl="bin/System.Web.ApplicationServices.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/System.Web.Abstractions.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Content/themes/base/images/ui-icons_888888_256x240.png" publishTime="07/11/2018 09:53:16" />
     <file relUrl="Views/Product/GetProductsBy.cshtml" publishTime="12/20/2018 13:09:45" />
@@ -92,16 +93,15 @@
     <file relUrl="Content/themes/base/jquery-ui.css" publishTime="08/10/2018 17:06:41" />
     <file relUrl="bin/System.Web.Extensions.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Views/_ViewStart.cshtml" publishTime="10/29/2018 14:54:07" />
-    <file relUrl="bin/System.Web.ApplicationServices.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/ICSharpCode.SharpZipLib.dll" publishTime="11/09/2018 14:47:34" />
-    <file relUrl="Views/Advertment/CreateOrUpdateAdvertment.cshtml" publishTime="11/21/2018 11:13:31" />
+    <file relUrl="Global.asax" publishTime="10/29/2018 14:54:05" />
     <file relUrl="Views/Log/Index.cshtml" publishTime="12/07/2018 17:37:34" />
     <file relUrl="bin/System.Web.WebPages.xml" publishTime="12/06/2010 11:16:42" />
     <file relUrl="Views/Web.config" publishTime="10/29/2018 14:54:07" />
     <file relUrl="bin/zh-Hans/System.Web.Mvc.resources.dll" publishTime="01/12/2011 18:24:24" />
     <file relUrl="bin/System.Configuration.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Views/Product/GetProductsForUpdate.cshtml" publishTime="12/11/2018 14:40:21" />
-    <file relUrl="Scripts/js/jquery-barcode.js" publishTime="03/02/2018 23:27:04" />
+    <file relUrl="Scripts/js/jquery-ui-timepicker-addon.js" publishTime="04/20/2016 12:26:28" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="10/29/2018 14:54:07" />
     <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="10/29/2018 14:54:06" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="07/11/2018 09:53:16" />
@@ -109,12 +109,13 @@
     <file relUrl="bin/Microsoft.CSharp.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Views/Shared/_LogOnLayout.cshtml" publishTime="11/26/2018 19:39:41" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="10/29/2018 14:54:07" />
-    <file relUrl="Views/Shared/_LeftMenuPartial.cshtml" publishTime="12/22/2018 13:10:58" />
+    <file relUrl="Views/Shared/_LeftMenuPartial.cshtml" publishTime="01/07/2019 11:23:19" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="07/11/2018 09:53:16" />
     <file relUrl="Scripts/jquery-1.4.4-vsdoc.js" publishTime="10/29/2018 14:54:06" />
     <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="10/29/2018 14:54:07" />
     <file relUrl="bin/System.Xml.Linq.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="App_Code/HelpMath.cshtml" publishTime="12/07/2018 21:37:11" />
     <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="07/11/2018 09:53:16" />
+    <file relUrl="Views/Company/UpdateCompany.cshtml" publishTime="12/28/2018 12:03:20" />
   </publishProfile>
 </publishData>

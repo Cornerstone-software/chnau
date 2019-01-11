@@ -370,6 +370,7 @@ div.btn-function
 #valiCode
 {
     cursor:pointer;
+    display: inline-block;
 }
 .editor-field
 {
@@ -389,11 +390,21 @@ div.btn-function
     
 .editor-field input[name="code"]
 {
-    width:88px;   
+    width:88px;  
+    margin-right: 4px; 
 }
 #contentLogOn .button{
     width: 180px;
     margin: 17px 0;
+}
+#contentLogOn .table-show
+{
+    display: table;
+}
+#contentLogOn .table-cell
+{
+    display: table-cell;
+    
 }
 .validation-summary-errors,.field-validation-error
 {

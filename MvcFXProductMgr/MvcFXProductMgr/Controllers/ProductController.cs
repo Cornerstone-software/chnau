@@ -456,7 +456,6 @@ namespace MvcFXProductMgr.Controllers
                   string strMainStoneColor = "";
                   string strSize = "";
                   string strTenorInGold = "";
-
                   string[] arrName = strName.Split(',');
                   string[] arrWeight = strWeight.Split(',');
 
@@ -595,11 +594,14 @@ namespace MvcFXProductMgr.Controllers
                           paramList.Add(new MySqlParameter("@MainStoneClarity", MySqlDbType.VarChar, 100, "MainStoneClarity"));
                           paramList.Add(new MySqlParameter("@MainStoneColor", MySqlDbType.VarChar, 100, "MainStoneColor"));
                           paramList.Add(new MySqlParameter("@Size", MySqlDbType.Int32, 100, "Size"));
+                      }else if (strCategory.Contains("硬金")){
+                          strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_TenorInGold,P_Remarks) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@TenorInGold,'3D工艺')";
+                          paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
                       }else{
                           strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_TenorInGold) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@TenorInGold)";
                           paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
                       }
-                     
+
                       MySqlParameter[] commadparameters = paramList.ToArray();
                           //插入数据库
                           try

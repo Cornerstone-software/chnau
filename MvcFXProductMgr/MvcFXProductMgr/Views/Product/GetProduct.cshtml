@@ -46,7 +46,8 @@
         企业标准：@Model.Standard
     </div>
  }
- else { 
+ else if (!Model.Category.Contains("硬金"))
+ { 
     <div>
         执行标准：@Model.Standard
     </div>

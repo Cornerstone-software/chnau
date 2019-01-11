@@ -177,7 +177,8 @@
     });
     //////////////////////////////////////////////////////////////////////////////
     //更新公司信息时，验证
-    $(".CompanyInfo form").submit(function () {
+    $(".companyInfo form").submit(function () {
+        alert("test");
         var strName = $("#TxtCName").val();
         if (strName != "") {
             strName = trim(strName);
