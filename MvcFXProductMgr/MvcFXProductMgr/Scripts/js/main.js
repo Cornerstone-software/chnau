@@ -178,7 +178,6 @@
     //////////////////////////////////////////////////////////////////////////////
     //更新公司信息时，验证
     $(".companyInfo form").submit(function () {
-        alert("test");
         var strName = $("#TxtCName").val();
         if (strName != "") {
             strName = trim(strName);
@@ -213,11 +212,48 @@
             }
         }
     });
+
+    //更新检测机构信息时，验证
+    $(".companyInfo form").submit(function () {
+        var strName = $("#TxtTName").val();
+        if (strName != "") {
+            strName = trim(strName);
+        }
+
+        //检测机构不能为空
+        if (strName == null || strName.length < 1 || strName == "") {
+            $("#TxtTName").siblings(".errMsg").show();
+            return false;
+        }
+        else {
+            $("#TxtTName").siblings(".errMsg").hide();
+        }
+        //验证检测机构网址
+        var strUrl = trim($("#TxtTUrl").val());
+        if (strUrl.length > 0) {
+            if (isURL(strUrl) == true) {
+                $("#TxtTUrl").siblings(".errMsg").hide();
+            } else {
+                $("#TxtTUrl").siblings(".errMsg").show();
+                return false;
+            }
+        }
+        //验证电话号码
+        var strTel = trim($("#TxtTTel").val());
+        if (strTel.length > 0) {
+            if (checkTel(strTel) == true) {
+                $("#TxtTTel").siblings(".errMsg").hide();
+            } else {
+                $("#TxtTTel").siblings(".errMsg").show();
+                return false;
+            }
+        }
+    });
     ////////////////////////////////////////////////////////////////////////////
     //删除公司信息
-    $(".btn .deleteBtn").click(function () {
+    $(".cinfo .deleteBtn,.tinfo .deleteBtn").click(function () {
         if (!confirm("确定要删除吗？")) {
-            return false;
+          return false;
         }
     });
 });
@@ -377,7 +413,7 @@ function generateBarcode() {
     ///////////////////////////////////////////////////////////////////////////////////////////
     //支持手机号码、含区号固定电话、不含区号固定电话
     function checkTel(tel) {
-        var pattern = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/;
+        var pattern = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^1(3|4|5|7|8)\d{9}$)|(^[48]00\d{7}$)/;
         if (pattern.test(tel)) {
             return true;
         }

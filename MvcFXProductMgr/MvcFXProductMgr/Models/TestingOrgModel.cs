@@ -20,7 +20,7 @@ namespace MvcFXProductMgr.Models
         public string Status { set; get; }
 
         //Get:
-        public TestingOrgModel GetTestingOrg(int id)
+        public TestingOrgModel GetTestingOrgById(int id)
         {
             string strCommandText = "SELECT T_Id AS TId,T_Name AS TName,T_Url AS TUrl,T_Tel AS TTel FROM t_info_table WHERE T_Status='N'";
             strCommandText += " And T_Id='" + id.ToString() + "'";
@@ -49,7 +49,7 @@ namespace MvcFXProductMgr.Models
         /// <returns>List<TestingOrgModel></returns>
         public List<TestingOrgModel> GetAllTestingOrgs()
         {
-            string strCommandText = "SELECT T_Id AS TId,T_Name AS TName FROM t_info_table WHERE T_Status='N'";
+            string strCommandText = "SELECT T_Id AS TId,T_Name AS TName,T_Url AS TUrl,T_Tel AS TTel FROM t_info_table WHERE T_Status='N'";
             List<TestingOrgModel> list = new List<TestingOrgModel>();
             try
             {
@@ -58,10 +58,12 @@ namespace MvcFXProductMgr.Models
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        TestingOrgModel objCompany = new TestingOrgModel();
-                        objCompany.Id = Int32.Parse(dt.Rows[i]["TId"].ToString());
-                        objCompany.Name = dt.Rows[i]["TName"].ToString();
-                        list.Add(objCompany);
+                        TestingOrgModel testingOrgObj = new TestingOrgModel();
+                        testingOrgObj.Id = Int32.Parse(dt.Rows[i]["TId"].ToString());
+                        testingOrgObj.Name = dt.Rows[i]["TName"].ToString();
+                        testingOrgObj.Url = dt.Rows[i]["TUrl"].ToString();
+                        testingOrgObj.Tel = dt.Rows[i]["TTel"].ToString();
+                        list.Add(testingOrgObj);
                     }
                 }
                 else
@@ -100,7 +102,7 @@ namespace MvcFXProductMgr.Models
             try
             {
                 int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
-                return bool.Parse(iResult.ToString());
+                return true;
             }
             catch (Exception ex)
             {
@@ -115,15 +117,36 @@ namespace MvcFXProductMgr.Models
             {
                 throw new ArgumentNullException("item");
             }
-            return true;
+            //UPDATE t_info_table SET T_Status="Y" WHERE T_Id=2;
+            string strCommandText = "UPDATE t_info_table SET";
+            strCommandText += " T_Name ='" + item.Name + "',";
+            strCommandText += " T_Url='" + item.Url + "',";
+            strCommandText += " T_Tel='" + item.Tel + "'";
+            strCommandText += " WHERE T_Id=" + item.Id;
+            try
+            {
+                int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Delete
-        public bool DeleteTestingOrg(int id)
+        public void DeleteTestingOrg(int id)
         {
-            //to do
-
-            return true;
+            string strCommandText = "UPDATE t_info_table SET T_Status='X' WHERE";
+            strCommandText += " T_Id=" + id;
+            try
+            {
+                int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
         }
 

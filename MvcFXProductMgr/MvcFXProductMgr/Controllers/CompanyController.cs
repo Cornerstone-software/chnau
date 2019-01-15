@@ -9,8 +9,10 @@ namespace MvcFXProductMgr.Controllers
 {
     public class CompanyController : Controller
     {
-        //
-        // GET: /Company/
+        /// <summary>
+        /// 所有公司信息显示
+        /// </summary>
+        /// <returns></returns>
 
         public ActionResult Index()
         {
@@ -23,80 +25,61 @@ namespace MvcFXProductMgr.Controllers
         //
        
         /// <summary>
-        /// 创建新的公司信息
+        /// 创建公司信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult CreateNewCompany()
+        [HttpGet]
+        public ActionResult CompanyManage(int id = 0)
         {
-          
-            ViewBag.Title = "新建公司信息";
-            return View("CreateOrUpdateCompany");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult CreateNewCompany([Bind(Include = "Name,Address,Url,Tel")]CompanyModel model)
-        {
-            if(ModelState.IsValid){
-                try
-                {
-                    if (model.Name.Length > 0) {
-                        model.AddCompany(model);
-                        HttpContext.Response.Write("<script>alert('保存成功！')</script>");
-                    }
-                    else
-                    {
-                        HttpContext.Response.Write("<script> $('#TxtCName').siblings('.errMsg').show();</script>");
-                    }
-                
-                }
-                catch(Exception ex){
-
-                    HttpContext.Response.Write("<script>alert('保存不成功！请仔细检查。'" + ex.Message+")</script>");
-                }
+            CompanyModel model = new CompanyModel();
+            if (id == 0)
+            {
+                model.Id = 0;
+                model.Name = "";
+                model.Address = "";
+                model.Url = "";
+                model.Tel = "";
             }
             else
-            {
-                HttpContext.Response.Write("<script>alert('没有数据要保存！')</script>"); 
+            {                
+                model = model.GetCompanyById(id);               
             }
-
-            return View("CreateOrUpdateCompany");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult UpdateCompany(int id)
-        {
-
-            ViewBag.Title = "修改公司信息";
-            CompanyModel model = new CompanyModel();
-            model = model.GetCompany(id);
             return View(model);
         }
         /// <summary>
-        /// 
+        /// 增加或修改公司信息
+        /// id=0时，新增公司信息
+        /// id>0时，修改公司信息
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult UpdateCompany(CompanyModel model)
+        public ActionResult CompanyManage([Bind(Include = "Id,Name,Address,Url,Tel")]CompanyModel model)
         {
-            return View();
-        } 
+           
+            if (model.Id ==0)
+            {
+                model.AddCompany(model);
+                HttpContext.Response.Write("<script>alert('保存成功！')</script>");
+                return View("CompanyManage");
+            }
+            else
+            {
+                model.UpdateCompany(model);
+                
+                return RedirectToAction("Index","Company");
+            }         
+        }
+
         /// <summary>
-        /// 
+        /// 删除指定Id的公司信息
         /// </summary>
         /// <returns></returns>
-        [Authorize]
-        [HttpPost]
-        public ActionResult DedelteCompany()
+        
+        public ActionResult DeleteCompany(int id)
         {
-            ViewBag.Title = "删除公司信息";
-            return View();
+            CompanyModel model = new CompanyModel();
+            model.DeleteCompany(id);
+            return RedirectToAction("Index", "Company");
            
         }
 

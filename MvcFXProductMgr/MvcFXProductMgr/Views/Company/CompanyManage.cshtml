@@ -1,0 +1,58 @@
+﻿@using MvcFXProductMgr.Models;
+@model CompanyModel
+@if (Model == null)
+{
+    ViewBag.Title = "新增公司信息";
+}
+else if (Model.Id == 0)
+{
+    ViewBag.Title = "新增公司信息";
+}
+else
+{
+    ViewBag.Title = "修改公司信息";
+}                    
+<div class="companyInfo">
+    <h2>@ViewBag.Title</h2>
+    <form action=@Url.Action("CompanyManage", "Company") method="post">
+        <dl>
+            <dt class="hide">公司Id：</dt>
+            <dd class="hide">
+                <input type="text" id="TxtId" name="Id" value="@(Model != null ? Model.Id : 0)"/>
+                <span class="errMsg">公司名称为空，请重新输入。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>公司名称：</dt>
+            <dd>
+                <textarea rows="2" cols="25" id="TxtCName" name="Name" class="txtarea">@(Model != null ? Model.Name : null)</textarea>
+                <span class="errMsg">公司名称为空，请重新输入。</span>
+            </dd>
+        </dl>
+         <dl>
+            <dt>公司地址：</dt>
+            <dd>
+                <textarea rows="2" cols="25" id="TxtCAddress" name="Address" class="txtarea">@(Model != null ? Model.Address : null)</textarea>
+                <span class="errMsg">公司地址为空，请重新输入。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>公司网址：</dt>
+            <dd>
+                <textarea rows="2" cols="25" id="TxtCUrl" name="Url" class="txtarea">@(Model != null ? Model.Url : null)</textarea>
+                <span class="errMsg">公司网址格式不正确，请重新输入。</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>公司电话：</dt>
+            <dd>
+                <input  type="text" id="TxtCTel" name="Tel" class="txtTel" value="@(Model != null ? Model.Tel : null)" />
+                <span class="errMsg">电话号码格式不正确，请重新输入。</span>
+            </dd>
+        </dl>
+        <div class="btn-function">
+            <input class="button" name="btnSave" type="submit" value="保存" /> 
+            <input class="button" name="btnCancel" type="button" value="取消" /> 
+        </div>
+    </form>
+</div>

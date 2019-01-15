@@ -25,8 +25,7 @@
 "></i></h3>
                     <ul>   
                         <li><i class="glyphicon glyphicon-plus menu-icon"></i> @Html.ActionLink("增加公司信息", "CompanyManage", "Company")</li>
-                        <li><i class="glyphicon glyphicon-pencil menu-icon"></i>@Html.ActionLink("修改公司信息", "CompanyManage", "Company")</li>
-                        <li><i class="glyphicon glyphicon-remove menu-icon"></i>@Html.ActionLink("删除公司信息", "DeleteCompany", "Company")</li>
+                        <li><i class="glyphicon glyphicon-search menu-icon"></i>@Html.ActionLink("查询公司信息", "Index", "Company")</li>
                     </ul>
         
                     </div>
@@ -34,18 +33,16 @@
                         <h3 class="leftMenu-list-header"><i class="glyphicon glyphicon-check menu-icon"></i>检测机构管理<i class="glyphicon glyphicon-menu-down menu-onOff
 "></i></h3>
                         <ul>   
-                            <li><i class="glyphicon glyphicon-plus menu-icon"></i>@Html.ActionLink("增加检测机构", "CreateNewTestingOrg", "TestingOrg")</li>
-                            <li><i class="glyphicon glyphicon-pencil menu-icon"></i>@Html.ActionLink("修改检测机构", "UpdateTestingOrg", "TestingOrg")></li>
-                            <li><i class="glyphicon glyphicon-remove menu-icon"></i>@Html.ActionLink("删除检测机构", "DeleteTestingOrg", "TestingOrg")""></li>
+                            <li><i class="glyphicon glyphicon-plus menu-icon"></i>@Html.ActionLink("增加检测机构", "TestingOrgManage", "TestingOrg")</li>
+                            <li><i class="glyphicon glyphicon-search menu-icon"></i>@Html.ActionLink("查询检测机构", "Index", "TestingOrg")</li>
                         </ul>
                     </div>
                     <div class="leftMenu-list">
                         <h3 class="leftMenu-list-header"><i class="glyphicon glyphicon-volume-up menu-icon"></i>广告信息管理<i class="glyphicon glyphicon-menu-down menu-onOff
 "></i></h3>
                         <ul>   
-                            <li><i class="glyphicon glyphicon-plus menu-icon"></i><a href="">增加广告</a></li>
-                            <li><i class="glyphicon glyphicon-pencil menu-icon"></i><a href="">修改广告</a></li>
-                            <li><i class="glyphicon glyphicon-remove menu-icon"></i><a href="">删除广告</a></li>
+                            <li><i class="glyphicon glyphicon-plus menu-icon"></i>@Html.ActionLink("增加广告", "AdvertmentManage", "Advertment")</li>
+                            <li><i class="glyphicon glyphicon-search menu-icon"></i>@Html.ActionLink("查询广告", "Index", "Advertment")</li>
                         </ul>
                     </div>
 

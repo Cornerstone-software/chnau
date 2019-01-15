@@ -11,10 +11,14 @@
     <div>
         产品名称：@Model.Name
     </div>
-    <div>
-        产品重量：@Model.Weight 克
-    </div>
-
+     @if (Model.Category.Contains("Au"))
+     {
+         <div>产品质量：@Model.Weight 克</div>
+         
+     }
+     else { 
+        <div>产品重量：@Model.Weight 克</div>
+     }
     <div>
         条码：@Model.Barcode
     </div>
@@ -35,6 +39,10 @@
     else if (Model.Category.Contains("黄金"))
     {  
         <div> 含金量：@Model.TenorInGold ‰ </div>
+    }
+    else if (Model.Category.Contains("Au"))
+    {
+        <div> 备注：@Model.CerNum</div>
     }
     else
     {

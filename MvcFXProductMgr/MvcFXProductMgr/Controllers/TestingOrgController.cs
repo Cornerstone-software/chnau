@@ -15,50 +15,73 @@ namespace MvcFXProductMgr.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+
+            List<TestingOrgModel> list = new List<TestingOrgModel>();
+            TestingOrgModel model = new TestingOrgModel();
+            list = model.GetAllTestingOrgs();
+            return View(list);
         }
+        //
+
         /// <summary>
-        /// 
+        /// 创建公司信息
         /// </summary>
         /// <returns></returns>
-        public ActionResult CreateNewTestingOrg()
-        {
-            return View("CreateOrUpdateTestingOrg");
-        }
-
-        [HttpPost]
-        public ActionResult CreateNewTestingOrg([Bind(Include = "Name,Url,Tel")]TestingOrgModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                if (string.IsNullOrEmpty(model.Name))
-                {
-                    ModelState.AddModelError("Name", "'Name'是必填字段");
-                }
-                else
-                {
-                    model.Status = "N";
-                    bool bRes = model.AddTestingOrg(model);
-                    if (bRes)
-                    {
-                        HttpContext.Response.Write("");
-                        
-                    }
-                }
-
-
+        [HttpGet]
+        public ActionResult TestingOrgManage(int id = 0)
+        {         
+            TestingOrgModel model = new TestingOrgModel();
+            if (id == 0)
+            {               
+                model.Id = 0;
+                model.Name = "";
+                model.Url = "";
+                model.Tel = "";
             }
-            return View("CreateOrUpdateTestingOrg");
+            else
+            {
+                model = model.GetTestingOrgById(id);
+            }
+            return View(model);
+        }
+
+        /// <summary>
+        /// 增加或修改检测机构信息
+        /// id=0时，新增检测机构信息
+        /// id>0时，修改检测机构信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult TestingOrgManage([Bind(Include = "Id,Name,Url,Tel")]TestingOrgModel model)
+        {
+
+            if (model.Id == 0)
+            {
+                model.AddTestingOrg(model);
+                HttpContext.Response.Write("<script>alert('保存成功！')</script>");
+                return View("TestingOrgManage");               
+            }
+            else
+            {
+                model.UpdateTestingOrg(model);
+
+                return RedirectToAction("Index", "TestingOrg");
+            }
+        }
+
+        /// <summary>
+        /// 删除检测机构
+        /// </summary>
+        /// <returns></returns>
+
+        public ActionResult DeleteTestingOrg(int id)
+        {
+            TestingOrgModel model = new TestingOrgModel();
+            model.DeleteTestingOrg(id);
+            return RedirectToAction("Index", "TestingOrg");
+
         }
 
 
-        public ActionResult UpdateTestingOrg(TestingOrgModel model)
-        {
-            return View("CreateOrUpdateTestingOrg",model);
-        }
-        public ActionResult DeleteTestingOrg()
-        {
-            return View();
-        }
     }
 }

@@ -1,6 +1,20 @@
-﻿<div class="advertInfo">
+﻿@using MvcFXProductMgr.Models;
+@model AdvertmentModel
+@if (Model == null)
+{
+    ViewBag.Title = "新增广告信息";
+}
+else if (Model.Id == 0)
+{
+    ViewBag.Title = "新增广告信息";
+}
+else
+{
+    ViewBag.Title = "修改广告信息";
+}
+<div class="advertInfo">
     <h2>@ViewBag.Title</h2>
-    <form action="/Advertment/CreateNewAdvertment" method="post">
+    <form action=@Url.Action("AdvertmentManage", "Advertment") method="post">
         <dl>
             <dt>广告语：&nbsp;&nbsp;&nbsp;</dt>
                 <textarea rows="2" cols="25" type="text" id="TxtCName" name="Name" class="txtarea"></textarea>

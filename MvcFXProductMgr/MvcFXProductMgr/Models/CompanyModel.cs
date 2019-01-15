@@ -21,9 +21,9 @@ namespace MvcFXProductMgr.Models
         /// </summary>
         /// <param name="id">公司Id</param>
         /// <returns>CompanyModel</returns>
-        public CompanyModel GetCompany(int id)
+        public CompanyModel GetCompanyById(int id)
         {
-            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName FROM c_info_table WHERE C_Status='N'";
+            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName,C_Address AS CAddress,C_Url AS CUrl,C_Tel AS CTel FROM c_info_table WHERE C_Status='N'";
             strCommandText += " And C_Id='" + id.ToString() + "'";
             CompanyModel objCompany = new CompanyModel();
             try
@@ -33,7 +33,7 @@ namespace MvcFXProductMgr.Models
                 {
                     objCompany.Id = id;
                     objCompany.Name=dt.Rows[0]["CName"].ToString();
-                    objCompany.Address = dt.Rows[0]["Address"].ToString();
+                    objCompany.Address = dt.Rows[0]["CAddress"].ToString();
                     objCompany.Url = dt.Rows[0]["CUrl"].ToString();
                     objCompany.Tel = dt.Rows[0]["CTel"].ToString();
                 }
@@ -45,9 +45,9 @@ namespace MvcFXProductMgr.Models
 
             }
         }
-        public CompanyModel GetCompany(string name)
+        public CompanyModel GetCompanyByName(string name)
         {
-            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName FROM c_info_table WHERE C_Status='N'";
+            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName,C_Address AS CAddress,C_Url AS CUrl,C_Tel AS CTel FROM c_info_table WHERE C_Status='N'";
             strCommandText += " And C_Name='" + name + "'";
             CompanyModel objCompany = new CompanyModel();
             try
@@ -57,7 +57,7 @@ namespace MvcFXProductMgr.Models
                 {
                     objCompany.Id = Int32.Parse(dt.Rows[0]["CId"].ToString());
                     objCompany.Name = dt.Rows[0]["CName"].ToString();
-                    objCompany.Address = dt.Rows[0]["Address"].ToString();
+                    objCompany.Address = dt.Rows[0]["CAddress"].ToString();
                     objCompany.Url = dt.Rows[0]["CUrl"].ToString();
                     objCompany.Tel = dt.Rows[0]["CTel"].ToString();
                 }
@@ -76,7 +76,7 @@ namespace MvcFXProductMgr.Models
         /// <returns>List<CompanyModel></returns>
         public List<CompanyModel> GetAllCompanys()
         {
-            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName FROM c_info_table WHERE C_Status in ('N','A')";
+            string strCommandText = "SELECT C_Id AS CId,C_Name AS CName,C_Address AS CAddress,C_Url AS CUrl,C_Tel AS CTel FROM c_info_table WHERE C_Status in ('N','A')";
             List<CompanyModel> list =new List<CompanyModel>();
             try
             {
@@ -88,6 +88,9 @@ namespace MvcFXProductMgr.Models
                         CompanyModel objCompany = new CompanyModel();
                         objCompany.Id = Int32.Parse(dt.Rows[i]["CId"].ToString());
                         objCompany.Name = dt.Rows[i]["CName"].ToString();
+                        objCompany.Address = dt.Rows[i]["CAddress"].ToString();
+                        objCompany.Url = dt.Rows[i]["CUrl"].ToString();
+                        objCompany.Tel = dt.Rows[i]["CTel"].ToString();
                         list.Add(objCompany);
                     }
                 }
@@ -145,17 +148,39 @@ namespace MvcFXProductMgr.Models
             {
                 throw new ArgumentNullException("item");
             }
-            //to do
             //UPDATE c_info_table SET C_Status="Y" WHERE C_Id=2;
-            return true;
+            string strCommandText = "UPDATE c_info_table SET";
+            strCommandText += " C_Name ='"+item.Name+"',";
+            strCommandText += " C_Address='"+item.Address+" ',";
+            strCommandText += " C_Url='"+item.Url+"',";
+            strCommandText += " C_Tel='" + item.Tel + "'";
+            strCommandText += " WHERE C_Id="+item.Id;
+            try
+            {
+                int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         //Delete a company
-        public bool DeleteCompany(int id)
+        public void DeleteCompany(int id)
         {
-            //to do
-            //DELETE FROM c_info_table WHERE C_Id=1;
-            return true;
+            string strCommandText = "UPDATE c_info_table SET C_Status='X' WHERE";
+            strCommandText += " C_Id=" + id;
+            try
+            {
+                int iResult = MySQLHelper.ExecuteNonQuery(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+               
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
     }
 }
