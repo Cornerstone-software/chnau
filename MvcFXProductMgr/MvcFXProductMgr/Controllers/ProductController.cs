@@ -120,14 +120,6 @@ namespace MvcFXProductMgr.Controllers
             this.ViewData["TestingOrg"] = itemsForTestingOrg;
             return View();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult DeleteProducts()
-        {
-            return View();
-        }
         #region
         /// <summary>
         /// 显示已更改的信息
@@ -959,6 +951,49 @@ namespace MvcFXProductMgr.Controllers
                 }
                 vm2.TestingOrg = itemsForTestingOrg;
                 return View(vm2);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult DeleteProducts()
+        {
+            string strId = Request["Id"].ToString();
+            string[] arrId = strId.Split(',');
+            //创建DataTable
+            DataTable dt = new DataTable();
+            DataColumn dcId = new DataColumn("Id", typeof(string));
+            dt.Columns.Add(dcId);
+            for (int i = 0; i < arrId.Length; i++)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Id"] = arrId[i] ?? "";
+                dt.Rows.Add(dr);
+            }
+            string strCommandText = "UPDATE p_info_table SET P_Status='X' WHERE P_Id =@Id";
+            List<MySqlParameter> paramList = new List<MySqlParameter>();
+            paramList.Add(new MySqlParameter("@Id", MySqlDbType.Int32, 100, "Id"));
+            MySqlParameter[] commadparameters = paramList.ToArray();
+            //更新数据库
+            try
+            {
+                bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
+                if (da)
+                {
+                    return RedirectToAction("GetProducts", "Product");
+                }
+                else
+                {
+                    throw new Exception("数据记录没有删除成功");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 

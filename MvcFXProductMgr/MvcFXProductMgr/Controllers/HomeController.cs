@@ -27,7 +27,7 @@ namespace MvcFXProductMgr.Controllers
                 ViewData["ltime"] = ticket.IssueDate.ToString();
                 
                 //近期销售数据
-                string strCommandText = "SELECT COUNT(P_Name) AS productSum, FORMAT(SUM(P_Weight),2) AS weightSum,P_Category AS category FROM p_info_table";
+                string strCommandText = "SELECT COUNT(P_Name) AS productSum, FORMAT(SUM(P_Weight),2) AS weightSum,P_Category AS category FROM p_info_table WHERE P_Status='N'";
                 strCommandText += " GROUP BY P_Category";
                 DataTable dt = new DataTable();
                 try

@@ -40,7 +40,7 @@
     //删除批量上传的数据行
     $(".tableBody .btnDel").click(function () {
         if ($(this).parents(".table").children(".tableBody").length > 1) {
-            if (confirm("确定要删除此产品信息吗")) {
+            if (confirm("确定要删除此行数据吗")) {
                 $(this).parent(".tableBody").remove();
             }
             else {
@@ -48,6 +48,18 @@
             }
         } else {
             alert("仅剩一条记录，不可再删除！");
+        }
+
+    });
+
+    //删除产品信息
+    $("#delProductBtn").click(function () {
+        var newUrl = "/Product/DeleteProducts"
+        if (!confirm("确定要列表中的产品吗")) {
+            return false;
+        } else {
+            $(this).parents("form").attr('action', newUrl);
+            $(this).parents("form").submit(); 
         }
 
     });
@@ -170,7 +182,7 @@
             $(".GStandard").addClass("hide");
             $(".DStandard").removeClass("hide");
             $(".DMainStone").removeClass("hide"); //更新产品信息时，当类别为“钻石”时，钻石相关成分部分隐藏
-        } 
+        }
         else {
             $(".GStandard").removeClass("hide");
             $(".DStandard").addClass("hide");
@@ -255,7 +267,7 @@
     //删除公司信息
     $(".cinfo .deleteBtn,.tinfo .deleteBtn").click(function () {
         if (!confirm("确定要删除吗？")) {
-          return false;
+            return false;
         }
     });
 });

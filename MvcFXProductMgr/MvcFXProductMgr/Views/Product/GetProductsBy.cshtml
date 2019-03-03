@@ -19,7 +19,8 @@
                 <dt class="cernumCol">证书编号</dt>
                 <dt class="standardCol">企业标准</dt>
                 <dt class="cNameCol">公司名称</dt>
-                <dt class="tNameCol lastCol">检测机构</dt>
+                <dt class="tNameCol">检测机构</dt>
+                <dt class="delCol lastCol "></dt>
                 <dt class="hide">公司ID</dt>
                 <dt class="hide">检测机构ID</dt>
                 <dt class="hide">产品类别</dt>
@@ -36,7 +37,8 @@
                     <dd class="cernumCol editor">@item.CerNum</dd>             
                     <dd class="standardCol editor">@item.Standard</dd>
                     <dd  class="cNameCol editor">@item.CName</dd>
-                    <dd class="tNameCol lastCol editor">@item.TName</dd>
+                    <dd class="tNameCol editor">@item.TName</dd>
+                    <dd class="delCol lastCol btnDel">删除</dd>
                     <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd>
                     <dd class="hide"><input name="Name" type="text" value='@item.Name'/></dd>
                     <dd class="hide"><input name="Weight" type="text" value='@item.Weight' /></dd>
@@ -59,8 +61,8 @@
                 }  
          </div>
           <div class="">
-            <input class="btn btnSave" name="Save" value="修改" type="submit" />
-            <input class="btn btnDel" name="Delete" type="button" value="删除" />                
+            <input class="btn btnSave" name="Save" value="修改" type="submit" />          
+            <a href=@Url.Action("DeleteProducts", "Product")><input class="btn btnDel" id="delProductBtn" name="Delete" type="button" value="删除" />  </a>            
          </div>
     </form>
 }
