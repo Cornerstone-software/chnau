@@ -153,7 +153,8 @@ input[type="text"]:focus,textarea:focus
 }
 .leftMenu-list h3, .leftMenu-list ul li{
     margin: 0;
-    padding: 20px 0;    
+    padding: 20px 0;  
+    position: relative; 
 }
 .leftMenu-list h3:hover,.leftMenu-list.hover h3
 {
@@ -179,6 +180,13 @@ input[type="text"]:focus,textarea:focus
 {
   background-color: #a4b6cf;
   
+}
+.leftMenu-list.hover ul li>a{
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    padding-left: 36px;    
 }
 .leftMenu-list.hover ul li>a,.leftMenu-list ul li
 {

@@ -103,7 +103,7 @@ namespace MvcFXProductMgr.Models
         }
         public List<ProductModel> GetProductsBy(string category,int cId,string startdate,string enddate)
         {
-            string strCommandText = "SELECT P_Id AS Id,P_Name AS NAME ,P_Barcode AS Barcode,P_CerNum AS CerNum,P_Weight AS Weight,P_Price AS Price,P_Standard AS Standard,P_Category AS Category,P_CId AS CId ,C_Name AS CName,C_Address AS CAddress,C_Url AS CUrl,C_Tel AS CTel,P_TId AS TId,T_Name AS TName,T_Url AS TUrl,T_Tel AS TTel,P_Date AS DATE FROM p_info_table,t_info_table,c_info_table WHERE P_CId=C_Id AND P_TId=T_Id";
+            string strCommandText = "SELECT P_Id AS Id,P_Name AS NAME ,P_Barcode AS Barcode,P_CerNum AS CerNum,P_Weight AS Weight,P_Price AS Price,P_Standard AS Standard,P_Category AS Category,P_CId AS CId,C_Name AS CName,C_Address AS CAddress,C_Url AS CUrl,C_Tel AS CTel,P_TId AS TId,T_Name AS TName,T_Url AS TUrl,T_Tel AS TTel,P_Date AS DATE,IFNULL(P_MainStone,'') AS MainStone,IFNULL(P_MainStoneCarats,'0') AS MainStoneCarats,IFNULL(P_MainStoneClarity,'') AS MainStoneClarity,IFNULL(P_MainStoneColor,'') AS MainStoneColor,IFNULL(P_Size,'0') AS Size,IFNULL(P_TenorInGold,'0') AS TenorInGold FROM p_info_table,t_info_table,c_info_table WHERE P_CId=C_Id AND P_TId=T_Id";
             strCommandText += " And P_Category ='" +category+ "'";
             if (cId != 0)
             { 
@@ -126,6 +126,7 @@ namespace MvcFXProductMgr.Models
                         objProduct.CerNum = dt.Rows[i]["CerNum"].ToString();
                         objProduct.Weight = Single.Parse(dt.Rows[i]["Weight"].ToString());
                         objProduct.Price = Int32.Parse(dt.Rows[i]["Price"].ToString());
+                        objProduct.Category = dt.Rows[i]["Category"].ToString();
                         objProduct.Standard = dt.Rows[i]["Standard"].ToString();
                         objProduct.CId = Int32.Parse(dt.Rows[i]["CId"].ToString());
                         objProduct.CName = dt.Rows[i]["CName"].ToString();
@@ -136,6 +137,12 @@ namespace MvcFXProductMgr.Models
                         objProduct.TName = dt.Rows[i]["TName"].ToString();
                         objProduct.TTel = dt.Rows[i]["TTel"].ToString();
                         objProduct.TUrl = dt.Rows[i]["TUrl"].ToString();
+                        objProduct.MainStone = dt.Rows[i]["MainStone"].ToString();
+                        objProduct.MainStoneCarats = Single.Parse(dt.Rows[i]["MainStoneCarats"].ToString());
+                        objProduct.MainStoneClarity = dt.Rows[i]["MainStoneClarity"].ToString();
+                        objProduct.MainStoneColor = dt.Rows[i]["MainStoneColor"].ToString();
+                        objProduct.Size = Int32.Parse(dt.Rows[i]["Size"].ToString());
+                        objProduct.TenorInGold = Int32.Parse(dt.Rows[i]["TenorInGold"].ToString());
                         plist.Add(objProduct);
                     }
                 }

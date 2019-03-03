@@ -155,6 +155,38 @@ namespace MvcFXProductMgr.Controllers
         [HttpPost]
         public ActionResult GetProductsForUpdate(FormCollection collection)
         {
+            //公司列表下拉框信息
+            CompanyModel modelForCompany = new CompanyModel();
+            List<SelectListItem> itemsForCompany = new List<SelectListItem>();
+            List<CompanyModel> clist = modelForCompany.GetAllCompanys();
+            //增加“所有公司”到公司信息列表
+            SelectListItem selectItemAForCompany = new SelectListItem();
+            selectItemAForCompany.Text = "---所有公司---";
+            selectItemAForCompany.Value = "0" + ":" + "所有公司";
+            itemsForCompany.Add(selectItemAForCompany);
+            foreach (CompanyModel citem in clist)
+            {
+                SelectListItem selectItemForCompany = new SelectListItem();
+                selectItemForCompany.Text = citem.Name;
+                selectItemForCompany.Value = citem.Id.ToString() + ":" + citem.Name;
+                if (collection["CName"].Contains(citem.Name)) selectItemForCompany.Selected = true;
+                itemsForCompany.Add(selectItemForCompany);
+            }
+            ViewData["Company"] = itemsForCompany;
+            //检测机构列表信息
+            TestingOrgModel modelForTestingOrg = new TestingOrgModel();
+            List<SelectListItem> itemsForTestingOrg = new List<SelectListItem>();
+            List<TestingOrgModel> listForTestingOrg = modelForTestingOrg.GetAllTestingOrgs();
+            foreach (TestingOrgModel itemForTestingOrg in listForTestingOrg)
+            {
+                SelectListItem selectItemForTestingOrg = new SelectListItem();
+                selectItemForTestingOrg.Text = itemForTestingOrg.Name;
+                selectItemForTestingOrg.Value = itemForTestingOrg.Id.ToString() + ":" + itemForTestingOrg.Name;
+                if (collection["TName"].Contains(itemForTestingOrg.Name)) selectItemForTestingOrg.Selected = true;
+                itemsForTestingOrg.Add(selectItemForTestingOrg);
+            }
+            ViewData["TestingOrg"] = itemsForTestingOrg;            
+            string strId = collection["Id"].ToString();
             string strName = collection["Name"].ToString();
             string strWeight = collection["Weight"].ToString();
             string strCerNum = collection["CerNum"].ToString();
@@ -166,7 +198,7 @@ namespace MvcFXProductMgr.Controllers
             string strTId = collection["TId"].ToString();
             string strTName = collection["TName"].ToString();
             string strCategory = collection["Category"].ToString();
-
+            string[] arrId = strId.Split(',');
             string[] arrName = strName.Split(',');
             string[] arrWeight = strWeight.Split(',');
 
@@ -180,9 +212,14 @@ namespace MvcFXProductMgr.Controllers
             string[] arrTId = strTId.Split(',');
             string[] arrTName = strTName.Split(',');
             string[] arrCategory = strCategory.Split(',');
+            //产品类别
+            ViewData["Category"] = arrCategory[0];
+            //执行标准
+            ViewData["Standard"] = arrStandard[0];
             /////////////创建DataTable////////////////
             DataTable dt = new DataTable();
             //创建DataTable Columns
+            DataColumn dcId = new DataColumn("Id",typeof(string));
             DataColumn dcName = new DataColumn("Name", typeof(string));
             DataColumn dcWeight = new DataColumn("Weight", typeof(string));
             DataColumn dcCerNum = new DataColumn("CerNum", typeof(string));
@@ -194,6 +231,7 @@ namespace MvcFXProductMgr.Controllers
             DataColumn dcTId = new DataColumn("TId", typeof(string));
             DataColumn dcTName = new DataColumn("TName", typeof(string));
             DataColumn dcCategory = new DataColumn("Category", typeof(string));
+            dt.Columns.Add(dcId);
             dt.Columns.Add(dcName);
             dt.Columns.Add(dcWeight);
             dt.Columns.Add(dcCerNum);
@@ -209,6 +247,7 @@ namespace MvcFXProductMgr.Controllers
             for (int i = 0; i < arrName.Length; i++)
             {
                 DataRow dr = dt.NewRow();
+                dr["Id"] = arrId[i];
                 dr["Name"] = arrName[i];
                 dr["Weight"] = arrWeight[i];
                 dr["CerNum"] = arrCerNum[i];
@@ -240,7 +279,7 @@ namespace MvcFXProductMgr.Controllers
         /// <returns></returns>
         [HttpPost] 
         public ActionResult Upload()
-            
+          
         {
             string strFileName = "";
             string strSeverDataPath = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/");
@@ -437,7 +476,6 @@ namespace MvcFXProductMgr.Controllers
         [HttpPost]
           public ActionResult SaveProducts()
           {
-            
                   string strName = Request["Name"].ToString();
                   string strWeight = Request["Weight"].ToString();
                   string strCerNum = Request["CerNum"].ToString();
@@ -476,7 +514,9 @@ namespace MvcFXProductMgr.Controllers
                       strMainStoneClarity = Request["MainStoneClarity"];
                       strMainStoneColor = Request["MainStoneColor"];
                       strSize = Request["Size"];
-                  }else{
+                  }
+                  else
+                  {
                       strTenorInGold = Request["TenorInGold"];
                   }
                   string[] arrMainStone = strMainStone.Split(',');
@@ -498,6 +538,7 @@ namespace MvcFXProductMgr.Controllers
                   DataColumn dcTId = new DataColumn("TId", typeof(string));
                   DataColumn dcTName = new DataColumn("TName", typeof(string));
                   DataColumn dcCategory = new DataColumn("Category", typeof(string));
+
                   DataColumn dcExist = new DataColumn("Exist", typeof(Int32));
                   dt.Columns.Add(dcName);
                   dt.Columns.Add(dcWeight);
@@ -530,8 +571,7 @@ namespace MvcFXProductMgr.Controllers
                   }
                   dt.Columns.Add(dcExist);
                   //创建已存在记录表
-                 // DataTable dtExist = dt.Clone();
-
+                  // DataTable dtExist = dt.Clone();
                   for (int i = 0; i < arrName.Length; i++)
                   {
                       DataRow dr = dt.NewRow();
@@ -554,7 +594,9 @@ namespace MvcFXProductMgr.Controllers
                           dr["MainStoneClarity"] = arrMainStoneClarity[i] ?? "";
                           dr["MainStoneColor"] = arrMainStoneColor[i] ?? "";
                           dr["Size"] = arrSize[i] ?? "";
-                      }else{
+                      }
+                      else
+                      {
                           dr["TenorInGold"] = arrTenorInGold[i] ?? "";
                       }
                       dr["Exist"] = 0;
@@ -565,7 +607,7 @@ namespace MvcFXProductMgr.Controllers
                       DataTable tempdt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, mysql_sel, null);
                       if (tempdt.Rows.Count > 0)
                       {
-                          dt.Rows[i]["Exist"]=1;
+                          dt.Rows[i]["Exist"] = 1;
                       }
                       //若品名，条码号，证书编号为空，则不能保存
                       if (dr["Name"].ToString().Length < 1 || dr["Barcode"].ToString().Length < 1 || dr["CerNum"].ToString().Length < 1)
@@ -573,10 +615,10 @@ namespace MvcFXProductMgr.Controllers
                           dt.Rows[i]["Exist"] = 1;
                       }
                   }
-                  if (dt.Rows.Count>0 && dt.Select("Exist=1").Length < 1)
+                  if (dt.Rows.Count > 0 && dt.Select("Exist=1").Length < 1)
                   {
-                      string strCommandText="";
-                    
+                      string strCommandText = "";
+
                       List<MySqlParameter> paramList = new List<MySqlParameter>();
                       paramList.Add(new MySqlParameter("@Name", MySqlDbType.VarChar, 100, "Name"));
                       paramList.Add(new MySqlParameter("@Weight", MySqlDbType.Float, 100, "Weight"));
@@ -587,27 +629,33 @@ namespace MvcFXProductMgr.Controllers
                       paramList.Add(new MySqlParameter("@Category", MySqlDbType.VarChar, 100, "Category"));
                       paramList.Add(new MySqlParameter("@CId", MySqlDbType.Int32, 100, "CId"));
                       paramList.Add(new MySqlParameter("@TId", MySqlDbType.Int32, 100, "TId"));
-                      if(strCategory.Contains("钻石")){
+                      if (strCategory.Contains("钻石"))
+                      {
                           strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_MainStone,P_MainStoneCarats,P_MainStoneClarity,P_MainStoneColor,P_Size) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@MainStone,@MainStoneCarats,@MainStoneClarity,@MainStoneColor,@Size)";
                           paramList.Add(new MySqlParameter("@MainStone", MySqlDbType.VarChar, 100, "MainStone"));
                           paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.Float, 100, "MainStoneCarats"));
                           paramList.Add(new MySqlParameter("@MainStoneClarity", MySqlDbType.VarChar, 100, "MainStoneClarity"));
                           paramList.Add(new MySqlParameter("@MainStoneColor", MySqlDbType.VarChar, 100, "MainStoneColor"));
                           paramList.Add(new MySqlParameter("@Size", MySqlDbType.Int32, 100, "Size"));
-                      }else if (strCategory.Contains("硬金")){
+                      }
+                      else if (strCategory.Contains("硬金"))
+                      {
                           strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_TenorInGold,P_Remarks) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@TenorInGold,'3D工艺')";
                           paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
-                      }else{
+                      }
+                      else
+                      {
                           strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_TenorInGold) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@TenorInGold)";
                           paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
                       }
 
                       MySqlParameter[] commadparameters = paramList.ToArray();
-                          //插入数据库
-                          try
+                      //插入数据库
+                      try
+                      {
+                          bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
+                          if (da)
                           {
-                              bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
-                              if (da) { 
                               List<ProductViewModel> list_update = ConvertHelper<ProductViewModel>.DataTableToList(dt);
                               ProductSuccessViewModel vm = new ProductSuccessViewModel();
                               vm.ProductList = list_update;
@@ -615,22 +663,23 @@ namespace MvcFXProductMgr.Controllers
                               vm.UploadNum = dt.Rows.Count;
                               vm.UploadUserName = User.Identity.Name;
                               return View(vm);
-                              }
-                              else
-                              {
-                                  throw new Exception("数据记录没有保存成功");
-                              }
                           }
-                          catch (Exception ex)
+                          else
                           {
-                              Session["errMsg"] = ex.Message;
-                              return RedirectToAction("AddProducts","Product");
-                              
+                              throw new Exception("数据记录没有保存成功");
                           }
-                      
+                      }
+                      catch (Exception ex)
+                      {
+                          Session["errMsg"] = ex.Message;
+                          return RedirectToAction("AddProducts", "Product");
+
+                      }
+
                       //检查记录重复，回到待保存页面
                   }
-                  else{
+                  else
+                  {
                       List<ProductViewModel> list = ConvertHelper<ProductViewModel>.DataTableToList(dt);
                       ProductSuccessViewModel vm2 = new ProductSuccessViewModel();
                       vm2.ProductList = list;
@@ -638,7 +687,280 @@ namespace MvcFXProductMgr.Controllers
                       vm2.UploadNum = 0;
                       vm2.UploadUserName = User.Identity.Name;
                       return View(vm2);
-                  }        
-          }       
+                  }
+         }  
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult SaveProductsForUpdate(List<ProductModel> model)
+        {
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SaveProductsForUpdate()
+        {
+            string strId = Request["Id"].ToString();
+            string strName = Request["Name"].ToString();
+            string strWeight = Request["Weight"].ToString();
+            string strCerNum = Request["CerNum"].ToString();
+            string strBarcode = Request["Barcode"].ToString();
+            string strPrice = Request["Price"].ToString();
+            string strStandard = Request["Standard"].ToString();
+
+            string strCompany = Request["Company"];
+            string[] arrCompany = strCompany.Split(':');
+            string strCId = arrCompany[0];
+            string strCName = arrCompany[1];
+
+            string strTestingOrg = Request["TestingOrg"];
+            string[] arrTestingOrg = strTestingOrg.Split(':');
+            string strTId = arrTestingOrg[0];
+            string strTName = arrTestingOrg[1];
+
+            string strCategory = Request["Category"].ToString();
+
+            string[] arrId = strId.Split(',');
+            string[] arrName = strName.Split(',');
+            string[] arrWeight = strWeight.Split(',');
+
+            string[] arrCerNum = strCerNum.Split(',');
+            string[] arrBarcode = strBarcode.Split(',');
+
+            string[] arrPrice = strPrice.Split(',');
+
+            string strMainStone = "";
+            string strMainStoneCarats = "";
+            string strMainStoneClarity = "";
+            string strMainStoneColor = "";
+            string strSize = "";
+
+            if (strCategory.Contains("钻石"))
+            {
+                strMainStone = Request["MainStone"];
+                strMainStoneCarats = Request["MainStoneCarats"];
+                strMainStoneClarity = Request["MainStoneClarity"];
+                strMainStoneColor = Request["MainStoneColor"];
+                strSize = Request["Size"];
+            }
+            string[] arrMainStone = strMainStone.Split(',');
+            string[] arrMainStoneCarats = strMainStoneCarats.Split(',');
+            string[] arrMainStoneClarity = strMainStoneClarity.Split(',');
+            string[] arrMainStoneColor = strMainStoneColor.Split(',');
+            string[] arrSize = strSize.Split(',');
+            //创建DataTable
+            DataTable dt = new DataTable();
+            DataColumn dcId = new DataColumn("Id", typeof(string));
+            DataColumn dcName = new DataColumn("Name", typeof(string));
+            DataColumn dcWeight = new DataColumn("Weight", typeof(string));
+            DataColumn dcCerNum = new DataColumn("CerNum", typeof(string));
+            DataColumn dcBarcode = new DataColumn("Barcode", typeof(string));
+            DataColumn dcPrice = new DataColumn("Price", typeof(string));
+            DataColumn dcStandard = new DataColumn("Standard", typeof(string));
+            DataColumn dCId = new DataColumn("CId", typeof(string));
+            DataColumn dcCName = new DataColumn("CName", typeof(string));
+            DataColumn dcTId = new DataColumn("TId", typeof(string));
+            DataColumn dcTName = new DataColumn("TName", typeof(string));
+            DataColumn dcCategory = new DataColumn("Category", typeof(string));
+            if (!strCategory.Contains("钻石"))
+            {
+                int iTennorInGold = 999;
+                if (strCategory.Contains("Au750"))
+                {
+                    iTennorInGold = 750;
+                }
+                else if (strCategory.Contains("Au916"))
+                {
+                    iTennorInGold = 916;
+                }
+
+                DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(int));
+                dcTenorInGold.DefaultValue = iTennorInGold;
+                dt.Columns.Add(dcTenorInGold);
+            }
+            DataColumn dcExist = new DataColumn("Exist", typeof(Int32));
+
+            dt.Columns.Add(dcId);
+            dt.Columns.Add(dcName);
+            dt.Columns.Add(dcWeight);
+            dt.Columns.Add(dcCerNum);
+            dt.Columns.Add(dcBarcode);
+            dt.Columns.Add(dcPrice);
+            dt.Columns.Add(dcStandard);
+            dt.Columns.Add(dCId);
+            dt.Columns.Add(dcCName);
+            dt.Columns.Add(dcTId);
+            dt.Columns.Add(dcTName);
+            dt.Columns.Add(dcCategory);
+            if (strCategory.Contains("钻石"))
+            {
+                DataColumn dcMainStone = new DataColumn("MainStone", typeof(string));
+                dt.Columns.Add(dcMainStone);
+                DataColumn dcMainStoneCarats = new DataColumn("MainStoneCarats", typeof(string));
+                dt.Columns.Add(dcMainStoneCarats);
+                DataColumn dcMainStoneClarity = new DataColumn("MainStoneClarity", typeof(string));
+                dt.Columns.Add(dcMainStoneClarity);
+                DataColumn dcMainStoneColor = new DataColumn("MainStoneColor", typeof(string));
+                dt.Columns.Add(dcMainStoneColor);
+                DataColumn dcSize = new DataColumn("Size", typeof(string));
+                dt.Columns.Add(dcSize);
+            }
+            dt.Columns.Add(dcExist);
+            //创建已存在记录表
+            // DataTable dtExist = dt.Clone();
+            for (int i = 0; i < arrName.Length; i++)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Id"] = arrId[i] ?? "";
+                dr["Name"] = arrName[i] ?? "";
+                dr["Weight"] = arrWeight[i] ?? "";
+                dr["CerNum"] = arrCerNum[i] ?? "";
+                dr["Barcode"] = arrBarcode[i] ?? "";
+                dr["Price"] = arrPrice[i] ?? "";
+                dr["Standard"] = strStandard ?? "";
+                dr["CId"] = strCId ?? "";
+                dr["CName"] = strCName ?? "";
+                dr["TId"] = strTId ?? "";
+                dr["TName"] = strTName ?? "";
+                dr["Category"] = strCategory ?? "";
+                if (strCategory.Contains("钻石"))
+                {
+                    dr["MainStone"] = arrMainStone[i] ?? "";
+                    dr["MainStoneCarats"] = arrMainStoneCarats[i] ?? "";
+                    dr["MainStoneClarity"] = arrMainStoneClarity[i] ?? "";
+                    dr["MainStoneColor"] = arrMainStoneColor[i] ?? "";
+                    dr["Size"] = arrSize[i] ?? "";
+                }
+
+                dr["Exist"] = 0;
+                dt.Rows.Add(dr);
+                /*************************判断数据是否已存在********************************************/
+                //检查数据库中是否有已经存在的纪录
+                string mysql_sel = "select * from p_info_table where P_CerNum=";
+                mysql_sel += "'" + arrCerNum[i] + "'";
+                mysql_sel += "and not P_Id='" + arrId[i] + "'";
+                DataTable tempdt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, mysql_sel, null);
+                if (tempdt.Rows.Count > 0)
+                {
+                    dt.Rows[i]["Exist"] = 1;
+                }
+                //若品名，条码号，证书编号为空，则不能保存
+                if (dr["Name"].ToString().Length < 1 || dr["Barcode"].ToString().Length < 1 || dr["CerNum"].ToString().Length < 1)
+                {
+                    dt.Rows[i]["Exist"] = 1;
+                }
+            }
+
+            if (dt.Rows.Count > 0 && dt.Select("Exist=1").Length < 1)
+            {
+                string strCommandText = "";
+
+                List<MySqlParameter> paramList = new List<MySqlParameter>();
+                paramList.Add(new MySqlParameter("@Name", MySqlDbType.VarChar, 100, "Name"));
+                paramList.Add(new MySqlParameter("@Weight", MySqlDbType.Float, 100, "Weight"));
+                paramList.Add(new MySqlParameter("@CerNum", MySqlDbType.VarChar, 100, "CerNum"));
+                paramList.Add(new MySqlParameter("@Barcode", MySqlDbType.VarChar, 100, "Barcode"));
+                paramList.Add(new MySqlParameter("@Price", MySqlDbType.Int32, 100, "Price"));
+                paramList.Add(new MySqlParameter("@Standard", MySqlDbType.VarChar, 100, "Standard"));
+                paramList.Add(new MySqlParameter("@Category", MySqlDbType.VarChar, 100, "Category"));
+                paramList.Add(new MySqlParameter("@CId", MySqlDbType.Int32, 100, "CId"));
+                paramList.Add(new MySqlParameter("@TId", MySqlDbType.Int32, 100, "TId"));
+                if (strCategory.Contains("钻石"))
+                {
+                    strCommandText = "UPDATE p_info_table SET P_Name=@Name,P_Weight=@Weight,P_CerNum=@CerNum,P_Barcode=@Barcode,P_Price=@Price,P_Standard=@Standard,P_Category=@Category,P_CId=@CId,P_Tid=@TId,P_MainStone=@MainStone,P_MainStoneCarats=@MainStoneCarats,P_MainStoneClarity=@MainStoneClarity,P_MainStoneColor=@MainStoneColor,P_Size=@Size)  WHERE P_Id=@Id";
+                    paramList.Add(new MySqlParameter("@MainStone", MySqlDbType.VarChar, 100, "MainStone"));
+                    paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.Float, 100, "MainStoneCarats"));
+                    paramList.Add(new MySqlParameter("@MainStoneClarity", MySqlDbType.VarChar, 100, "MainStoneClarity"));
+                    paramList.Add(new MySqlParameter("@MainStoneColor", MySqlDbType.VarChar, 100, "MainStoneColor"));
+                    paramList.Add(new MySqlParameter("@Size", MySqlDbType.Int32, 100, "Size"));
+                }
+                else if (strCategory.Contains("硬金"))
+                {
+                    strCommandText = "UPDATE p_info_table SET P_Name=@Name,P_Weight=@Weight,P_CerNum=@CerNum,P_Barcode=@Barcode,P_Price=@Price,P_Standard=@Standard,P_Category=@Category,P_CId=@CId,P_Tid=@TId,P_TenorInGold=@TenorInGold,P_Remarks='3D工艺' WHERE P_Id=@Id";
+                    paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
+                }
+                else
+                {
+                    strCommandText = "UPDATE p_info_table SET P_Name=@Name,P_Weight=@Weight,P_CerNum=@CerNum,P_Barcode=@Barcode,P_Price=@Price,P_Standard=@Standard,P_Category=@Category,P_CId=@CId,P_Tid=@TId,P_TenorInGold=@TenorInGold WHERE P_Id=@Id";
+                    paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
+                }
+                paramList.Add(new MySqlParameter("@Id", MySqlDbType.Int32, 100, "Id"));
+                MySqlParameter[] commadparameters = paramList.ToArray();
+                //更新数据库
+                try
+                {
+                    bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
+                    if (da)
+                    {
+                        List<ProductViewModel> list_update = ConvertHelper<ProductViewModel>.DataTableToList(dt);
+                        ProductSuccessViewModel vm = new ProductSuccessViewModel();
+                        vm.ProductList = list_update;
+                        vm.UploadDateTime = DateTime.Now.ToString();
+                        vm.UploadNum = dt.Rows.Count;
+                        vm.UploadUserName = User.Identity.Name;
+                        return View(vm);
+                    }
+                    else
+                    {
+                        throw new Exception("数据记录没有保存成功");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Session["errMsg"] = ex.Message;
+                    return RedirectToAction("AddProducts", "Product");
+
+                }
+
+
+            }
+            else //检查记录重复，回到待保存页面
+            {
+                List<ProductViewModel> list = ConvertHelper<ProductViewModel>.DataTableToList(dt);
+                ProductSuccessViewModel vm2 = new ProductSuccessViewModel();
+                vm2.ProductList = list;
+                vm2.UploadDateTime = "";
+                vm2.UploadNum = 0;
+                vm2.UploadUserName = User.Identity.Name;
+                vm2.Category = strCategory;
+                vm2.Standard = strStandard;
+
+                //公司列表
+                CompanyModel modelForCompany = new CompanyModel();
+                List<SelectListItem> itemsForCompany = new List<SelectListItem>();
+                List<CompanyModel> clist = modelForCompany.GetAllCompanys();
+                //增加“所有公司”到公司信息列表
+                SelectListItem selectItemAForCompany = new SelectListItem();
+                selectItemAForCompany.Text = "---所有公司---";
+                selectItemAForCompany.Value = "0" + ":" + "所有公司";
+                itemsForCompany.Add(selectItemAForCompany);
+                foreach (CompanyModel citem in clist)
+                {
+                    SelectListItem selectItemForCompany = new SelectListItem();
+                    selectItemForCompany.Text = citem.Name;
+                    selectItemForCompany.Value = citem.Id.ToString() + ":" + citem.Name;
+                    if (strCompany.Contains(citem.Name)) selectItemForCompany.Selected = true;
+                    itemsForCompany.Add(selectItemForCompany);
+                }
+                vm2.Company = itemsForCompany;
+                //检测机构列表
+                TestingOrgModel modelForTestingOrg = new TestingOrgModel();
+                List<SelectListItem> itemsForTestingOrg = new List<SelectListItem>();
+                List<TestingOrgModel> listForTestingOrg = modelForTestingOrg.GetAllTestingOrgs();
+                foreach (TestingOrgModel itemForTestingOrg in listForTestingOrg)
+                {
+                    SelectListItem selectItemForTestingOrg = new SelectListItem();
+                    selectItemForTestingOrg.Text = itemForTestingOrg.Name;
+                    selectItemForTestingOrg.Value = itemForTestingOrg.Id.ToString() + ":" + itemForTestingOrg.Name;
+                    if (strTestingOrg.Contains(itemForTestingOrg.Name)) selectItemForTestingOrg.Selected = true;
+                    itemsForTestingOrg.Add(selectItemForTestingOrg);
+                }
+                vm2.TestingOrg = itemsForTestingOrg;
+                return View(vm2);
+            }
+        }
+
     }
 }

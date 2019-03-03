@@ -169,11 +169,13 @@
         if ($("input[name='Category']:checked").hasClass("DCategory")) {
             $(".GStandard").addClass("hide");
             $(".DStandard").removeClass("hide");
-        } else {
+            $(".DMainStone").removeClass("hide"); //更新产品信息时，当类别为“钻石”时，钻石相关成分部分隐藏
+        } 
+        else {
             $(".GStandard").removeClass("hide");
             $(".DStandard").addClass("hide");
+            $(".DMainStone").addClass("hide"); //更新产品信息时，当类别为“钻石”时，钻石相关成分部分显示
         }
-
     });
     //////////////////////////////////////////////////////////////////////////////
     //更新公司信息时，验证
