@@ -105,6 +105,7 @@ namespace MvcFXProductMgr.Models
         {
             string strCommandText = "SELECT P_Id AS Id,P_Name AS NAME ,P_Barcode AS Barcode,P_CerNum AS CerNum,P_Weight AS Weight,P_Price AS Price,P_Standard AS Standard,P_Category AS Category,P_CId AS CId,C_Name AS CName,C_Address AS CAddress,C_Url AS CUrl,C_Tel AS CTel,P_TId AS TId,T_Name AS TName,T_Url AS TUrl,T_Tel AS TTel,P_Date AS DATE,IFNULL(P_MainStone,'') AS MainStone,IFNULL(P_MainStoneCarats,'0') AS MainStoneCarats,IFNULL(P_MainStoneClarity,'') AS MainStoneClarity,IFNULL(P_MainStoneColor,'') AS MainStoneColor,IFNULL(P_Size,'0') AS Size,IFNULL(P_TenorInGold,'0') AS TenorInGold FROM p_info_table,t_info_table,c_info_table WHERE P_CId=C_Id AND P_TId=T_Id";
             strCommandText += " And P_Category ='" +category+ "'";
+            strCommandText += " And P_Status = 'N'";
             if (cId != 0)
             { 
                 strCommandText += " And P_CId='" + cId + "'";
