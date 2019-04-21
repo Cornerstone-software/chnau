@@ -7,6 +7,7 @@ MvcFXProductMgr/MvcFXProductMgr/obj/Debug/*
 
 MvcFXProductMgr/MvcFXProductMgr.suo
 MvcFXProductMgr/MvcFXProductMgr/bin/*
-
+MvcFXProductMgr/MvcFXProductMgr/App_data
+App_data/*.xlsx
 *.suo
 

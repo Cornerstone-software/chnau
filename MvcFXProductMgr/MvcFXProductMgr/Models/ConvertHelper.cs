@@ -65,7 +65,7 @@ namespace MvcFXProductMgr.Models
                                 bRes = DateTime.TryParse(value.ToString(), out outDateTime);
                                 if (bRes)
                                 {
-                                    value = result;
+                                    value = outDateTime;
                                 }
                                 else
                                 {

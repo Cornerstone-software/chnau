@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MvcFXProductMgr.Models;
-
 namespace MvcFXProductMgr.Controllers
 {
     public class CompanyController : Controller
@@ -55,17 +54,42 @@ namespace MvcFXProductMgr.Controllers
         [HttpPost]
         public ActionResult CompanyManage([Bind(Include = "Id,Name,Address,Url,Tel")]CompanyModel model)
         {
+
+            //创建删除日志
+            LogModel logModel = new LogModel();
+            logModel.Name = User.Identity.Name;
+            logModel.Date = DateTime.Now;
+           
            
             if (model.Id ==0)
             {
                 model.AddCompany(model);
+
+                logModel.Content = "AddCompany";
+                try
+                {
+                    logModel.AddLog(logModel);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "日志创建失败");
+                }
                 HttpContext.Response.Write("<script>alert('保存成功！')</script>");
                 return View("CompanyManage");
             }
             else
             {
                 model.UpdateCompany(model);
-                
+
+                logModel.Content = "UpdateCompany";
+                try
+                {
+                    logModel.AddLog(logModel);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "日志创建失败");
+                }
                 return RedirectToAction("Index","Company");
             }         
         }
@@ -79,6 +103,21 @@ namespace MvcFXProductMgr.Controllers
         {
             CompanyModel model = new CompanyModel();
             model.DeleteCompany(id);
+
+
+            //创建删除日志
+            LogModel logModel = new LogModel();
+            logModel.Name = User.Identity.Name;
+            logModel.Date = DateTime.Now;
+            logModel.Content = "DeleteCompany";
+            try
+            {
+                logModel.AddLog(logModel);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "日志创建失败");
+            }
             return RedirectToAction("Index", "Company");
            
         }

@@ -9,6 +9,7 @@
 
 @Html.ValidationSummary(true, "登录不成功。请更正错误并重试。")
 
+
 @using (Html.BeginForm()) {
     <div>
 
@@ -18,8 +19,8 @@
             <div class="editor-field">
                 <input name="Password" type="password" class="acctxt"/>
             </div>
-            <div class="editor-field">
-                <input name="code" type="text" class="acctxt" placeholder="验证码"/>
+            <div class="editor-field table-show">
+                <input name="code" type="text" class="acctxt table-cell" placeholder="验证码"  />
                 <img id="valiCode" src="../Account/GetValidateCode" alt="验证码" />
             </div>
             <div>

@@ -54,17 +54,39 @@ namespace MvcFXProductMgr.Controllers
         [HttpPost]
         public ActionResult TestingOrgManage([Bind(Include = "Id,Name,Url,Tel")]TestingOrgModel model)
         {
+            //创建删除日志
+            LogModel logModel = new LogModel();
+            logModel.Name = User.Identity.Name;
+            logModel.Date = DateTime.Now;
 
             if (model.Id == 0)
             {
                 model.AddTestingOrg(model);
+
+                logModel.Content = "AddTestingOrg";
+                try
+                {
+                    logModel.AddLog(logModel);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "日志创建失败");
+                }
                 HttpContext.Response.Write("<script>alert('保存成功！')</script>");
                 return View("TestingOrgManage");               
             }
             else
             {
                 model.UpdateTestingOrg(model);
-
+                logModel.Content = "UpdateTestingOrg";
+                try
+                {
+                    logModel.AddLog(logModel);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "日志创建失败");
+                }
                 return RedirectToAction("Index", "TestingOrg");
             }
         }
@@ -78,6 +100,21 @@ namespace MvcFXProductMgr.Controllers
         {
             TestingOrgModel model = new TestingOrgModel();
             model.DeleteTestingOrg(id);
+
+            //创建删除日志
+            LogModel logModel = new LogModel();
+            logModel.Name = User.Identity.Name;
+            logModel.Date = DateTime.Now;
+            logModel.Content = "DeleteTestingOrg";
+            try
+            {
+                logModel.AddLog(logModel);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "日志创建失败");
+            }
+
             return RedirectToAction("Index", "TestingOrg");
 
         }

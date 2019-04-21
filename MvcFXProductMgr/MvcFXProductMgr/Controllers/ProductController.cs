@@ -645,6 +645,19 @@ namespace MvcFXProductMgr.Controllers
                           bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
                           if (da)
                           {
+                              //创建删除日志
+                              //LogModel logModel = new LogModel();
+                              //logModel.Name = User.Identity.Name;
+                              //logModel.Date = DateTime.Now;
+                              //logModel.Content = "AddProducts";
+                              //try
+                              //{
+                              //    logModel.AddLog(logModel);
+                              //}
+                              //catch (Exception ex)
+                              //{
+                              //    ModelState.AddModelError("", "日志创建失败");
+                              //}
                               List<ProductViewModel> list_update = ConvertHelper<ProductViewModel>.DataTableToList(dt);
                               ProductSuccessViewModel vm = new ProductSuccessViewModel();
                               vm.ProductList = list_update;
@@ -883,12 +896,25 @@ namespace MvcFXProductMgr.Controllers
                     bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
                     if (da)
                     {
+                        //创建删除日志
+                        LogModel logModel = new LogModel();
+                        logModel.Name = User.Identity.Name;
+                        logModel.Date = DateTime.Now;
+                        logModel.Content = "UpdateProducts";
+                        try
+                        {
+                            logModel.AddLog(logModel);
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("", "日志创建失败");
+                        }
                         List<ProductViewModel> list_update = ConvertHelper<ProductViewModel>.DataTableToList(dt);
                         ProductSuccessViewModel vm = new ProductSuccessViewModel();
                         vm.ProductList = list_update;
                         vm.UploadDateTime = DateTime.Now.ToString();
                         vm.UploadNum = dt.Rows.Count;
-                        vm.UploadUserName = User.Identity.Name;
+                        vm.UploadUserName = User.Identity.Name;                      
                         return View(vm);
                     }
                     else
@@ -955,39 +981,59 @@ namespace MvcFXProductMgr.Controllers
         [HttpPost]
         public ActionResult DeleteProducts()
         {
-            string strId = Request["Id"].ToString();
-            string[] arrId = strId.Split(',');
-            //创建DataTable
-            DataTable dt = new DataTable();
-            DataColumn dcId = new DataColumn("Id", typeof(string));
-            dt.Columns.Add(dcId);
-            for (int i = 0; i < arrId.Length; i++)
+            if (User.Identity.Name.ToLower() != "admin")
             {
-                DataRow dr = dt.NewRow();
-                dr["Id"] = arrId[i] ?? "";
-                dt.Rows.Add(dr);
+                return Content("您不是管理员，没有此权限");
             }
-            string strCommandText = "UPDATE p_info_table SET P_Status='X' WHERE P_Id =@Id";
-            List<MySqlParameter> paramList = new List<MySqlParameter>();
-            paramList.Add(new MySqlParameter("@Id", MySqlDbType.Int32, 100, "Id"));
-            MySqlParameter[] commadparameters = paramList.ToArray();
-            //更新数据库
-            try
-            {
-                bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
-                if (da)
+            else{ 
+                string strId = Request["Id"].ToString();
+                string[] arrId = strId.Split(',');
+                //创建DataTable
+                DataTable dt = new DataTable();
+                DataColumn dcId = new DataColumn("Id", typeof(string));
+                dt.Columns.Add(dcId);
+                for (int i = 0; i < arrId.Length; i++)
                 {
-                    return RedirectToAction("GetProducts", "Product");
+                    DataRow dr = dt.NewRow();
+                    dr["Id"] = arrId[i] ?? "";
+                    dt.Rows.Add(dr);
                 }
-                else
+                string strCommandText = "UPDATE p_info_table SET P_Status='X' WHERE P_Id =@Id";
+                List<MySqlParameter> paramList = new List<MySqlParameter>();
+                paramList.Add(new MySqlParameter("@Id", MySqlDbType.Int32, 100, "Id"));
+                MySqlParameter[] commadparameters = paramList.ToArray();
+                //更新数据库
+                try
                 {
-                    throw new Exception("数据记录没有删除成功");
-                }
+                    bool da = MySQLHelper.ExecuteDataAdapterBatch(MySQLHelper.Conn, CommandType.Text, strCommandText, dt, 5000, commadparameters);
+                    if (da)
+                    {
+                        //创建删除日志
+                        LogModel logModel = new LogModel();
+                        logModel.Name = User.Identity.Name;
+                        logModel.Date = DateTime.Now;
+                        logModel.Content = "DeleteProducts";
+                        try
+                        {
+                            logModel.AddLog(logModel);
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("", "日志创建失败");
+                        }
+
+                        return RedirectToAction("GetProducts", "Product");
+                    }
+                    else
+                    {
+                        throw new Exception("数据记录没有删除成功");
+                    }
                 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
             }
         }
 

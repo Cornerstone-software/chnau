@@ -16,8 +16,15 @@ else
     <h2>@ViewBag.Title</h2>
     <form action=@Url.Action("AdvertmentManage", "Advertment") method="post">
         <dl>
+            <dt class="hide">广告Id：</dt>
+            <dd class="hide">
+                <input type="text" id="TxtId" name="Id" value="@(Model != null ? Model.Id : 0)"/>
+                <span class="errMsg">广告ID为空，请重新输入。</span>
+            </dd>
+        </dl>
+        <dl>
             <dt>广告语：&nbsp;&nbsp;&nbsp;</dt>
-                <textarea rows="2" cols="25" type="text" id="TxtCName" name="Name" class="txtarea"></textarea>
+                <textarea rows="2" cols="25" type="text" id="TxtCName" name="Name" class="txtarea">@(Model != null ? Model.Name : null)</textarea>
                 <span class="errMsg">广告语为空，请重新输入。</span>
             </dd>
         </dl>
@@ -25,14 +32,16 @@ else
         <dl>
             <dt>广告网址：</dt>
             <dd>
-                <textarea rows="2" cols="25" type="text" id="TxtCUrl" name="Url" class="txtarea"></textarea>
+                <textarea rows="2" cols="25" type="text" id="TxtCUrl" name="Url" class="txtarea">@(Model != null ? Model.Url : null)</textarea>
                 <span class="errMsg">广告网址为空，请重新输入。</span>
             </dd>
         </dl>
         
         <div class="btn-function">
             <input class="button" name="btnSave" type="submit" value="保存" /> 
+            <a href=@Url.Content("/Advertment/Index")>
             <input class="button" name="btnCancel" type="button" value="取消" /> 
+            </a>
         </div>
     </form>
    

@@ -153,7 +153,8 @@ input[type="text"]:focus,textarea:focus
 }
 .leftMenu-list h3, .leftMenu-list ul li{
     margin: 0;
-    padding: 20px 0;    
+    padding: 20px 0;  
+    position: relative; 
 }
 .leftMenu-list h3:hover,.leftMenu-list.hover h3
 {
@@ -179,6 +180,13 @@ input[type="text"]:focus,textarea:focus
 {
   background-color: #a4b6cf;
   
+}
+.leftMenu-list.hover ul li>a{
+    display: inline-block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    padding-left: 36px;    
 }
 .leftMenu-list.hover ul li>a,.leftMenu-list ul li
 {
@@ -278,7 +286,81 @@ input[type="text"]:focus,textarea:focus
     display:inline-block;
     font-weight: normal;
 }
+/* 公司查询页面*/
+.cinfo dt.numCol,.cinfo dd.numCol
+{
+    width: 4%;
+    text-align: center;
+}
+.cinfo dt.nameCol,.cinfo dd.nameCol
+{
+    width: 20%;
+    text-align: center;
+}
+.cinfo dt.addressCol,.cinfo dd.addressCol,.cinfo dt.urlCol,.cinfo dd.urlCol
+{
+    width: 28%;
+    text-align: center;
+}
 
+.cinfo  dt.telCol,.cinfo dd.telCol
+{
+    width: 10%;
+    text-align: center;
+}
+.cinfo dt.lastCol,.cinfo dd.lastCol
+{
+    text-align: center;
+}
+/*公司查询页面结束*/
+/*检测机构信息*/
+.tinfo dt.numCol,.tinfo dd.numCol
+{
+    width: 4%;
+    text-align: center;
+}
+.tinfo dt.nameCol,.tinfo dd.nameCol
+{
+    width: 32%;
+    text-align: center;
+}
+.tinfo dt.urlCol,.tinfo dd.urlCol
+{
+    width: 32%;
+    text-align: center;
+}
+
+.tinfo  dt.telCol,.tinfo dd.telCol
+{
+    width: 22%;
+    text-align: center;
+}
+.tinfo dt.lastCol,.tinfo dd.lastCol
+{
+    text-align: center;
+}
+/*检测机构信息结束*/
+/*广告信息页面开始*/
+.ainfo dt.numCol,.ainfo dd.numCol
+{
+    width: 4%;
+    text-align: center;
+}
+.ainfo dt.nameCol,.ainfo dd.nameCol
+{
+    width: 40%;
+    text-align: center;
+}
+.ainfo dt.urlCol,.ainfo dd.urlCol
+{
+    width: 46%;
+    text-align: center;
+}
+.ainfo dt.lastCol,.ainfo dd.lastCol
+{
+    text-align: center;
+}
+/*广告信息页面结束*/
 /*Product Page End*/
 /*Company Page Start*/
 #content h2
@@ -288,10 +370,8 @@ input[type="text"]:focus,textarea:focus
     padding-top: 10px;
     padding-bottom: 10px;
 }
-.companyInfo dl
-{
-}
-.companyInfo dt,.companyInfo dd
+
+.companyInfo dt,.companyInfo dd,.testingInfo dt, .testingInfo dd
 {
     display:inline-block;
 }
@@ -305,11 +385,14 @@ input[type="text"]:focus,textarea:focus
     border: 1px solid #cdcdcd;
     width: 364px;
     vertical-align: middle;
-    border-radius: 2px;
-    padding-left: 5px;
+    border-radius: 2px;    
     padding-right: 5px;
     overflow:hidden;
     resize:none;
+}
+ .txtarea,.txtTel
+{
+    padding-left: 5px;
 }
 .txtTel
 {
@@ -370,6 +453,7 @@ div.btn-function
 #valiCode
 {
     cursor:pointer;
+    display: inline-block;
 }
 .editor-field
 {
@@ -389,11 +473,21 @@ div.btn-function
     
 .editor-field input[name="code"]
 {
-    width:88px;   
+    width:88px;  
+    margin-right: 4px; 
 }
 #contentLogOn .button{
     width: 180px;
     margin: 17px 0;
+}
+#contentLogOn .table-show
+{
+    display: table;
+}
+#contentLogOn .table-cell
+{
+    display: table-cell;
+    
 }
 .validation-summary-errors,.field-validation-error
 {
@@ -492,7 +586,7 @@ div.btn-function
 }
 .prodInfo dd.btnDel:Hover
 {
-    color:#566180;
+    color:#fff;
     text-decoration: underline;
 }
 .table .btn-function

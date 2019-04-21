@@ -7,9 +7,144 @@
 
 @if (Model.Count > 0)
 {
-    <form action=@Url.Action("UpdateProducts", "Product") method="post">
+    <form action=@Url.Action("SaveProductsForUpdate", "Product") method="post">
      <h2>更改如下产品信息</h2>
-     
+     <div class="cinfo">    
+        <dl>
+            <dt>公司信息：</dt>
+            <dd> 
+                 @Html.DropDownList("Company", ViewData["Company"] as SelectList)
+                <span class="errMsg">请选择公司</span>
+            </dd>
+        </dl>
+        <dl>
+            <dt>检测机构：</dt>
+            <dd>
+                @Html.DropDownList("TestingOrg", ViewData["TestingOrg"] as SelectList)
+            </dd>
+        </dl>
+        <dl>
+            <dt>产品类别：</dt>
+            <dd> 
+                @if (ViewData["Category"].ToString().Contains("黄金"))
+                {
+                    <input type="radio" name="Category" value="黄金" checked/><label>黄金</label>
+                }
+                else
+                {
+                    <input type="radio" name="Category" value="黄金"/><label>黄金</label>
+                }
+                @if (ViewData["Category"].ToString().Contains("硬金"))
+                {
+                    <input type="radio" name="Category" value="硬金"checked/><label>硬金</label> 
+                }
+                else
+                { 
+                    <input type="radio" name="Category" value="硬金"/><label>硬金</label> 
+                }
+                @if (ViewData["Category"].ToString().Contains("Au750"))
+                {
+                    <input type="radio" name="Category" value="Au750"checked/><label>Au750</label> 
+                }
+                else
+                { 
+                    <input type="radio" name="Category" value="Au750"/><label>Au750</label> 
+                }
+                @if (ViewData["Category"].ToString().Contains("Au916"))
+                {
+                    <input type="radio" name="Category" value="Au916"checked/><label>Au916</label> 
+                }
+                else
+                { 
+                    <input type="radio" name="Category" value="Au916"/><label>Au916</label> 
+                }
+                @if (ViewData["Category"].ToString().Contains("钻石"))
+                {
+                    <input type="radio" name="Category" value="钻石" class="DCategory" checked/><label>钻石</label> 
+                }
+                else
+                { 
+                    <input type="radio" name="Category" value="钻石" class="DCategory"/><label>钻石</label> 
+                }
+            </dd>
+        </dl>
+        <dl>
+            <dt>执行标准：</dt>
+            <dd>
+               @if (ViewData["Standard"].ToString().Contains("Q/ZJZB 001-2015"))
+               {  
+                    <input type="checkbox" name="Standard"  class="GStandard" value="Q/ZJZB 001-2015" checked/><label class="GStandard"> Q/ZJZB 001-2015</label>
+               }
+               else
+               {
+                    <input type="checkbox" name="Standard"  class="GStandard" value="Q/ZJZB 001-2015" /><label class="GStandard"> Q/ZJZB 001-2015</label>
+               }
+               @if (ViewData["Standard"].ToString().Contains("GB 11887"))
+               { 
+                <input type="checkbox" name="Standard"  value="GB 11887" checked/><label>GB 11887</label>
+               }
+               else
+               { 
+                <input type="checkbox" name="Standard"  value="GB 11887" /><label>GB 11887</label>
+               }
+               @if (ViewData["Standard"].ToString().Contains("GB/T 18043"))
+               {
+                <input type="checkbox" name="Standard"  value="GB/T 18043" checked/><label>GB/T 18043</label> 
+               }
+               else
+               { 
+                <input type="checkbox" name="Standard"  value="GB/T 18043"/><label>GB/T 18043</label> 
+               }
+                @if (ViewData["Standard"].ToString().Contains("GB/T 16552"))
+                {
+                <input type="checkbox" name="Standard" class="DStandard" value="GB/T 16552" checked/><label class="DStandard">GB/T 16552</label> 
+                }
+                else
+                {
+                    if (ViewData["Category"].ToString().Contains("钻石"))
+                    {
+                        <input type="checkbox" name="Standard" class="DStandard" value="GB/T 16552" /><label class="DStandard">GB/T 16552</label> 
+                    }
+                    else
+                    {
+                     <input type="checkbox" name="Standard" class="DStandard hide" value="GB/T 16552" /><label class="DStandard hide">GB/T 16552</label> 
+               
+                    }
+                }
+                @if (ViewData["Standard"].ToString().Contains("GB/T 16553"))
+                { 
+                    <input type="checkbox" name="Standard" class="DStandard" value="GB/T 16553" checked/><label class="DStandard">GB/T 16553</label>
+                }
+                else
+                {
+                    if (ViewData["Category"].ToString().Contains("钻石"))
+                    {
+                         <input type="checkbox" name="Standard" class="DStandard" value="GB/T 16553"/><label class="DStandard">GB/T 16553</label>
+                    }
+                    else
+                    {
+                    <input type="checkbox" name="Standard" class="DStandard hide" value="GB/T 16553"/><label class="DStandard hide">GB/T 16553</label>
+                    }
+                }
+                @if (ViewData["Standard"].ToString().Contains("GB/T 16554"))
+                { 
+                    <input type="checkbox" name="Standard" class="DStandard" value="GB/T 16554" checked/> <label class="DStandard">GB/T 16554</label> 
+                }
+                else
+                {
+                    if (ViewData["Category"].ToString().Contains("钻石"))
+                    { 
+                        <input type="checkbox" name="Standard" class="DStandard" value="GB/T 16554"/> <label class="DStandard">GB/T 16554</label> 
+                    }
+                    else
+                    { 
+                        <input type="checkbox" name="Standard" class="DStandard hide" value="GB/T 16554"/> <label class="DStandard hide">GB/T 16554</label> 
+                    }
+
+                } 
+            </dd>
+        </dl>
+    </div>
         <div class="table prodInfo">
             <dl class="tableHeader">
                 <dt class="firstCol numCol">序号</dt>
@@ -17,38 +152,58 @@
                 <dt class="weightCol">产品重量</dt>
                 <dt class="barCol">条码号</dt>
                 <dt class="cernumCol">证书编号</dt>
-                <dt class="standardCol">企业标准</dt>
-                <dt class="cNameCol">公司名称</dt>
-                <dt class="tNameCol">检测机构</dt>
+                <dt class="priceCol">价格</dt>
+                @if (ViewData["Category"].ToString().Contains("钻石"))
+                { 
+                <dt class="mainStoneCol DMainStone">主石</dt>
+                <dt class="mainStoneCaratsCol DMainStone">主石重量</dt>
+                <dt class="mainStoneClarityCol DMainStone">主石净度</dt>
+                <dt class="mainStoneColorCol DMainStone">主石颜色</dt>
+                <dt class="sizeCol DMainStone">尺寸</dt>
+                }
+                else
+                { 
+                <dt class="mainStoneCol DMainStone hide">主石</dt>
+                <dt class="mainStoneCaratsCol DMainStone hide">主石重量</dt>
+                <dt class="mainStoneClarityCol DMainStone hide">主石净度</dt>
+                <dt class="mainStoneColorCol DMainStone hide">主石颜色</dt>
+                <dt class="sizeCol DMainStone hide">尺寸</dt>               
+                }
                 <dt class="delCol lastCol "></dt>
-                <dt class="hide">公司ID</dt>
-                <dt class="hide">检测机构ID</dt>
-                <dt class="hide">产品类别</dt>
-                <dt class="hide">执行标准</dt>
             </dl>
                 @foreach (var item in Model)
-                {
-                     
-                        <dl class="tableBody">
-                            <dd class="firstCol numCol">@HelpMath.sum(Model.IndexOf(item), 1)</dd>
-                            <dd class="nametCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
-                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
-                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
-                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
-                            <dd class="standardCol editor"><input name="Standard" type="text" value='@item.Standard' /></dd>
-                            <dd  class="cNameCol editor"><input name="CName" type="text" value='@item.CName' readonly="readonly" /></dd>
-                            <dd class="tNameCol editor"><input name="TName" type="text" value='@item.TName' readonly="readonly" /></dd>
-                            <dd class="delCol lastCol btnDel">删除</dd>
-                            <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd>
-                            <dd class="hide"><input name="CId" type="hidden" value="@item.CId" /></dd>
-                            <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
-                            <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
-                            <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
-                        </dl>                  
+                {                    
+                <dl class="tableBody">
+                    <dd class="firstCol numCol">@HelpMath.sum(Model.IndexOf(item), 1)</dd>
+                    <dd class="nametCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                    <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                    <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                    <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>  
+                    <dd class="priceCol editor number"><input name="Price" type="text" value="@item.Price" /></dd>   
+                    @if (ViewData["Category"].ToString().Contains("钻石"))
+                    {                             
+                    <dd class="mainStoneCol editor DMainStone"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
+                    <dd class="mainStoneCaratsCol editor DMainStone"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
+                    <dd class="mainStoneClarityCol editor DMainStone"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
+                    <dd class="mainStoneColorCol editor DMainStone"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
+                    <dd class="sizeCol editor number DMainStone"><input name="Size" type="text" value='@item.Size'/></dd>
+                    }
+                    else
+                    { 
+                    <dd class="mainStoneCol editor DMainStone hide"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
+                    <dd class="mainStoneCaratsCol editor DMainStone hide"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
+                    <dd class="mainStoneClarityCol editor DMainStone hide"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
+                    <dd class="mainStoneColorCol editor DMainStone hide"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
+                    <dd class="sizeCol editor number DMainStone hide"><input name="Size" type="text" value='@item.Size'/></dd>                    
+                    }
+                    <dd class="delCol lastCol btnDel">删除</dd>
+                    <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd>
+
+                </dl>                  
                 }
                 <div class="btn-function">
                     <input class="btn btnSave" name="Save" value="保存" type="submit" />
-                    <a href=@Url.Action("GetProducts","Product")><input class="btn btnCancel" name="Cancel" type="button" value="取消" /> </a>
+                    <a href=@Url.Action("GetProducts", "Product")><input class="btn btnCancel" name="Cancel" type="button" value="取消" /> </a>
                 </div> 
          </div>
     </form>

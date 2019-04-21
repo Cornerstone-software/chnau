@@ -58,8 +58,8 @@
         if (!confirm("确定要列表中的产品吗")) {
             return false;
         } else {
-            $(this).parents("form").attr('action', newUrl);
-            $(this).parents("form").submit(); 
+            $(this).parents("form").attr('action', newUrl).submit();
+            
         }
 
     });
@@ -265,7 +265,7 @@
     });
     ////////////////////////////////////////////////////////////////////////////
     //删除公司信息
-    $(".cinfo .deleteBtn,.tinfo .deleteBtn").click(function () {
+    $(".cinfo .deleteBtn,.tinfo .deleteBtn,.ainfo .deleteBtn").click(function () {
         if (!confirm("确定要删除吗？")) {
             return false;
         }

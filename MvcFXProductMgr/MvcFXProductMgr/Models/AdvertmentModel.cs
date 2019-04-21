@@ -31,8 +31,8 @@ namespace MvcFXProductMgr.Models
                 if (dt.Rows.Count > 0)
                 {
                     objAdvert.Id = id;
-                    objAdvert.Name = dt.Rows[0]["CName"].ToString();
-                    objAdvert.Url = dt.Rows[0]["CUrl"].ToString();
+                    objAdvert.Name = dt.Rows[0]["AName"].ToString();
+                    objAdvert.Url = dt.Rows[0]["AUrl"].ToString();
                 }
                 return objAdvert;
             }
@@ -118,7 +118,7 @@ namespace MvcFXProductMgr.Models
             }
             //to do
 
-            //UPDATE a_info_table SET C_Status="Y" WHERE C_Id=2;
+            //UPDATE a_info_table SET A_Status="Y" WHERE A_Id=2;
             string strCommandText = "UPDATE a_info_table SET";
             strCommandText += " A_Name ='" + item.Name + "',";
             strCommandText += " A_Url='" + item.Url + "'";

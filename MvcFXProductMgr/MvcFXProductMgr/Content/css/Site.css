@@ -586,7 +586,7 @@ div.btn-function
 }
 .prodInfo dd.btnDel:Hover
 {
-    color:#566180;
+    color:#fff;
     text-decoration: underline;
 }
 .table .btn-function

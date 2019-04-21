@@ -11,30 +11,38 @@
     <div>
         产品名称：@Model.Name
     </div>
-    <div>
-        产品重量：@Model.Weight 克
-    </div>
-
+     @if (Model.Category.Contains("Au"))
+     {
+         <div>产品质量：@Model.Weight 克</div>
+         
+     }
+     else { 
+        <div>产品重量：@Model.Weight 克</div>
+     }
     <div>
         条码：@Model.Barcode
     </div>
     @if (Model.Category.Contains("钻石"))
     {
         <div> 主石：@Model.MainStone</div>
-        <div> 主石重量：@Model.MainStoneCarats</div>
+        <div> 主石重量：@Model.MainStoneCarats ct</div>
         <div> 主石净度：@Model.MainStoneClarity</div>
         <div> 主石颜色：@Model.MainStoneColor</div>
     }
     <div>
         证书编号：@Model.CerNum
     </div>
-    @if (Model.Category.Contains("钻石"))
+    @if (Model.Category.Contains("钻石") && Model.Size != 0)
     {
         <div> 尺寸：@Model.Size</div>
     }
     else if (Model.Category.Contains("黄金"))
     {  
         <div> 含金量：@Model.TenorInGold ‰ </div>
+    }
+    else if (Model.Category.Contains("Au"))
+    {
+        <div> 备注：@Model.CerNum</div>
     }
     else
     {
@@ -46,7 +54,8 @@
         企业标准：@Model.Standard
     </div>
  }
- else { 
+ else if (!Model.Category.Contains("硬金"))
+ { 
     <div>
         执行标准：@Model.Standard
     </div>

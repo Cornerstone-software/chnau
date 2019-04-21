@@ -9,7 +9,9 @@
 {
     <form action=@Url.Action("SaveProducts", "Product") method="post">
      <h2>待保存产品</h2>
+     <div class="redColor">@ViewData["errMsg"]</div>
      <p>如下红色标注的记录，已存在或数据不正确，请仔细核对。</p>
+
         <div class="table prodInfo">
             <dl class="tableHeader">
                 <dt class="firstCol numCol">序号</dt>
@@ -128,7 +130,5 @@ else
         </dl>
         }  
     </div>
-    <div class="back">@Html.ActionLink("返回批量上传", "AddProducts", "Product")</div>
-       
-       
+    <div class="back">@Html.ActionLink("返回批量上传", "AddProducts", "Product")</div>      
 }

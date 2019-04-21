@@ -1,6 +1,38 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@using MvcFXProductMgr.Models;
+@model List<TestingOrgModel>
+@{
+    ViewBag.Title = "检测机构信息管理";
+}
+@if (Model.Count > 0)
+{
+<h2>检测机构信息列表</h2>
+        <div class="tinfo table">
+            <dl class="tableHeader">
+                <dt class="firstCol numCol">序号</dt>
+                <dt class="nameCol">检测机构名称</dt>
+                <dt class="urlCol">检测机构网址</dt>
+                <dt class="telCol">检测机构电话</dt>
+                <dt class="lastCol"></dt>                
+            </dl>
+                @foreach (var item in Model)
+                {
+                <dl class="tableBody">
+                    <dd class="firstCol numCol">@HelpMath.sum(Model.IndexOf(item), 1)</dd>
+                    <dd class="nameCol">@item.Name</dd>
+                    <dd class="urlCol">@item.Url</dd>
+                    <dd class="telCol">@item.Tel</dd>             
+                    <dd class="lastCol">
+                    <span><a class="updateBtn" href=@Url.Content("/TestingOrg/TestingOrgManage?id=" + item.Id.ToString())>修改</a></span>
+                    <span><a class="deleteBtn" href=@Url.Content("/TestingOrg/DeleteTestingOrg?id=" + item.Id.ToString())>删除</a></span>
+                    </dd>         
+                </dl>
+                    
+                }  
+           
+         </div>
+}
+else { 
+    <div class="cinfo">没有要显示的数据记录</div>
 }
 
-<h2>Index</h2>
-
+<div class="back">@Html.ActionLink("返回", "Index", "Home")</div>
