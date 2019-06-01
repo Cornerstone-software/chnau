@@ -1,5 +1,4 @@
-﻿
-@using MvcFXProductMgr.Models;
+﻿@using MvcFXProductMgr.Models;
 @model ProductModel
 @{
     Layout = "~/Views/Shared/_MLayout.cshtml";
@@ -48,7 +47,8 @@
     {
         <div> 备注：@Model.Remarks</div>
     }
- @if (Model.Category.Contains("黄金"))
+<!--去掉执行标准或企业标准20190601-->
+<!-- @if (Model.Category.Contains("黄金"))
  {
     <div>
         企业标准：@Model.Standard
@@ -59,7 +59,7 @@
     <div>
         执行标准：@Model.Standard
     </div>
- }
+ }-->
     <div>
         公司名称：@Model.CName
     </div>
@@ -80,6 +80,7 @@
     </a>
     </div>
     <div>电话：@Model.TTel</div>
+    <div>ZZZG0025</div>
     <div id="barCodeCanvas">
         <input id="barCode" value="@Model.Barcode" type="hidden"/>
         <div id="barcodeTarget" class="barcodeTarget"></div>
