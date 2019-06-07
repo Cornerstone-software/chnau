@@ -11,3 +11,8 @@ MvcFXProductMgr/MvcFXProductMgr/App_data
 App_data/*.xlsx
 *.suo
 
+MvcFXProductMgr/MvcFXProductMgr/obj/Debug/Package/PackageTmp/bin/MvcFXProductMgr.dll
+*.dll
+MvcFXProductMgr/MvcFXProductMgr/obj/Debug/Package/PackageTmp/bin/MvcFXProductMgr.dll
+MvcFXProductMgr/MvcFXProductMgr/obj/Debug/Package/PackageTmp/bin/MvcFXProductMgr.pdb
+MvcFXProductMgr/MvcFXProductMgr/obj/Debug/Package/PackageTmp/bin/MvcFXProductMgr.dll

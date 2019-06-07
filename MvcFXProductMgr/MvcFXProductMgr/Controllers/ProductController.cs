@@ -187,6 +187,19 @@ namespace MvcFXProductMgr.Controllers
             string strTId = collection["TId"].ToString();
             string strTName = collection["TName"].ToString();
             string strCategory = collection["Category"].ToString();
+            //为钻石，黄镶宝产品准备
+            string strMainStone = "";
+            string strMainStoneCarats = "";
+            string strMainStoneClarity = "";
+            string strMainStoneColor = "";
+            string strSize = "";
+           
+            strMainStone = collection["MainStone"].ToString();
+            strMainStoneCarats = collection["MainStoneCarats"].ToString();
+            strMainStoneClarity = collection["MainStoneClarity"].ToString();
+            strMainStoneColor = collection["MainStoneColor"].ToString();
+            strSize = collection["Size"].ToString();
+
             string[] arrId = strId.Split(',');
             string[] arrName = strName.Split(',');
             string[] arrWeight = strWeight.Split(',');
@@ -201,8 +214,15 @@ namespace MvcFXProductMgr.Controllers
             string[] arrTId = strTId.Split(',');
             string[] arrTName = strTName.Split(',');
             string[] arrCategory = strCategory.Split(',');
+            //为钻石，黄镶宝产品准备
+            string[] arrMainStone = strMainStone.Split(',');
+            string[] arrMainStoneCarats = strMainStoneCarats.Split(',');
+            string[] arrMainStoneClarity = strMainStoneClarity.Split(',');
+            string[] arrMainStoneColor = strMainStoneColor.Split(',');
+            string[] arrSize = strSize.Split(',');
             //产品类别
             ViewData["Category"] = arrCategory[0];
+            
             //执行标准
             ViewData["Standard"] = arrStandard[0];
             /////////////创建DataTable////////////////
@@ -220,6 +240,13 @@ namespace MvcFXProductMgr.Controllers
             DataColumn dcTId = new DataColumn("TId", typeof(string));
             DataColumn dcTName = new DataColumn("TName", typeof(string));
             DataColumn dcCategory = new DataColumn("Category", typeof(string));
+            //为钻石和黄镶宝准备
+
+            DataColumn dcMainStone = new DataColumn("MainStone", typeof(string));
+            DataColumn dcMainStoneCarats = new DataColumn("MainStoneCarats", typeof(string));
+            DataColumn dcMainStoneClarity = new DataColumn("MainStoneClarity", typeof(string));
+            DataColumn dcMainStoneColor = new DataColumn("MainStoneColor", typeof(string));
+            DataColumn dcSize = new DataColumn("Size", typeof(string));
             dt.Columns.Add(dcId);
             dt.Columns.Add(dcName);
             dt.Columns.Add(dcWeight);
@@ -232,6 +259,13 @@ namespace MvcFXProductMgr.Controllers
             dt.Columns.Add(dcTId);
             dt.Columns.Add(dcTName);
             dt.Columns.Add(dcCategory);
+            //为钻石和黄镶宝准备
+            dt.Columns.Add(dcMainStone);
+            dt.Columns.Add(dcMainStoneCarats);
+            dt.Columns.Add(dcMainStoneClarity);
+            dt.Columns.Add(dcMainStoneColor);
+            dt.Columns.Add(dcSize);
+
             //创建DataTable Rows
             for (int i = 0; i < arrName.Length; i++)
             {
@@ -248,6 +282,13 @@ namespace MvcFXProductMgr.Controllers
                 dr["TId"] = arrTId[i];
                 dr["TName"] = arrTName[i];
                 dr["Category"] = arrCategory[i];
+                //为钻石和黄镶宝准备
+                dr["MainStone"] = arrMainStone[i];
+                dr["MainStoneCarats"] = arrMainStoneCarats[i];
+                dr["MainStoneClarity"] = arrMainStoneClarity[i];
+                dr["MainStoneColor"] = arrMainStoneColor[i];
+                dr["Size"] = arrSize[i];
+
                 dt.Rows.Add(dr);
             }
             List<ProductModel> list = ConvertHelper<ProductModel>.DataTableToList(dt);
@@ -364,6 +405,32 @@ namespace MvcFXProductMgr.Controllers
                                         return RedirectToAction("AddProducts", "Product");
                                 }
                             }
+                            else if (strCategory.Contains("黄镶宝"))
+                            {
+                                switch (colName)
+                                {
+                                    case "证书编号":
+                                        dc.ColumnName = "CerNum";
+                                        break;
+                                    case "条码号":
+                                        dc.ColumnName = "Barcode";
+                                        break;
+                                    case "品名":
+                                        dc.ColumnName = "Name";
+                                        break;
+                                    case "产品总重":
+                                        dc.ColumnName = "Weight";
+                                        break;
+                                    case "售价":
+                                        dc.ColumnName = "Price";
+                                        break;
+                                    case "产品金重":
+                                        dc.ColumnName = "MainStoneCarats";
+                                        break;
+                                    default:
+                                        return RedirectToAction("AddProducts", "Product");
+                                }
+                            }
                             else
                             {
                                 switch (colName)
@@ -423,6 +490,10 @@ namespace MvcFXProductMgr.Controllers
                         else if (strCategory.Contains("Au916"))
                         {
                             iTennorInGold = 916;
+                        }
+                        else if (strCategory.Contains("黄镶宝"))
+                        {
+                            iTennorInGold = 0;
                         }
 
                         DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(int));
@@ -504,6 +575,10 @@ namespace MvcFXProductMgr.Controllers
                       strMainStoneColor = Request["MainStoneColor"];
                       strSize = Request["Size"];
                   }
+                 else if (strCategory.Contains("黄镶宝"))
+                  {
+                      strMainStoneCarats = Request["MainStoneCarats"];
+                  } 
                   else
                   {
                       strTenorInGold = Request["TenorInGold"];
@@ -553,6 +628,11 @@ namespace MvcFXProductMgr.Controllers
                       DataColumn dcSize = new DataColumn("Size", typeof(string));
                       dt.Columns.Add(dcSize);
                   }
+                  else if (strCategory.Contains("黄镶宝"))
+                  {
+                      DataColumn dcMainStoneCarats = new DataColumn("MainStoneCarats", typeof(string));
+                      dt.Columns.Add(dcMainStoneCarats);
+                  }
                   else
                   {
                       DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(string));
@@ -583,6 +663,10 @@ namespace MvcFXProductMgr.Controllers
                           dr["MainStoneClarity"] = arrMainStoneClarity[i] ?? "";
                           dr["MainStoneColor"] = arrMainStoneColor[i] ?? "";
                           dr["Size"] = arrSize[i] ?? "";
+                      }
+                      else if (strCategory.Contains("黄镶宝"))//产品金重
+                      {
+                          dr["MainStoneCarats"] = arrMainStoneCarats[i] ?? "";
                       }
                       else
                       {
@@ -627,7 +711,12 @@ namespace MvcFXProductMgr.Controllers
                           paramList.Add(new MySqlParameter("@MainStoneColor", MySqlDbType.VarChar, 100, "MainStoneColor"));
                           paramList.Add(new MySqlParameter("@Size", MySqlDbType.Int32, 100, "Size"));
                       }
-                      else if (strCategory.Contains("硬金"))
+                      else if (strCategory.Contains("黄镶宝"))//产品金重
+                      {
+                          strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_MainStoneCarats) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@MainStoneCarats)";
+                          paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.Float, 100, "MainStoneCarats"));    
+                      }
+                      else if (strCategory.Contains("硬金"))//Remarks：工艺
                       {
                           strCommandText = "INSERT INTO p_info_table (P_Name,P_Weight,P_CerNum,P_Barcode,P_Price,P_Standard,P_Category,P_CId,P_Tid,P_TenorInGold,P_Remarks) VALUES(@Name,@Weight,@CerNum,@Barcode,@Price,@Standard,@Category,@CId,@TId,@TenorInGold,'3D工艺')";
                           paramList.Add(new MySqlParameter("@TenorInGold", MySqlDbType.Int32, 100, "TenorInGold"));
@@ -701,6 +790,10 @@ namespace MvcFXProductMgr.Controllers
         {
             return View(model);
         }
+        /// <summary>
+        /// 保存修改
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult SaveProductsForUpdate()
         {
@@ -724,6 +817,28 @@ namespace MvcFXProductMgr.Controllers
 
             string strCategory = Request["Category"].ToString();
 
+            string strMainStone = "";
+            string strMainStoneCarats = "";
+            string strMainStoneClarity = "";
+            string strMainStoneColor = "";
+            string strSize = "";
+            string strTenorInGold = "";
+            if (strCategory.Contains("钻石"))
+            {
+                strMainStone = Request["MainStone"];
+                strMainStoneCarats = Request["MainStoneCarats"];
+                strMainStoneClarity = Request["MainStoneClarity"];
+                strMainStoneColor = Request["MainStoneColor"];
+                strSize = Request["Size"];
+            }
+            else if (strCategory.Contains("黄镶宝"))
+            {
+                strMainStoneCarats = Request["MainStoneCarats"];
+            }
+            else
+            {
+                strTenorInGold = Request["TenorInGold"];
+            }
             string[] arrId = strId.Split(',');
             string[] arrName = strName.Split(',');
             string[] arrWeight = strWeight.Split(',');
@@ -733,20 +848,6 @@ namespace MvcFXProductMgr.Controllers
 
             string[] arrPrice = strPrice.Split(',');
 
-            string strMainStone = "";
-            string strMainStoneCarats = "";
-            string strMainStoneClarity = "";
-            string strMainStoneColor = "";
-            string strSize = "";
-
-            if (strCategory.Contains("钻石"))
-            {
-                strMainStone = Request["MainStone"];
-                strMainStoneCarats = Request["MainStoneCarats"];
-                strMainStoneClarity = Request["MainStoneClarity"];
-                strMainStoneColor = Request["MainStoneColor"];
-                strSize = Request["Size"];
-            }
             string[] arrMainStone = strMainStone.Split(',');
             string[] arrMainStoneCarats = strMainStoneCarats.Split(',');
             string[] arrMainStoneClarity = strMainStoneClarity.Split(',');
@@ -776,6 +877,10 @@ namespace MvcFXProductMgr.Controllers
                 else if (strCategory.Contains("Au916"))
                 {
                     iTennorInGold = 916;
+                }
+                else if (strCategory.Contains("黄镶宝"))
+                {
+                    iTennorInGold = 0;
                 }
 
                 DataColumn dcTenorInGold = new DataColumn("TenorInGold", typeof(int));
@@ -809,6 +914,11 @@ namespace MvcFXProductMgr.Controllers
                 DataColumn dcSize = new DataColumn("Size", typeof(string));
                 dt.Columns.Add(dcSize);
             }
+            else if (strCategory.Contains("黄镶宝"))
+            {
+                DataColumn dcMainStoneCarats = new DataColumn("MainStoneCarats", typeof(string));
+                dt.Columns.Add(dcMainStoneCarats);
+            }
             dt.Columns.Add(dcExist);
             //创建已存在记录表
             // DataTable dtExist = dt.Clone();
@@ -830,12 +940,15 @@ namespace MvcFXProductMgr.Controllers
                 if (strCategory.Contains("钻石"))
                 {
                     dr["MainStone"] = arrMainStone[i] ?? "";
-                    dr["MainStoneCarats"] = arrMainStoneCarats[i] ?? "";
+                    dr["MainStoneCarats"] = arrMainStoneCarats[i] ?? "0";
                     dr["MainStoneClarity"] = arrMainStoneClarity[i] ?? "";
                     dr["MainStoneColor"] = arrMainStoneColor[i] ?? "";
-                    dr["Size"] = arrSize[i] ?? "";
+                    dr["Size"] = arrSize[i] ?? "0";
                 }
-
+                else if (strCategory.Contains("黄镶宝"))
+                {
+                    dr["MainStoneCarats"] = arrMainStoneCarats[i] ?? "0";
+                }
                 dr["Exist"] = 0;
                 dt.Rows.Add(dr);
                 /*************************判断数据是否已存在********************************************/
@@ -853,9 +966,27 @@ namespace MvcFXProductMgr.Controllers
                 {
                     dt.Rows[i]["Exist"] = 1;
                 }
+                //当产品为"黄镶宝"时，验证产品总重和产品金重的重量是否正确
+                if (strCategory.Contains("黄镶宝"))
+                {
+                    try
+                    {
+                        if (Single.Parse(arrWeight[i]) < Single.Parse(arrMainStoneCarats[i]))
+                        {
+                            dt.Rows[i]["Exist"] = -1;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Session["errMsg"] = ex.Message;
+                        return RedirectToAction("GetProducts", "Product");
+                    }
+                }
+                
             }
 
-            if (dt.Rows.Count > 0 && dt.Select("Exist=1").Length < 1)
+
+            if (dt.Rows.Count > 0 && dt.Select("Exist=1").Length < 1 && dt.Rows.Count > 0 && dt.Select("Exist=-1").Length < 1)
             {
                 string strCommandText = "";
 
@@ -871,12 +1002,17 @@ namespace MvcFXProductMgr.Controllers
                 paramList.Add(new MySqlParameter("@TId", MySqlDbType.Int32, 100, "TId"));
                 if (strCategory.Contains("钻石"))
                 {
-                    strCommandText = "UPDATE p_info_table SET P_Name=@Name,P_Weight=@Weight,P_CerNum=@CerNum,P_Barcode=@Barcode,P_Price=@Price,P_Standard=@Standard,P_Category=@Category,P_CId=@CId,P_Tid=@TId,P_MainStone=@MainStone,P_MainStoneCarats=@MainStoneCarats,P_MainStoneClarity=@MainStoneClarity,P_MainStoneColor=@MainStoneColor,P_Size=@Size)  WHERE P_Id=@Id";
+                    strCommandText = "UPDATE p_info_table SET P_Name=@Name,P_Weight=@Weight,P_CerNum=@CerNum,P_Barcode=@Barcode,P_Price=@Price,P_Standard=@Standard,P_Category=@Category,P_CId=@CId,P_Tid=@TId,P_MainStone=@MainStone,P_MainStoneCarats=@MainStoneCarats,P_MainStoneClarity=@MainStoneClarity,P_MainStoneColor=@MainStoneColor,P_Size=@Size  WHERE P_Id=@Id";
                     paramList.Add(new MySqlParameter("@MainStone", MySqlDbType.VarChar, 100, "MainStone"));
                     paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.Float, 100, "MainStoneCarats"));
                     paramList.Add(new MySqlParameter("@MainStoneClarity", MySqlDbType.VarChar, 100, "MainStoneClarity"));
                     paramList.Add(new MySqlParameter("@MainStoneColor", MySqlDbType.VarChar, 100, "MainStoneColor"));
                     paramList.Add(new MySqlParameter("@Size", MySqlDbType.Int32, 100, "Size"));
+                }
+                else if (strCategory.Contains("黄镶宝"))
+                {
+                    strCommandText = "UPDATE p_info_table SET P_Name=@Name,P_Weight=@Weight,P_CerNum=@CerNum,P_Barcode=@Barcode,P_Price=@Price,P_Standard=@Standard,P_Category=@Category,P_CId=@CId,P_Tid=@TId,P_MainStoneCarats=@MainStoneCarats  WHERE P_Id=@Id";
+                    paramList.Add(new MySqlParameter("@MainStoneCarats", MySqlDbType.Float, 100, "MainStoneCarats"));
                 }
                 else if (strCategory.Contains("硬金"))
                 {
@@ -975,7 +1111,7 @@ namespace MvcFXProductMgr.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 批量删除
         /// </summary>
         /// <returns></returns>
         [HttpPost]

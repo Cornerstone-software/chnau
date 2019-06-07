@@ -3,14 +3,15 @@
  
 @{
     ViewBag.Title = "Upload";
+    string classColor = "";
 }
 
 @if (Model.UploadNum < 1)
 {
     <form action=@Url.Action("SaveProductsForUpdate", "Product") method="post">
-     <h2>待保存产品</h2>
-     <p>如下红色标注的记录，已存在或数据不正确，请仔细核对。</p>
-
+     <h2>待保存产品<br /></h2>
+     <p>如下<span class="redColor">红色标注</span>的记录，已存在或数据不正确，请仔细核对。</p>
+     <p>如下<span class="yellowColor">黄色标注</span>的记录，产品总重值低于产品金重值，请仔细核对。</p>
          <div class="cinfo">    
             <dl>
                 <dt>公司信息：</dt>
@@ -67,6 +68,23 @@
                     else
                     { 
                         <input type="radio" name="Category" value="钻石" class="DCategory"/><label>钻石</label> 
+                    }
+                     @if (Model.Category.Contains("5G黄金"))
+                    {
+                        <input type="radio" name="Category" value="5G黄金" class="HCategory" checked/><label>5G黄金</label>
+                    }
+                    else
+                    {
+                        <input type="radio" name="Category" value="5G黄金" class="HCategory" /><label>5G黄金</label>
+                    }
+
+                    @if (Model.Category.Contains("黄镶宝"))
+                    {
+                        <input type="radio" name="Category" value="黄镶宝" class="HCategory" checked/><label>黄镶宝</label>
+                    }
+                    else
+                    {
+                        <input type="radio" name="Category" value="黄镶宝" class="HCategory" /><label>黄镶宝</label>
                     }
                 </dd>
             </dl>
@@ -171,72 +189,64 @@
                 <dt class="mainStoneColorCol DMainStone hide">主石颜色</dt>
                 <dt class="sizeCol DMainStone hide">尺寸</dt>               
                 }
+                @if (Model.Category.Contains("黄镶宝"))
+                {
+                <dt class="mainStoneCaratsCol HMainStone">产品金重</dt>
+                }
+                else
+                { 
+                <dt class="mainStoneCaratsCol HMainStone hide">产品金重</dt>             
+                }
                 <dt class="delCol lastCol "></dt>
             </dl>
                 @foreach (var item in Model.ProductList)
                 {
-                    if (item.Exist == 1)
-                    {
-                        <dl class="tableBody redColor">
-                            <dd class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dd>
-                            <dd class="nameCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
-                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
-                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
-                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>  
+                    if(item.Exist == 1){
+                        classColor = "redColor";
+                    }else if(item.Exist == -1){
+                        classColor = "yellowColor";
+                    }else{
+                        classColor = "";
+                    }
+                 
+                    <dl class="tableBody @classColor">
+                        <dd class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item), 1)</dd>
+                        <dd class="nametCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
+                        <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
+                        <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
+                        <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
                             <dd class="priceCol editor number"><input name="Price" type="text" value="@item.Price" /></dd>   
-                            @if (Model.Category.Contains("钻石"))
-                            {                             
-                            <dd class="mainStoneCol editor DMainStone"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
-                            <dd class="mainStoneCaratsCol editor DMainStone"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
-                            <dd class="mainStoneClarityCol editor DMainStone"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
-                            <dd class="mainStoneColorCol editor DMainStone"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
-                            <dd class="sizeCol editor number DMainStone"><input name="Size" type="text" value='@item.Size'/></dd>
-                            }
-                            else
-                            { 
-                            <dd class="mainStoneCol editor DMainStone hide"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
-                            <dd class="mainStoneCaratsCol editor DMainStone hide"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
-                            <dd class="mainStoneClarityCol editor DMainStone hide"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
-                            <dd class="mainStoneColorCol editor DMainStone hide"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
-                            <dd class="sizeCol editor number DMainStone hide"><input name="Size" type="text" value='@item.Size'/></dd>                    
-                            }                                      
-                            <dd class="delCol lastCol btnDel">删除</dd>
-                            <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd> 
-                        </dl>
-                    }
-                    else
-                    { 
-                        <dl class="tableBody">
-                            <dd class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dd>
-                            <dd class="nametCol editor"><input name="Name" type="text" value='@item.Name'/></dd>
-                            <dd class="weightCol editor"><input name="Weight" type="text" value='@item.Weight' /></dd>
-                            <dd class="barCol editor"><input name="Barcode" type="text" value='@item.Barcode' /></dd>
-                            <dd class="cernumCol editor"><input name="CerNum" type="text" value='@item.CerNum' /></dd>             
-                             <dd class="priceCol editor number"><input name="Price" type="text" value="@item.Price" /></dd>   
-                            @if (Model.Category.Contains("钻石"))
-                            {                             
-                            <dd class="mainStoneCol editor DMainStone"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
-                            <dd class="mainStoneCaratsCol editor DMainStone"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
-                            <dd class="mainStoneClarityCol editor DMainStone"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
-                            <dd class="mainStoneColorCol editor DMainStone"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
-                            <dd class="sizeCol editor number DMainStone"><input name="Size" type="text" value='@item.Size'/></dd>
-                            }
-                            else
-                            { 
-                            <dd class="mainStoneCol editor DMainStone hide"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
-                            <dd class="mainStoneCaratsCol editor DMainStone hide"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
-                            <dd class="mainStoneClarityCol editor DMainStone hide"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
-                            <dd class="mainStoneColorCol editor DMainStone hide"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
-                            <dd class="sizeCol editor number DMainStone hide"><input name="Size" type="text" value='@item.Size'/></dd>                    
-                            }                                      
-                            <dd class="delCol lastCol btnDel">删除</dd>
-                            <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd> 
-                        </dl>                  
-                    }
+                        @if (Model.Category.Contains("钻石"))
+                        {                             
+                        <dd class="mainStoneCol editor DMainStone"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
+                        <dd class="mainStoneCaratsCol editor DMainStone"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
+                        <dd class="mainStoneClarityCol editor DMainStone"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
+                        <dd class="mainStoneColorCol editor DMainStone"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
+                        <dd class="sizeCol editor number DMainStone"><input name="Size" type="text" value='@item.Size'/></dd>
+                        }
+                        else
+                        { 
+                        <dd class="mainStoneCol editor DMainStone hide"><input name="MainStone" type="text" value='@item.MainStone' /></dd>
+                        <dd class="mainStoneCaratsCol editor DMainStone hide"><input name="MainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
+                        <dd class="mainStoneClarityCol editor DMainStone hide"><input name="MainStoneClarity" type="text" value='@item.MainStoneClarity'/></dd>
+                        <dd class="mainStoneColorCol editor DMainStone hide"><input name="MainStoneColor" type="text" value='@item.MainStoneColor'/></dd>
+                        <dd class="sizeCol editor number DMainStone hide"><input name="Size" type="text" value='@item.Size'/></dd>                    
+                        }  
+                        @if (Model.Category.Contains("黄镶宝"))
+                        {                             
+                        <dd class="mainStoneCaratsCol editor HMainStone"><input name="HmainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
+                        }
+                        else
+                        {
+                        <dd class="mainStoneCaratsCol editor HMainStone hide"><input name="HmainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
+                        }                                    
+                        <dd class="delCol lastCol btnDel">删除</dd>
+                        <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd> 
+                    </dl>                  
                 }  
                 <div class="btn-function">
                     <input class="button" name="btnSave" value="保存" type="submit" />
-                    <a href=@Url.Action("AddProducts","Product")><input class="button" name="btnCancel" type="button" value="取消" /> </a>
+                    <a href=@Url.Action("AddProducts", "Product")><input class="button" name="btnCancel" type="button" value="取消" /> </a>
                 </div> 
          </div>
     </form>
@@ -263,7 +273,7 @@ else
         @foreach (var item in Model.ProductList)
         {
         <dl class="tableBody prodDetail">
-            <dt class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item),1)</dt>
+            <dt class="firstCol numCol">@HelpMath.sum(Model.ProductList.IndexOf(item), 1)</dt>
             <dd class="nameCol editor">@item.Name</dd>
             <dd class="weightCol editor">@item.Weight</dd>
             <dd class="barCol editor">@item.Barcode</dd>

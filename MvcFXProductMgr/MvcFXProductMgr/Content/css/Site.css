@@ -75,10 +75,11 @@ input[type="text"]:focus,textarea:focus
 }
 #wrap
 {
-    position:relative;
+    display: flex;
+    position: relative;
     padding: 10px 20px;
-	display: table;
 	width:100%;
+	min-height: calc(100vh - 60px);
 }
 #leftMenu
 {
@@ -97,7 +98,7 @@ input[type="text"]:focus,textarea:focus
     left:200px; 
     padding: 30px;
     font-size:14px;  
-    max-width: 800px;
+    min-width: 800px;
 	display: table-cell;
 	width:80%;
 }
@@ -597,6 +598,10 @@ div.btn-function
 {
     color:Red;
 }
+.yellowColor input[type='text']
+{
+    color:Yellow;
+}
 .btn-function a{ color:#777;}
 .prodDetail:hover
 {
@@ -635,10 +640,19 @@ div.btn-function
 }
 /**********************************************************************/    
 
-
-.back
+.back a
 {
-    padding: 10px 0;
+    display: inline-block;
+    margin-top: 10px;
+    border: 1px solid #337ab7;
+    height: 100%;
+    padding: 10px 30px;
+    border-radius: 5px;   
+}
+.back a:hover
+{
+    background-color: #337ab7;
+    color: #fff;
 }
 label
 {

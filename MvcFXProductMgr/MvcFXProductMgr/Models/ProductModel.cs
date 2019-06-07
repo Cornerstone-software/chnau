@@ -80,12 +80,15 @@ namespace MvcFXProductMgr.Models
                     model.Remarks = dt.Rows[0]["Remarks"].ToString();
                     if (dt.Rows[0]["Category"].ToString().Contains("钻石")) {
                         model.MainStone = dt.Rows[0]["MainStone"].ToString();
-                        model.MainStoneCarats = Single.Parse(dt.Rows[0]["MainStoneCarats"].ToString());
                         model.MainStoneClarity = dt.Rows[0]["MainStoneClarity"].ToString();
                         model.MainStoneColor = dt.Rows[0]["MainStoneColor"].ToString();
                         model.Size = Int32.Parse(dt.Rows[0]["Size"].ToString());
-                    }                   
-                    else 
+                    }
+                    if (dt.Rows[0]["Category"].ToString().Contains("钻石") || dt.Rows[0]["Category"].ToString().Contains("黄镶宝"))
+                    {
+                        model.MainStoneCarats = Single.Parse(dt.Rows[0]["MainStoneCarats"].ToString());
+                    }
+                    else
                     { 
                         model.TenorInGold = Int32.Parse(dt.Rows[0]["TenorInGold"].ToString()); 
                     }
