@@ -1,5 +1,7 @@
 ﻿$(function () {
+    //////////////////////////////////////////////////////////////////////////////
     //给dropdownlist增加css
+    //////////////////////////////////////////////////////////////////////////////
     $('select').addClass("txt");
     //左侧菜单栏效果控制
     $(".leftMenu-list-header").click(function (e) {
@@ -19,8 +21,9 @@
             $(this).parent().children("h3").children("i.menu-onOff").addClass("glyphicon-menu-up");
         }
     });
-
+    //////////////////////////////////////////////////////////////////////////////
     //点击“确认按钮时，进行验证”
+    //////////////////////////////////////////////////////////////////////////////
     $(".file-box input[name='submit']").click(function () {
         if ($("#fileField").val().length < 1) {
             alert("请选择要上传的Excel文件");
@@ -31,13 +34,15 @@
             return false;
         }
     });
-
+    //////////////////////////////////////////////////////////////////////////////
     //刷新验证码
+    //////////////////////////////////////////////////////////////////////////////
     $("#valiCode").click(function () {
         this.src = "../Account/GetValidateCode?time=" + (new Date()).getTime();
     });
-
+    //////////////////////////////////////////////////////////////////////////////
     //删除批量上传的数据行
+    //////////////////////////////////////////////////////////////////////////////
     $(".tableBody .btnDel").click(function () {
         if ($(this).parents(".table").children(".tableBody").length > 1) {
             if (confirm("确定要删除此行数据吗")) {
@@ -51,28 +56,31 @@
         }
 
     });
-
-    //删除产品信息
+    //////////////////////////////////////////////////////////////////////////////
+    //删除产品信息验证
+    //////////////////////////////////////////////////////////////////////////////
     $("#delProductBtn").click(function () {
         var newUrl = "/Product/DeleteProducts"
         if (!confirm("确定要列表中的产品吗")) {
             return false;
         } else {
             $(this).parents("form").attr('action', newUrl).submit();
-            
+
         }
 
     });
-
+    //////////////////////////////////////////////////////////////////////////////
     //点击已保存的产品信息列表，查看产品详情
+    //////////////////////////////////////////////////////////////////////////////
     $(".prodDetail").click(function () {
         var cerNum = $(this).children(".cernumCol").text();
         var barcode = $(this).children(".barCol").text();
         var href = "/Product/GetProduct/?cerNum=" + cerNum + "&barcode=" + barcode;
         window.location = href;
     });
-
+    //////////////////////////////////////////////////////////////////////////////
     //设置日期格式
+    //////////////////////////////////////////////////////////////////////////////
     $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
     $("#txtStartDate,#txtEndDate").datepicker({
         monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
@@ -84,7 +92,9 @@
         changeMonth: true,
         dateFormat: 'yy-mm-dd'
     });
+    //////////////////////////////////////////////////////////////////////////////
     //设置时间点格式
+    //////////////////////////////////////////////////////////////////////////////
     $("#txtStartTime,#txtEndTime").timepicker({
         timeOnlyTitle: '选择时间',
         timeText: '时间',
@@ -178,15 +188,26 @@
     //////////////////////////////////////////////////////////////////////////
     //产品类别和执行标准的对应切换
     $('input[name="Category"]').click(function () {
-        if ($("input[name='Category']:checked").hasClass("DCategory")) {
+        if ($("input[name='Category']:checked").hasClass("DCategory")) {//产品类别为“钻石”
             $(".GStandard").addClass("hide");
             $(".DStandard").removeClass("hide");
-            $(".DMainStone").removeClass("hide"); //更新产品信息时，当类别为“钻石”时，钻石相关成分部分隐藏
+            $(".DMainStone").removeClass("hide"); //钻石相关成分部分显示
+            $(".HMainStone").addClass("hide");
+            $("dt.weightCol").text( "产品重量");
+        }
+        else if ($("input[name='Category']:checked").hasClass("HCategory")) {//产品类别为“黄镶宝”
+            $(".GStandard").addClass("hide");
+            $(".DStandard").addClass("hide");
+            $(".DMainStone").addClass("hide"); //钻石相关成分部分隐藏
+            $(".HMainStone").removeClass("hide"); //黄镶宝相关成分部分显示
+            $("dt.weightCol").text("产品总重");
         }
         else {
             $(".GStandard").removeClass("hide");
             $(".DStandard").addClass("hide");
-            $(".DMainStone").addClass("hide"); //更新产品信息时，当类别为“钻石”时，钻石相关成分部分显示
+            $(".DMainStone").addClass("hide");
+            $(".HMainStone").addClass("hide"); //黄镶宝相关成分部分隐藏
+            $("dt.weightCol").text("产品重量");
         }
     });
     //////////////////////////////////////////////////////////////////////////////
@@ -226,7 +247,7 @@
             }
         }
     });
-
+    //////////////////////////////////////////////////////////////////////////////
     //更新检测机构信息时，验证
     $(".companyInfo form").submit(function () {
         var strName = $("#TxtTName").val();
@@ -271,7 +292,8 @@
         }
     });
 });
-
+//////////////////////////////////////////////////////////////////////////////
+//////////自定义函数///////////////////////
 //时间比较
 function compareTime(btime, etime) {
     if (btime && etime) {
@@ -333,6 +355,7 @@ function compareDate(bDate, eDate, limit) {
 }
 
 //////////////////////////////////////////////////////////////////////
+//datepicker参数显示重新设置
  (function($) {
 
                 $(function() {

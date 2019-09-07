@@ -76,13 +76,21 @@
                     <input type="radio" name="Category" value="5G黄金"/><label>5G黄金</label>
                 }
 
-                 @if (ViewData["Category"].ToString().Contains("黄镶宝"))
+                @if (ViewData["Category"].ToString().Contains("黄镶宝"))
                 {
                     <input type="radio" name="Category" value="黄镶宝" class="HCategory" checked/><label>黄镶宝</label>
                 }
                 else
                 {
                     <input type="radio" name="Category" value="黄镶宝" class="HCategory" /><label>黄镶宝</label>
+                }
+                @if (ViewData["Category"].ToString().Contains("银饰"))
+                {
+                    <input type="radio" name="Category" value="银饰" checked/><label>银饰</label>
+                }
+                else
+                { 
+                    <input type="radio" name="Category" value="银饰"/><label>银饰</label>
                 }
             </dd>
         </dl>
@@ -233,13 +241,13 @@
                     <dd class="sizeCol editor number DMainStone hide"><input name="Size" type="text" value='@item.Size'/></dd> 
                     }
                      @if (ViewData["Category"].ToString().Contains("黄镶宝"))
-                    {                             
+                     {                             
                     <dd class="mainStoneCaratsCol editor HMainStone"><input name="HmainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
-                    }
-                    else
-                    {
+                     }
+                     else
+                     {
                     <dd class="mainStoneCaratsCol editor HMainStone hide"><input name="HmainStoneCarats" type="text" value='@item.MainStoneCarats'/></dd>
-                    }
+                     }
                     <dd class="delCol lastCol btnDel">删除</dd>
                     <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd>
 

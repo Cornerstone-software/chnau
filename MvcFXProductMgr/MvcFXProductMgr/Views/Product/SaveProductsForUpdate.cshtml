@@ -86,6 +86,14 @@
                     {
                         <input type="radio" name="Category" value="黄镶宝" class="HCategory" /><label>黄镶宝</label>
                     }
+                    @if (Model.Category.Contains("银饰"))
+                    {
+                        <input type="radio" name="Category" value="银饰" checked/><label>银饰</label>
+                    }
+                    else
+                    { 
+                        <input type="radio" name="Category" value="银饰"/><label>银饰</label>
+                    }
                 </dd>
             </dl>
             <dl>
@@ -242,7 +250,7 @@
                         }                                    
                         <dd class="delCol lastCol btnDel">删除</dd>
                         <dd class="hide"><input name="Id" type="text" value='@item.Id'/></dd> 
-                    </dl>                  
+                    </dl>                  <a href="../Shared/_LogOnLayout.cshtml">../Shared/_LogOnLayout.cshtml</a>
                 }  
                 <div class="btn-function">
                     <input class="button" name="btnSave" value="保存" type="submit" />

@@ -44,6 +44,34 @@ namespace MvcFXProductMgr.Models
             }
         }
         /// <summary>
+        /// 获取最新的广告信息
+        /// </summary>
+        /// <returns></returns>
+        public AdvertmentModel GetAdvertment()
+        {
+            string strCommandText = "SELECT A_Id AS AId,A_Name AS AName,A_Url AS AUrl FROM a_info_table WHERE A_Status='N'";
+            strCommandText += " ORDER BY A_Id DESC";
+            strCommandText += " LIMIT 1";
+            AdvertmentModel objAdvert = new AdvertmentModel();
+            try
+            {
+                DataTable dt = MySQLHelper.GetDataTable(MySQLHelper.Conn, CommandType.Text, strCommandText, null);
+                if (dt.Rows.Count > 0)
+                {
+                    objAdvert.Id = Int32.Parse(dt.Rows[0]["AId"].ToString());
+                    objAdvert.Name = dt.Rows[0]["AName"].ToString();
+                    objAdvert.Url = dt.Rows[0]["AUrl"].ToString();
+                }
+                return objAdvert;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+
+            }
+        }
+        /// <summary>
         /// 获取所有的广告信息
         /// </summary>
         /// <returns></returns>

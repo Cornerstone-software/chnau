@@ -5,7 +5,7 @@
     ViewBag.Title = "单品信息";
 }
 
-<div class="plogo"><img src=@ViewData["ImgPath"] /></div>
+<div class="plogo"><img src=@ViewData["ImgPath"] alt="Logo"/></div>
 <div class="pdetail">
     <div>
         产品名称：@Model.Name
@@ -50,7 +50,7 @@
     {
         <div> 备注：@Model.CerNum</div>
     }
-    else
+    else if(Model.CAddress.Contains("硬金"))
     {
         <div> 备注：@Model.Remarks</div>
     }
@@ -96,6 +96,6 @@
 
 </div>
 
-<div class="advertment">
-        <a href="http://www.chnau99999.com/Emoji.html">中国黄金Emoji系列新品重磅上市！<br>http://www.chnau99999.com/Emoji.html</a>
-    </div>
+<div class="advertment">  
+ <a href="@ViewData["adUrl"]">@ViewData["adContent"]<br />@ViewData["adUrl"]</a>   
+</div>

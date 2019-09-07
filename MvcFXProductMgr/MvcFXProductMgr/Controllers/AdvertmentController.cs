@@ -112,5 +112,15 @@ namespace MvcFXProductMgr.Controllers
 
             return RedirectToAction("Index", "Advertment");
         }
+        /// <summary>
+        /// 获取广告信息
+        /// </summary>
+        /// <returns></returns>
+        public AdvertmentModel GetAdvertment()
+        {
+            AdvertmentModel model = new AdvertmentModel();
+            model = model.GetAdvertment();
+            return model;
+        }
     }
 }

@@ -42,17 +42,25 @@
                     <dd class="hide"><input name="TId" type="hidden" value="@item.TId" /></dd>
                     <dd class="hide"> <input name="Category" type="hidden" value="@item.Category" /></dd>
                     <dd class="hide"><input name="Price" type="hidden" value="@item.Price" /></dd>
-                    @if (item.Category.Contains("钻石"))
+                    @if (!item.Category.Contains("银饰"))
                     {
-                    <dd class="hide"><input name="MainStone" type="hidden" value="@item.MainStone" /></dd>
-                    <dd class="hide"><input name="MainStoneCarats" type="hidden" value="@item.MainStoneCarats" /></dd>
-                    <dd class="hide"> <input name="MainStoneClarity" type="hidden" value="@item.MainStoneClarity" /></dd>
-                    <dd class="hide"><input name="MainStoneColor" type="hidden" value="@item.MainStoneColor" /></dd>
-                    <dd class="hide"><input name="Size" type="hidden" value="@item.Size" /></dd>         
-                    }
-                    else { 
-                        <dd class="hide"><input name="TenorInGold" type="hidden" value="@item.TenorInGold" /></dd>
-                    }               
+                        if (item.Category.Contains("钻石"))
+                        {
+                        <dd class="hide"><input name="MainStone" type="hidden" value="@item.MainStone" /></dd>
+                        <dd class="hide"><input name="MainStoneCarats" type="hidden" value="@item.MainStoneCarats" /></dd>
+                        <dd class="hide"> <input name="MainStoneClarity" type="hidden" value="@item.MainStoneClarity" /></dd>
+                        <dd class="hide"><input name="MainStoneColor" type="hidden" value="@item.MainStoneColor" /></dd>
+                        <dd class="hide"><input name="Size" type="hidden" value="@item.Size" /></dd>         
+                        }
+                        else if (item.Category.Contains("黄镶宝"))
+                        {
+                        <dd class="hide"><input name="MainStoneCarats" type="hidden" value="@item.MainStoneCarats" /></dd>
+                        }
+                        else
+                        { 
+                            <dd class="hide"><input name="TenorInGold" type="hidden" value="@item.TenorInGold" /></dd>
+                        } 
+                    }              
                 </dl>
                     
                 }  
